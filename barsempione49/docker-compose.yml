@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  app:
+    image: httpd:2.4-bullseye
+    container_name: barsempione49
+    restart: unless-stopped
+    ports:
+      - 10010:80
+    volumes:
+      - ./barsempione49-data/src:/usr/local/apache2/htdocs

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    user: '0'
+    restart: unless-stopped
+    ports:
+      - 10060:3000
+    volumes:
+      - ./grafana-data:/var/lib/grafana

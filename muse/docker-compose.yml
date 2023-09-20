@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  muse:
+    image: codetheweb/muse:latest
+    container_name: muse
+    restart: unless-stopped
+    volumes:
+      - ./muse-data:/data
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID}
+      SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET}
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY}
