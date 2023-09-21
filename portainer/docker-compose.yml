@@ -6,8 +6,8 @@ services:
     container_name: portainer
     restart: unless-stopped
     ports:
-      - 9443:9443
-      - 8000:8000
+      - 10150:8000
+      - 10151:9443
     volumes:
       - ./portainer-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
