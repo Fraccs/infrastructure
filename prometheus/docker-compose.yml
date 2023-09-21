@@ -10,9 +10,9 @@ services:
     volumes:
       - ./prometheus-data/config:/etc/prometheus
 
-  node-exporter:
+  prometheus-node-exporter:
     image: prom/node-exporter:latest
-    container_name: node-exporter
+    container_name: prometheus-node-exporter
     restart: unless-stopped
     expose:
       - 9100
