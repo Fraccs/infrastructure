@@ -5,7 +5,6 @@ services:
     image: lscr.io/linuxserver/homeassistant:latest
     container_name: homeassistant
     restart: unless-stopped
-    network_mode: host
     ports:
       - 10070:8123
     volumes:
