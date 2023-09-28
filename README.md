@@ -5,6 +5,7 @@
 | Container Name | Container Image | Host Port | Internal Port |
 |----------------|-----------------|-----------|---------------|
 | barsempione49 | [httpd:2.4-bullseye](https://hub.docker.com/_/httpd) | 10010 | 80 |
+| duplicati | [duplicati/duplicati:latest](https://hub.docker.com/r/duplicati/duplicati) | 10030 | 8200 |
 | grafana | [grafana/grafana-oss:latest](https://hub.docker.com/r/grafana/grafana-oss) | 10060 | 3000 |
 | homeassistant  | [lscr.io/linuxserver/homeassistant:latest](https://hub.docker.com/r/linuxserver/homeassistant) | 10070 | 8123 |
 | muse | [codetheweb/muse:latest](https://hub.docker.com/r/codetheweb/muse) | / | / |

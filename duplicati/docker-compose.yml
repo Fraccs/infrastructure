@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  duplicati:
+    image: duplicati/duplicati:latest
+    container_name: duplicati
+    restart: unless-stopped
+    ports:
+      - 10030:8200
+    volumes:
+      - ./duplicati-data:/data:/data
+      - ~/docker-compose/barsempione49/barsempione49-data:/backups/barsempione49/barsempione49-data
+      - ~/docker-compose/duplicati/duplicati-data:/backups/duplicati/duplicati-data
+      - ~/docker-compose/grafana/grafana-data:/backups/grafana/grafana-data
+      - ~/docker-compose/homeassistant/homeassistant-data:/backups/homeassistant/homeassistant-data
+      - ~/docker-compose/muse/muse-data:/backups/muse/muse-data
+      - ~/docker-compose/nextcloud/nextcloud-data:/backups/nextcloud/nextcloud-data
+      - ~/docker-compose/portainer/portainer-data:/backups/portainer/portainer-data
+      - ~/docker-compose/prometheus/prometheus-data:/backups/prometheus/prometheus-data
+      - ~/docker-compose/syncthing/syncthing-data:/backups/syncthing/syncthing-data
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
