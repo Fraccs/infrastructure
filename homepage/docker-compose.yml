@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - 10071:3000
+    volumes:
+      - ./homepage-data/config:/app/config

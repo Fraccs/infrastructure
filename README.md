@@ -8,6 +8,7 @@
 | duplicati | [duplicati/duplicati:latest](https://hub.docker.com/r/duplicati/duplicati) | 10030 | 8200 |
 | grafana | [grafana/grafana-oss:latest](https://hub.docker.com/r/grafana/grafana-oss) | 10060 | 3000 |
 | homeassistant  | [lscr.io/linuxserver/homeassistant:latest](https://hub.docker.com/r/linuxserver/homeassistant) | 10070 | 8123 |
+| homepage | [ghcr.io/benphelps/homepage:latest](https://github.com/benphelps/homepage/pkgs/container/homepage) | 10071 | 3000 |
 | muse | [codetheweb/muse:latest](https://hub.docker.com/r/codetheweb/muse) | / | / |
 | nextcloud | [nextcloud:latest](https://hub.docker.com/_/nextcloud/) | 10130 | 80 |
 | nextcloud-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 |
@@ -16,4 +17,5 @@
 | prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10153 | 9090 |
 | prometheus-node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | / | 9100 |
 | syncthing | [lscr.io/linuxserver/syncthing:latest](https://hub.docker.com/r/linuxserver/syncthing) | 10180,10181/udp,10182/tcp,10182/udp | 8384,21027/udp,22000/tcp,22000/udp |
+| uptime-kuma | [louislam/uptime-kuma:latest](https://hub.docker.com/r/louislam/uptime-kuma) | 10200 | 3001 |
 | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | / | / |
