@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  jackett:
+    image: linuxserver/jackett:latest
+    container_name: jackett
+    restart: unless-stopped
+    ports:
+      - 10090:9117
+    volumes:
+      - ./jackett-data/data:/config
+      - ./jackett-data/blackhole:/downloads
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}

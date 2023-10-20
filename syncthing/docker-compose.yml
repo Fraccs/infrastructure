@@ -6,10 +6,10 @@ services:
     container_name: syncthing
     restart: unless-stopped
     ports:
-      - 10180:8384
+      - 10181:8384
       - 10181:21027/udp
-      - 10182:22000/tcp
-      - 10182:20000/udp
+      - 10183:22000/tcp
+      - 10183:22000/udp
     volumes:
       - ./syncthing-data/config:/config
       - ./syncthing-data/data1:/data1

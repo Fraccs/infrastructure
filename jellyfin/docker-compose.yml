@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - 10091:8096
+    volumes:
+      - ./jellyfin-data/config:/config
+      - ./jellyfin-data/cache:/cache
+      - ./jellyfin-data/movies:/movies
+      - ./jellyfin-data/shows:/shows
+    environment:
+      - JELLYFIN_PublishedServerUrl=${JELLYFIN_PublishedServerUrl}

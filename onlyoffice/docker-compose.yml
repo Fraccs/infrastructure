@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  onlyoffice-documentserver:
+    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice-documentserver
+    restart: unless-stopped
+    ports:
+      - 10140:80
+      - 10141:443
