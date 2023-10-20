@@ -7,4 +7,3 @@ services:
     restart: unless-stopped
     ports:
       - 10140:80
-      - 10141:443
