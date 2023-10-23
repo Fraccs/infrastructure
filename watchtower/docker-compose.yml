@@ -4,7 +4,12 @@ services:
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
-    command: --label-enable --interval 20
+    command: --schedule "0 0 0 * * *" --http-api-metrics --debug --cleanup
+    ports:
+      - 10220:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${USER_HOME}/.docker/config.json:/config.json
+    environment:
+      - TZ=${TZ}
+      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_HTTP_API_TOKEN}
