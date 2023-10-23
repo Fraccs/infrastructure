@@ -5,7 +5,5 @@ services:
     image: ghcr.io/fraccs/portfolio:latest
     container_name: portfolio
     restart: unless-stopped
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
     ports:
       - 10152:80
