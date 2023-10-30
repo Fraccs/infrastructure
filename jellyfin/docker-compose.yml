@@ -10,7 +10,6 @@ services:
     volumes:
       - ./jellyfin-data/config:/config
       - ./jellyfin-data/cache:/cache
-      - ./jellyfin-data/books:/books
       - ./jellyfin-data/movies:/movies
       - ./jellyfin-data/music:/music
       - ./jellyfin-data/shows:/shows
