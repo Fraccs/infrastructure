@@ -6,7 +6,6 @@ services:
     container_name: portainer
     restart: unless-stopped
     ports:
-      - 10150:8000
       - 10151:9443
     volumes:
       - ./portainer-data:/data
