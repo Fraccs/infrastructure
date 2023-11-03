@@ -20,5 +20,4 @@
 | prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10153 | 9090 |
 | prometheus-node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | / | 9100 |
 | syncthing | [lscr.io/linuxserver/syncthing:latest](https://hub.docker.com/r/linuxserver/syncthing) | 10180,10181/udp,10182/tcp,10182/udp | 8384,21027/udp,22000/tcp,22000/udp |
-| uptime-kuma | [louislam/uptime-kuma:latest](https://hub.docker.com/r/louislam/uptime-kuma) | 10200 | 3001 |
 | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 |
