@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    ports:
+      - 10160:10160
+      - 10161:6881/tcp
+      - 10161:6881/udp
+    volumes:
+      - ./qbittorrent-data/config:/config
+      - ./qbittorrent-data/downloads:/downloads
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - WEBUI_PORT=${WEBUI_PORT}

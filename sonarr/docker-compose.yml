@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    ports:
+      - 10180:8989
+    volumes:
+      - ./sonarr-data/data:/config
+      - ../jellyfin/jellyfin-data/shows:/tv
+      - ../qbittorrent/qbittorrent-data/downloads:/downloads
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}

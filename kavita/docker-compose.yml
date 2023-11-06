@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  kavita:
+    image: linuxserver/kavita:latest
+    container_name: kavita
+    restart: unless-stopped
+    ports:
+      - 10100:5000
+    volumes:
+      - ./kavita-data/config:/config
+      - ./kavita-data/books:/books
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
