@@ -4,6 +4,7 @@
 
 | Container Name | Container Image | Host Port | Internal Port |
 |----------------|-----------------|-----------|---------------|
+| actual | [actualbudget/actual-server:latest](https://hub.docker.com/r/actualbudget/actual-server) | 10001 | 5006 |
 | authelia | [authelia/authelia:latest](https://hub.docker.com/r/authelia/authelia) | 10000 | 9091 |
 | grafana | [grafana/grafana-oss:latest](https://hub.docker.com/r/grafana/grafana-oss) | 10060 | 3000 |
 | homeassistant  | [lscr.io/linuxserver/homeassistant:latest](https://hub.docker.com/r/linuxserver/homeassistant) | 10070 | 8123 |
