@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  samba:
+    image: dperson/samba:latest
+    container_name: samba
+    restart: unless-stopped
+    command: -s "roms;/roms"
+    ports:
+      - 139:139
+      - 445:445
+    volumes:
+      - ~/docker-compose/romm/romm-data/library:/roms
+    environment:
+      - GROUPID=${GROUPID}
+      - TZ=${TZ}
+      - USERID=${USERID}
