@@ -9,7 +9,7 @@ services:
       - 10171:8787
     volumes:
       - ./readarr-data/config:/config
-      - ../kavita/kavita-data/books:/books
+      - ../jellyfin/jellyfin-data/books:/books
       - ../qbittorrent/qbittorrent-data/downloads:/downloads
     environment:
       - PGID=${PGID}

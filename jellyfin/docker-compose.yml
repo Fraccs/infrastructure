@@ -13,5 +13,6 @@ services:
       - ./jellyfin-data/movies:/movies
       - ./jellyfin-data/music:/music
       - ./jellyfin-data/shows:/shows
+      - ./jellyfin-data/books:/books
     environment:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_PublishedServerUrl}

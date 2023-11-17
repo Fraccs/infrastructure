@@ -10,7 +10,6 @@
 | homeassistant  | [lscr.io/linuxserver/homeassistant:latest](https://hub.docker.com/r/linuxserver/homeassistant) | 10070 | 8123 |
 | homepage | [ghcr.io/benphelps/homepage:latest](https://github.com/benphelps/homepage/pkgs/container/homepage) | 10071 | 3000 |
 | jellyfin | [jellyfin/jellyfin:latest](https://hub.docker.com/r/jellyfin/jellyfin) | 10090 | 8096 |
-| kavita | [linuxserver/kavita:latest](https://hub.docker.com/r/linuxserver/kavita) | 10100 | 5000 |
 | lidarr | [linuxserver/lidarr:latest](https://hub.docker.com/r/linuxserver/lidarr) | 10110 | 8686 |
 | muse | [codetheweb/muse:latest](https://hub.docker.com/r/codetheweb/muse) | / | / |
 | nextcloud | [nextcloud:latest](https://hub.docker.com/_/nextcloud/) | 10130 | 80 |
