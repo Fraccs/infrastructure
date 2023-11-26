@@ -6,7 +6,7 @@ services:
     container_name: prowlarr
     restart: unless-stopped
     ports:
-      - 10155:9696
+      - 10156:9696
     volumes:
       - ./prowlarr-data/config:/config
     environment:

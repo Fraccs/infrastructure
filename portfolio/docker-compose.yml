@@ -7,3 +7,15 @@ services:
     restart: unless-stopped
     ports:
       - 10152:80
+
+  portfolio-api:
+    image: ghcr.io/fraccs/portfolio-api:latest
+    container_name: portfolio-api
+    restart: unless-stopped
+    ports:
+      - 10153:5174
+    volumes:
+      - ./portfolio-data/db:/db
+    environment:
+      - DB_FILE_PATH=${DB_FILE_PATH}
+      - SERVER_PORT=${SERVER_PORT}

@@ -10,7 +10,7 @@ services:
     devices:
       - /dev/net/tun
     ports:
-      - 10154:8080
+      - 10155:8080
     volumes:
       - /etc/localtime:/etc/localtime:ro
     environment:
