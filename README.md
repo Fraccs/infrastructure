@@ -18,10 +18,11 @@
 | pihole | [pihole/pihole:latest](https://hub.docker.com/r/pihole/pihole) | 53,10150 | 53,80 |
 | portainer | [portainer/portainer-ce:latest](https://hub.docker.com/r/portainer/portainer-ce) | 10151 | 9443 |
 | portfolio | [ghcr.io/fraccs/portfolio:latest](https://github.com/Fraccs/portfolio/pkgs/container/portfolio) | 10152 | 80 |
-| prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10153 | 9090 |
+| portfolio-api | [ghcr.io/fraccs/portfolio-api:latest](https://github.com/Fraccs/portfolio-api/pkgs/container/portfolio-api) | 10153 | 5174 |
+| prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10154 | 9090 |
 | prometheus-node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | / | 9100 |
-| proton-privoxy | [walt3rl/proton-privoxy:latest](https://hub.docker.com/r/walt3rl/proton-privoxy) | 10154 | 8080 |
-| prowlarr | [linuxserver/prowlarr:latest](https://hub.docker.com/r/linuxserver/prowlarr) | 10155 | 9696 |
+| proton-privoxy | [walt3rl/proton-privoxy:latest](https://hub.docker.com/r/walt3rl/proton-privoxy) | 10155 | 8080 |
+| prowlarr | [linuxserver/prowlarr:latest](https://hub.docker.com/r/linuxserver/prowlarr) | 10156 | 9696 |
 | qbittorrent | [linuxserver/qbittorrent:latest](https://hub.docker.com/r/linuxserver/qbittorrent) | 10160,10161/tcp,10161/udp | 10160,6881/tcp,6881/udp |
 | radarr | [linuxserver/radarr:latest](https://hub.docker.com/r/linuxserver/radarr) | 10170 | 7878 |
 | readarr | [linuxserver/readarr:nightly](https://hub.docker.com/r/linuxserver/readarr) | 10171 | 8787 |
