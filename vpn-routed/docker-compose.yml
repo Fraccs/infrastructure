@@ -1,0 +1,110 @@
+version: '3'
+
+services:
+  protonvpn:
+    image: linuxserver/wireguard:latest
+    container_name: protonvpn
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    ports:
+      - 10110:8686
+      - 10156:9696
+      - 10160:10160
+      - 10161:6881/tcp
+      - 10161:6881/udp
+      - 10170:7878
+      - 10171:8787
+      - 10180:8989
+    volumes:
+      - ./protonvpn-data/config:/config/wg_confs
+      - /lib/modules:/lib/modules
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
+  lidarr:
+    image: linuxserver/lidarr:latest
+    container_name: lidarr
+    restart: unless-stopped
+    network_mode: service:protonvpn
+    volumes:
+      - ./lidarr-data/config:/config
+      - ./qbittorrent-data/downloads:/downloads
+      - ../jellyfin/jellyfin-data/music:/music
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    network_mode: service:protonvpn
+    volumes:
+      - ./prowlarr-data/config:/config
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    network_mode: service:protonvpn
+    volumes:
+      - ./qbittorrent-data/config:/config
+      - ./qbittorrent-data/downloads:/downloads
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - WEBUI_PORT=${WEBUI_PORT}
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    network_mode: service:protonvpn
+    volumes:
+      - ./radarr-data/data:/config
+      - ./qbittorrent-data/downloads:/downloads
+      - ../jellyfin/jellyfin-data/movies:/movies
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+
+  readarr:
+    image: linuxserver/readarr:nightly
+    container_name: readarr
+    restart: unless-stopped
+    network_mode: service:protonvpn
+    volumes:
+      - ./readarr-data/config:/config
+      - ./qbittorrent-data/downloads:/downloads
+      - ../jellyfin/jellyfin-data/books:/books
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    network_mode: service:protonvpn
+    volumes:
+      - ./sonarr-data/data:/config
+      - ./qbittorrent-data/downloads:/downloads
+      - ../jellyfin/jellyfin-data/shows:/tv
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}

@@ -21,7 +21,7 @@
 | portfolio-api | [ghcr.io/fraccs/portfolio-api:latest](https://github.com/Fraccs/portfolio-api/pkgs/container/portfolio-api) | 10153 | 5174 |
 | prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10154 | 9090 |
 | prometheus-node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | / | 9100 |
-| proton-privoxy | [walt3rl/proton-privoxy:latest](https://hub.docker.com/r/walt3rl/proton-privoxy) | 10155 | 8080 |
+| protonvpn | [linuxserver/wireguard:latest](https://hub.docker.com/r/linuxserver/wireguard) | / | / |
 | prowlarr | [linuxserver/prowlarr:latest](https://hub.docker.com/r/linuxserver/prowlarr) | 10156 | 9696 |
 | qbittorrent | [linuxserver/qbittorrent:latest](https://hub.docker.com/r/linuxserver/qbittorrent) | 10160,10161/tcp,10161/udp | 10160,6881/tcp,6881/udp |
 | radarr | [linuxserver/radarr:latest](https://hub.docker.com/r/linuxserver/radarr) | 10170 | 7878 |
