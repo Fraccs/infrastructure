@@ -12,8 +12,7 @@ services:
       - 10183:22000/udp
     volumes:
       - ./syncthing-data/config:/config
-      - ./syncthing-data/data1:/data1
-      - ./syncthing-data/data2:/data2
+      - ./syncthing-data/obsidian:/obsidian
     environment:
       - PGID=${PGID}
       - PUID=${PUID}
