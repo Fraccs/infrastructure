@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  firefly:
+    image: fireflyiii/core:latest
+    container_name: firefly
+    restart: unless-stopped
+    depends_on:
+      - firefly-mariadb
+    ports:
+      - 10050:8080
+    volumes:
+      - ./firefly-data/data:/var/www/html/storage/upload
+    environment:
+      - APP_KEY=${APP_KEY}
+      - DB_CONNECTION=${DB_CONNECTION}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_HOST=${DB_HOST}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE}
+      - DEFAULT_LOCALE=${DEFAULT_LOCALE}
+      - TRUSTED_PROXIES=${TRUSTED_PROXIES}
+      - TZ=${TZ}
+
+  firefly-mariadb:
+    image: mariadb:latest
+    container_name: firefly-mariadb
+    restart: unless-stopped
+    volumes:
+      - ./firefly-data/db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_RANDOM_ROOT_PASSWORD=${MYSQL_RANDOM_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+
+  firefly-cron:
+    image: alpine:latest
+    container_name: firefly-cron
+    restart: unless-stopped
+    command: sh -c "echo \"0 3 * * * wget -qO- http://firefly:8080/api/v1/cron/${TOKEN}\" | crontab - && crond -f -L /dev/stdout"
