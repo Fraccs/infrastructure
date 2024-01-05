@@ -22,10 +22,8 @@ services:
     volumes:
       - ./protonvpn-data/config:/config/wg_confs
       - /lib/modules:/lib/modules
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+    env_file:
+      - .env
 
   lidarr:
     image: linuxserver/lidarr:latest
@@ -36,10 +34,8 @@ services:
       - ./lidarr-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
       - ../jellyfin/jellyfin-data/music:/music
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env
 
   prowlarr:
     image: linuxserver/prowlarr:latest
@@ -48,10 +44,8 @@ services:
     network_mode: service:protonvpn
     volumes:
       - ./prowlarr-data/config:/config
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
@@ -61,11 +55,8 @@ services:
     volumes:
       - ./qbittorrent-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
-      - WEBUI_PORT=${WEBUI_PORT}
+    env_file:
+      - .qbittorrent.env
 
   radarr:
     image: linuxserver/radarr:latest
@@ -76,10 +67,8 @@ services:
       - ./radarr-data/data:/config
       - ./qbittorrent-data/downloads:/downloads
       - ../jellyfin/jellyfin-data/movies:/movies
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env
 
   readarr:
     image: linuxserver/readarr:nightly
@@ -90,10 +79,8 @@ services:
       - ./readarr-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
       - ../jellyfin/jellyfin-data/books:/books
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env
 
   sonarr:
     image: linuxserver/sonarr:latest
@@ -104,7 +91,5 @@ services:
       - ./sonarr-data/data:/config
       - ./qbittorrent-data/downloads:/downloads
       - ../jellyfin/jellyfin-data/shows:/tv
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env

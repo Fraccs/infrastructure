@@ -12,6 +12,5 @@ services:
     volumes:
       - ./nginx-proxy-manager-data/data:/data
       - ./nginx-proxy-manager-data/letsencrypt:/etc/letsencrypt
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+    env_file:
+      - .env

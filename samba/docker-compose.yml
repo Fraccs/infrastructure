@@ -11,7 +11,5 @@ services:
       - 445:445
     volumes:
       - ~/docker-compose/romm/romm-data/library:/roms
-    environment:
-      - GROUPID=${GROUPID}
-      - TZ=${TZ}
-      - USERID=${USERID}
+    env_file:
+      - .env

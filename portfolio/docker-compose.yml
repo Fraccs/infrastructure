@@ -16,6 +16,5 @@ services:
       - 10153:5174
     volumes:
       - ./portfolio-data/db:/db
-    environment:
-      - DB_FILE_PATH=${DB_FILE_PATH}
-      - SERVER_PORT=${SERVER_PORT}
+    env_file:
+      - .env

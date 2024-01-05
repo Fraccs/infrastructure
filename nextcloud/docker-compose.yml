@@ -9,11 +9,8 @@ services:
       - 10130:80
     volumes:
       - ./nextcloud-data/ui:/var/www/html
-    environment:
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_HOST=${MYSQL_HOST}
+    env_file:
+      - .env
 
   nextcloud-mariadb:
     image: mariadb:latest
@@ -22,8 +19,5 @@ services:
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
       - ./nextcloud-data/db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
+    env_file:
+      - .env

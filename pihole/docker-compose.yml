@@ -14,6 +14,5 @@ services:
     volumes:
       - ./pihole-data/etc-pihole:/etc/pihole
       - ./pihole-data/etc-dnsmasq.d:/etc/dnsmasq.d
-    environment:
-      - TZ=${TZ}
-      - WEBPASSWORD=${WEBPASSWORD}
+    env_file:
+      - .env

@@ -9,7 +9,5 @@ services:
       - 10070:8123
     volumes:
       - ./homeassistant-data:/config
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env

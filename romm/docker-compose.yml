@@ -10,15 +10,8 @@ services:
     volumes:
       - ./romm-data/library:/romm/library
       - ./romm-data/resources:/romm/resources
-    environment:
-      - ROMM_DB_DRIVER=${ROMM_DB_DRIVER}
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_USER=${DB_USER}
-      - DB_NAME=${DB_NAME}
-      - DB_PASSWD=${DB_PASSWD}
-      - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
-      - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET}
+    env_file:
+      - .env
 
   romm-mariadb:
     image: mariadb:latest
@@ -28,8 +21,5 @@ services:
       - 3306
     volumes:
       - ./romm-data/db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    env_file:
+      - .mariadb.env

@@ -13,7 +13,5 @@ services:
     volumes:
       - ./syncthing-data/config:/config
       - ./syncthing-data/obsidian:/obsidian
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
+    env_file:
+      - .env
