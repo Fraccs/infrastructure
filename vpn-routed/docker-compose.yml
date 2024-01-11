@@ -30,6 +30,8 @@ services:
     container_name: lidarr
     restart: unless-stopped
     network_mode: service:protonvpn
+    depends_on:
+      - protonvpn
     volumes:
       - ./lidarr-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
@@ -42,6 +44,8 @@ services:
     container_name: prowlarr
     restart: unless-stopped
     network_mode: service:protonvpn
+    depends_on:
+      - protonvpn
     volumes:
       - ./prowlarr-data/config:/config
     env_file:
@@ -52,6 +56,8 @@ services:
     container_name: qbittorrent
     restart: unless-stopped
     network_mode: service:protonvpn
+    depends_on:
+      - protonvpn
     volumes:
       - ./qbittorrent-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
@@ -63,6 +69,8 @@ services:
     container_name: radarr
     restart: unless-stopped
     network_mode: service:protonvpn
+    depends_on:
+      - protonvpn
     volumes:
       - ./radarr-data/data:/config
       - ./qbittorrent-data/downloads:/downloads
@@ -75,6 +83,8 @@ services:
     container_name: readarr
     restart: unless-stopped
     network_mode: service:protonvpn
+    depends_on:
+      - protonvpn
     volumes:
       - ./readarr-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
@@ -87,6 +97,8 @@ services:
     container_name: sonarr
     restart: unless-stopped
     network_mode: service:protonvpn
+    depends_on:
+      - protonvpn
     volumes:
       - ./sonarr-data/data:/config
       - ./qbittorrent-data/downloads:/downloads
