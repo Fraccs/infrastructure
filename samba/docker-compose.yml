@@ -5,11 +5,13 @@ services:
     image: dperson/samba:latest
     container_name: samba
     restart: unless-stopped
-    command: -s "roms;/roms"
+    # -s <name;path>[;browse;readonly]
+    command: -s "roms;/roms;yes;no" -s "isos;/isos;yes;no"
     ports:
       - 139:139
       - 445:445
     volumes:
-      - ~/docker-compose/romm/romm-data/library:/roms
+      - ../romm/romm-data/library/roms:/roms
+      - ../../isos:/isos
     env_file:
       - .env
