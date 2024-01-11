@@ -9,3 +9,4 @@ services:
       - 10071:3000
     volumes:
       - ./homepage-data/config:/app/config
+      - ~/raid:/raid # Mount raid to display usage
