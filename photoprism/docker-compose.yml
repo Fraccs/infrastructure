@@ -18,6 +18,8 @@ services:
       - ../nextcloud/nextcloud-data/ui/data/Fraccs/files/InstantUpload:/photoprism/originals:ro
     env_file:
       - .env
+    networks:
+      - photoprism
 
   photoprism-mariadb:
     image: mariadb:11
@@ -32,3 +34,12 @@ services:
       - ./photoprism-data/database:/var/lib/mysql
     env_file:
       - .mariadb.env
+    networks:
+      - photoprism
+
+networks:
+  photoprism:
+    name: photoprism
+    ipam:
+      config:
+        - subnet: 172.16.9.0/24

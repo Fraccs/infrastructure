@@ -9,3 +9,12 @@ services:
       - 10000:9091
     volumes:
       - ./authelia-data/config:/config
+    networks:
+      - authelia
+
+networks:
+  authelia:
+    name: authelia
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24

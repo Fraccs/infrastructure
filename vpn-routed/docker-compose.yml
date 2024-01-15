@@ -24,6 +24,8 @@ services:
       - /lib/modules:/lib/modules
     env_file:
       - .env
+    networks:
+      - vpn-routed
 
   lidarr:
     image: linuxserver/lidarr:latest
@@ -72,7 +74,7 @@ services:
     depends_on:
       - protonvpn
     volumes:
-      - ./radarr-data/data:/config
+      - ./radarr-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
       - ../jellyfin/jellyfin-data/movies:/movies
     env_file:
@@ -100,8 +102,15 @@ services:
     depends_on:
       - protonvpn
     volumes:
-      - ./sonarr-data/data:/config
+      - ./sonarr-data/config:/config
       - ./qbittorrent-data/downloads:/downloads
       - ../jellyfin/jellyfin-data/shows:/tv
     env_file:
       - .env
+
+networks:
+  vpn-routed:
+    name: vpn-routed
+    ipam:
+      config:
+        - subnet: 172.16.17.0/24

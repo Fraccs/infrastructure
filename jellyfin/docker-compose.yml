@@ -14,3 +14,12 @@ services:
       - ./jellyfin-data/music:/music
       - ./jellyfin-data/shows:/shows
       - ./jellyfin-data/books:/books
+    networks:
+      - jellyfin
+
+networks:
+  jellyfin:
+    name: jellyfin
+    ipam:
+      config:
+        - subnet: 172.16.5.0/24

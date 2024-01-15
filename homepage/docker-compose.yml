@@ -10,3 +10,12 @@ services:
     volumes:
       - ./homepage-data/config:/app/config
       - ~/raid:/raid # Mount raid to display usage
+    networks:
+      - homepage
+
+networks:
+  homepage:
+    name: homepage
+    ipam:
+      config:
+        - subnet: 172.16.4.0/24

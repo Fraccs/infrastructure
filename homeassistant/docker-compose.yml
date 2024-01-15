@@ -11,3 +11,12 @@ services:
       - ./homeassistant-data:/config
     env_file:
       - .env
+    networks:
+      - homeassistant
+
+networks:
+  homeassistant:
+    name: homeassistant
+    ipam:
+      config:
+        - subnet: 172.16.3.0/24

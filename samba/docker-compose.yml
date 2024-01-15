@@ -15,3 +15,12 @@ services:
       - ../../isos:/isos
     env_file:
       - .env
+    networks:
+      - samba
+
+networks:
+  samba:
+    name: samba
+    ipam:
+      config:
+        - subnet: 172.16.15.0/24

@@ -12,6 +12,8 @@ services:
       - ./romm-data/resources:/romm/resources
     env_file:
       - .env
+    networks:
+      - romm
 
   romm-mariadb:
     image: mariadb:latest
@@ -23,3 +25,12 @@ services:
       - ./romm-data/db:/var/lib/mysql
     env_file:
       - .mariadb.env
+    networks:
+      - romm
+
+networks:
+  romm:
+    name: romm
+    ipam:
+      config:
+        - subnet: 172.16.14.0/24

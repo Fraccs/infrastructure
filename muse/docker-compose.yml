@@ -9,3 +9,12 @@ services:
       - ./muse-data:/data
     env_file:
       - .env
+    networks:
+      - muse
+
+networks:
+  muse:
+    name: muse
+    ipam:
+      config:
+        - subnet: 172.16.6.0/24

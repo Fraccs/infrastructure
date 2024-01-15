@@ -5,12 +5,16 @@ services:
     image: nextcloud:latest
     container_name: nextcloud
     restart: unless-stopped
+    depends_on:
+      - nextcloud-mariadb
     ports:
       - 10130:80
     volumes:
       - ./nextcloud-data/ui:/var/www/html
     env_file:
       - .env
+    networks:
+      - nextcloud
 
   nextcloud-mariadb:
     image: mariadb:latest
@@ -21,3 +25,12 @@ services:
       - ./nextcloud-data/db:/var/lib/mysql
     env_file:
       - .env
+    networks:
+      - nextcloud
+
+networks:
+  nextcloud:
+    name: nextcloud
+    ipam:
+      config:
+        - subnet: 172.16.7.0/24

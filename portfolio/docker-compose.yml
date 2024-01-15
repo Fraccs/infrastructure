@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     ports:
       - 10152:80
+    networks:
+      - portfolio
 
   portfolio-api:
     image: ghcr.io/fraccs/portfolio-api:latest
@@ -18,3 +20,12 @@ services:
       - ./portfolio-data/db:/db
     env_file:
       - .env
+    networks:
+      - portfolio
+
+networks:
+  portfolio:
+    name: portfolio
+    ipam:
+      config:
+        - subnet: 172.16.12.0/24

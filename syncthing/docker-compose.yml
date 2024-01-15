@@ -15,3 +15,12 @@ services:
       - ./syncthing-data/obsidian:/obsidian
     env_file:
       - .env
+    networks:
+      - syncthing
+
+networks:
+  syncthing:
+    name: syncthing
+    ipam:
+      config:
+        - subnet: 172.16.16.0/24

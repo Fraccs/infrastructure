@@ -16,3 +16,12 @@ services:
       - ./pihole-data/etc-dnsmasq.d:/etc/dnsmasq.d
     env_file:
       - .env
+    networks:
+      - pihole
+
+networks:
+  pihole:
+    name: pihole
+    ipam:
+      config:
+        - subnet: 172.16.10.0/24

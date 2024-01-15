@@ -14,3 +14,12 @@ services:
       - ./nginx-proxy-manager-data/letsencrypt:/etc/letsencrypt
     env_file:
       - .env
+    networks:
+      - nginx-proxy-manager
+
+networks:
+  nginx-proxy-manager:
+    name: nginx-proxy-manager
+    ipam:
+      config:
+        - subnet: 172.16.8.0/24
