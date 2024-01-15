@@ -4,7 +4,7 @@ services:
   grafana:
     image: grafana/grafana-oss:latest
     container_name: grafana
-    user: '0'
+    user: 1000:1000
     restart: unless-stopped
     ports:
       - 10060:3000
