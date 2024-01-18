@@ -1,6 +1,6 @@
-# docker-compose `main-server`
+# homelab
 
-> 🐋 docker-compose deployments on `main-server`.
+>  🏡 The centralized, single source of truth, configuration repository for my `homelab`.
 
 ## Useful information
 
