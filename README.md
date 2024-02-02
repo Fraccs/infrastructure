@@ -22,7 +22,6 @@ find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\
 
 | Stack | Container Name | Container Image | Host Port | Internal Port | Network |
 | ----- |----------------|-----------------|-----------|---------------| ------- |
-| authelia | authelia | [authelia/authelia:latest](https://hub.docker.com/r/authelia/authelia) | 10000 | 9091 | 172.16.0.0/24 |
 | firefly | firefly | [fireflyiii/core:latest](https://hub.docker.com/r/fireflyiii/core) | 10050 | 8080 | 172.16.1.0/24 |
 | firefly | firefly-cron | [alpine:latest](https://hub.docker.com/_/alpine) | / | / | 172.16.1.0/24 |
 | firefly | firefly-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | 172.16.1.0/24 |
