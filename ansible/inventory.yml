@@ -1,0 +1,18 @@
+homelab:
+  children:
+    hvs:
+    vms:
+
+hvs:
+  hosts:
+    main-server.l.47fc5c.com:
+
+vms:
+  hosts:
+    deb-01.l.47fc5c.com:
+    ubt-01.l.47fc5c.com:
+      ansible_become_pass: "{{ ubt_01_sudo_password }}"
+    ubt-02.l.47fc5c.com:
+      ansible_become_pass: "{{ ubt_02_sudo_password }}"
+    ubt-03.l.47fc5c.com:
+      ansible_become_pass: "{{ ubt_03_sudo_password }}"
