@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mc-02:
+    image: itzg/minecraft-server:latest
+    container_name: mc-02
+    restart: unless-stopped
+    ports:
+      - 25565:25565
+      - 25566:8123
+    volumes:
+      - ./mc-02-data/:/data
+    env_file:
+      - .env
