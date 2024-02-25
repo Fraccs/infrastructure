@@ -12,17 +12,6 @@ services:
     networks:
       - prometheus
 
-  prometheus-node-exporter:
-    image: prom/node-exporter:latest
-    container_name: prometheus-node-exporter
-    restart: unless-stopped
-    expose:
-      - 9100
-    volumes:
-      - /:/host:ro,rslave
-    networks:
-      - prometheus
-
 networks:
   prometheus:
     name: prometheus
