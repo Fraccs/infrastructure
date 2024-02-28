@@ -10,12 +10,3 @@ services:
       - 10060:3000
     volumes:
       - ./grafana-data:/var/lib/grafana
-    networks:
-      - grafana
-
-networks:
-  grafana:
-    name: grafana
-    ipam:
-      config:
-        - subnet: 172.16.2.0/24

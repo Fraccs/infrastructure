@@ -13,8 +13,6 @@ services:
       - ./firefly-data/data:/var/www/html/storage/upload
     env_file:
       - .env
-    networks:
-      - firefly
 
   firefly-mariadb:
     image: mariadb:latest
@@ -24,8 +22,6 @@ services:
       - ./firefly-data/db:/var/lib/mysql
     env_file:
       - .mariadb.env
-    networks:
-      - firefly
 
   firefly-cron:
     image: alpine:latest
@@ -33,12 +29,3 @@ services:
     restart: unless-stopped
     # Use .env to interpolate TOKEN variable
     command: sh -c "echo \"0 3 * * * wget -qO- http://firefly:8080/api/v1/cron/${TOKEN}\" | crontab - && crond -f -L /dev/stdout"
-    networks:
-      - firefly
-
-networks:
-  firefly:
-    name: firefly
-    ipam:
-      config:
-        - subnet: 172.16.1.0/24

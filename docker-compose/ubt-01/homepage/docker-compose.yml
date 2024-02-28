@@ -11,10 +11,3 @@ services:
       - ./homepage-data/config:/app/config
     networks:
       - homepage
-
-networks:
-  homepage:
-    name: homepage
-    ipam:
-      config:
-        - subnet: 172.16.4.0/24

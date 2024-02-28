@@ -12,12 +12,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     env_file:
       - .env
-    networks:
-      - watchtower
-
-networks:
-  watchtower:
-    name: watchtower
-    ipam:
-      config:
-        - subnet: 172.16.18.0/24

@@ -9,12 +9,3 @@ services:
       - 10154:9090
     volumes:
       - ./prometheus-data/config:/etc/prometheus
-    networks:
-      - prometheus
-
-networks:
-  prometheus:
-    name: prometheus
-    ipam:
-      config:
-        - subnet: 172.16.13.0/24
