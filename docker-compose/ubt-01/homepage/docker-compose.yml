@@ -9,5 +9,4 @@ services:
       - 10071:3000
     volumes:
       - ./homepage-data/config:/app/config
-    networks:
-      - homepage
+      - /var/run/docker.sock:/var/run/docker.sock
