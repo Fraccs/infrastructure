@@ -39,7 +39,6 @@ find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\
 | prometheus | prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10154 | 9090 | auto |
 | romm | romm | [zurdi15/romm:latest](https://hub.docker.com/r/zurdi15/romm) | 10172 | 8080 | auto |
 | romm | romm-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
-| syncthing | syncthing | [linuxserver/syncthing:latest](https://hub.docker.com/r/linuxserver/syncthing) | 10181 | 8384 | auto |
 | vpn-routed | lidarr | [linuxserver/lidarr:latest](https://hub.docker.com/r/linuxserver/lidarr) | 10110 | 8686 | auto |
 | vpn-routed | protonvpn | [linuxserver/wireguard:latest](https://hub.docker.com/r/linuxserver/wireguard) | / | / | auto |
 | vpn-routed | prowlarr | [linuxserver/prowlarr:latest](https://hub.docker.com/r/linuxserver/prowlarr) | 10156 | 9696 | auto |
