@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    command: --schedule "0 0 0 * * *" --http-api-metrics --debug --cleanup
+    ports:
+      - 10220:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
