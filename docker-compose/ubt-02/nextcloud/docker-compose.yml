@@ -23,3 +23,9 @@ services:
       - ./nextcloud-data/db:/var/lib/mysql
     env_file:
       - .env
+
+  nextcloud-redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+
