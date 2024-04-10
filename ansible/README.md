@@ -1,6 +1,6 @@
 # homelab/ansible
 
-> Ansible automation in my `homelab`.
+> 🕹️ Ansible automation in my `homelab`.
 
 Commands in this document are relative to the `homelab/ansible` directory.
 
