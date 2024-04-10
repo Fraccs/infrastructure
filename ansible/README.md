@@ -8,17 +8,17 @@ Commands in this document are relative to the `homelab/ansible` directory.
 pwd # /home/fraccs/Repos/homelab/ansible
 ```
 
-## Common commands
+## Useful commands
 
 ### Ping all the devices in homelab
 
 ```sh
-ansible homelab -m ping -i inventory.yml -J
+ansible homelab -m ping -i inventory.yml --ask-vault-pass
 ```
 
 ### Run a playbook
 
 ```sh
-ansible-playbook -i inventory.yml <path_to_playbook> -J
+ansible-playbook -i inventory.yml <path_to_playbook> --ask-vault-pass
 ```
 
