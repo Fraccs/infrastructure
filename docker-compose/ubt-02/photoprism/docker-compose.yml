@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   photoprism:
     image: photoprism/photoprism:latest
