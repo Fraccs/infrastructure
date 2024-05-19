@@ -26,16 +26,15 @@ find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\
 | ----- |----------------|-----------------|-----------|---------------| ------- |
 | node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
 | portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
+| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
 
 ### ubt-01
 
 | Stack | Container Name | Container Image | Host Port | Internal Port | Network |
 | ----- |----------------|-----------------|-----------|---------------| ------- |
 | grafana | grafana | [grafana/grafana-oss:latest](https://hub.docker.com/r/grafana/grafana-oss) | 10060 | 3000 | auto |
-| homepage | homepage | [ghcr.io/benphelps/homepage:latest](https://github.com/benphelps/homepage/pkgs/container/homepage) | 10071 | 3000 | auto |
 | node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
 | pihole | pihole | [pihole/pihole:latest](https://hub.docker.com/r/pihole/pihole) | 53,10150 | 53,80 | auto |
-| portainer | portainer | [portainer/portainer-ce:latest](https://hub.docker.com/r/portainer/portainer-ce) | 10151 | 9443 | auto |
 | prometheus | prometheus | [prom/prometheus:latest](https://hub.docker.com/r/prom/prometheus) | 10154 | 9090 | auto |
 | romm | romm | [zurdi15/romm:latest](https://hub.docker.com/r/zurdi15/romm) | 10172 | 8080 | auto |
 | romm | romm-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
@@ -62,11 +61,13 @@ find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\
 | node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
 | photoprism | photoprism | [photoprism/photoprism:latest](https://hub.docker.com/r/photoprism/photoprism) | 10157 | 2342 | auto |
 | photoprism | photoprism-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
+| portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
+| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
 
 ### ubt-03
 
 | Stack | Container Name | Container Image | Host Port | Internal Port | Network |
 | ----- |----------------|-----------------|-----------|---------------| ------- |
-| mc-02 | mc-02 | [itzg/minecraft-server:latest](https://hub.docker.com/r/itzg/minecraft-server) | 25565,25566 | 25565,8123 | auto |
-| muse | muse | [codetheweb/muse:latest](https://hub.docker.com/r/codetheweb/muse) | / | / | auto |
 | node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
+| portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
+| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
