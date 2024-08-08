@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeassistant
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+    spec:
+      containers:
+        - name: homeassistant
+          image: linuxserver/homeassistant:latest
+          ports:
+            - name: web
+              containerPort: 8123
+          volumeMounts:
+            - name: homeassistant-config
+              mountPath: /config
+      volumes:
+        - name: homeassistant-config
+          persistentVolumeClaim:
+            claimName: homeassistant-config
