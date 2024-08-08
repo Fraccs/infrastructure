@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus
+  namespace: prometheus
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`prometheus.l.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: prometheus
+          kind: Service
+          port: 9090
+          scheme: http
