@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: navidrome
+  namespace: navidrome
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`navidrome.l.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: navidrome
+          kind: Service
+          port: 4533
+          scheme: http
