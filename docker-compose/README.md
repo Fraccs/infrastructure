@@ -58,6 +58,9 @@ find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\
 
 | Stack | Container Name | Container Image | Host Port | Internal Port | Network |
 | ----- |----------------|-----------------|-----------|---------------| ------- |
+| ghostfolio | ghostfolio | [ghostfolio/ghostfolio:latest](https://hub.docker.com/r/ghostfolio/ghostfolio) | 3333 | 3333 | auto |
+| ghostfolio | ghostfolio-postgres | [postgres:15](https://hub.docker.com/_/postgres) | / | 5432 | auto |
+| ghostfolio | ghostfolio-redis | [redis:alpine](https://hub.docker.com/_/redis) | / | 6379 | auto |
 | node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
 | portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
 | watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |

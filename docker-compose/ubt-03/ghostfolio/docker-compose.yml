@@ -1,0 +1,69 @@
+services:
+  ghostfolio:
+    image: ghostfolio/ghostfolio:latest
+    container_name: ghostfolio
+    restart: unless-stopped
+    ports:
+      - 3333:3333
+    env_file:
+      - .env
+    depends_on:
+      ghostfolio-postgres:
+        condition: service_healthy
+      ghostfolio-redis:
+        condition: service_healthy
+
+  ghostfolio-postgres:
+    image: postgres:15
+    container_name: ghostfolio-postgres
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_READ_SEARCH
+      - FOWNER
+      - SETGID
+      - SETUID
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - type: volume
+        source: ghostfolio
+        target: /var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}']
+      start_period: 180s
+      start_interval: 10s
+      interval: 60s
+      timeout: 60s
+      retries: 5
+
+  ghostfolio-redis:
+    image: redis:alpine
+    container_name: ghostfolio-redis
+    restart: unless-stopped
+    user: 999:1000
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    env_file:
+      - .env
+    command: ['redis-server', "--requirepass", "${REDIS_PASSWORD}"]
+    healthcheck:
+      test: ['CMD-SHELL', 'redis-cli --pass ${REDIS_PASSWORD} ping | grep PONG']
+      start_period: 60s
+      start_interval: 10s
+      interval: 30s
+      timeout: 30s
+      retries: 5
+
+volumes:
+  ghostfolio:
+      driver_opts:
+        type: nfs
+        o: addr=deb-01.l.47fc5c.com,rw,nolock,soft
+        device: :/srv/volumes/ubt-03/ghostfolio
