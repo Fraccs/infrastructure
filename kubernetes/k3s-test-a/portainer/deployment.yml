@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portainer
+  namespace: portainer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portainer
+  template:
+    metadata:
+      labels:
+        app: portainer
+    spec:
+      containers:
+        - name: portainer
+          image: portainer/portainer-ce:latest
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: portainer
+              mountPath: /data
+      volumes:
+        - name: portainer
+          persistentVolumeClaim:
+            claimName: portainer
