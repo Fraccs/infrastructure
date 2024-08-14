@@ -6,8 +6,11 @@ metadata:
   namespace: jellyfin
 spec:
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   storageClassName: nfs
   resources:
     requests:
       storage: 500Gi
+  selector:
+    matchLabels:
+      media: shows
