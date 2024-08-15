@@ -8,6 +8,9 @@ spec:
     storage: 50Mi
   accessModes:
     - ReadWriteMany
+  claimRef:
+    name: homepage-config
+    namespace: homepage
   storageClassName: nfs
   nfs:
     server: deb-01.l.47fc5c.com

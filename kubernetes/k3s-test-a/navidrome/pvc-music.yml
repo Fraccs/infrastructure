@@ -7,10 +7,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  volumeName: navidrome-music
   storageClassName: nfs
   resources:
     requests:
       storage: 100Gi
-  selector:
-    matchLabels:
-      media: music

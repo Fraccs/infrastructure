@@ -6,11 +6,9 @@ metadata:
   namespace: jellyfin
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
+  volumeName: jellyfin-shows
   storageClassName: nfs
   resources:
     requests:
       storage: 500Gi
-  selector:
-    matchLabels:
-      media: shows

@@ -7,6 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  volumeName: homeassistant-config
   storageClassName: nfs
   resources:
     requests:

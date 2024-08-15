@@ -3,13 +3,14 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: navidrome-data
-  labels:
-    app: navidrome
 spec:
   capacity:
     storage: 500Mi
   accessModes:
     - ReadWriteMany
+  claimRef:
+    name: navidrome-data
+    namespace: navidrome
   storageClassName: nfs
   nfs:
     server: deb-01.l.47fc5c.com

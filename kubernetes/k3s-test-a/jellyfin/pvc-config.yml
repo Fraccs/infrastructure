@@ -7,10 +7,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  volumeName: jellyfin-config
   storageClassName: nfs
   resources:
     requests:
       storage: 1Gi
-  selector:
-    matchLabels:
-      app: jellyfin
