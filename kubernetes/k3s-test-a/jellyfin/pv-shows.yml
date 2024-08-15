@@ -2,14 +2,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: shows
-  labels:
-    media: shows
+  name: jellyfin-shows
 spec:
   capacity:
     storage: 500Gi
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
+  claimRef:
+    name: jellyfin-shows
+    namespace: jellyfin
   storageClassName: nfs
   nfs:
     server: deb-01.l.47fc5c.com
