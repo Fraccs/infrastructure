@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: qbittorrent
+  namespace: qbittorrent
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`qbittorrent.l.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: qbittorrent
+          kind: Service
+          port: 8080
+          scheme: http
