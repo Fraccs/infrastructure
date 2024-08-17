@@ -1,12 +1,12 @@
-# homelab/docker-compose
+# homelab/compose
 
-> 🐙 Docker Compose deployments in my `homelab`.
+> 🐙 Compose deployments in my `homelab`.
 
 ## Useful information
 
-### Interpolation of `docker-compose.yml` files
+### Interpolation of `compose.yml` files
 
-Some `docker-compose.yml` require interpolation. To achieve that, place the variables that have to be interpolated in a `.env` file.
+Some `compose.yml` require interpolation. To achieve that, place the variables that have to be interpolated in a `.env` file.
 
 ### Environment variables
 
