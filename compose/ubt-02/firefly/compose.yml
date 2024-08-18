@@ -17,7 +17,7 @@ services:
     container_name: firefly-mariadb
     restart: unless-stopped
     volumes:
-      - ./firefly-data/db:/var/lib/mysql
+      - ./firefly-data/mariadb:/var/lib/mysql
     env_file:
       - .mariadb.env
 
