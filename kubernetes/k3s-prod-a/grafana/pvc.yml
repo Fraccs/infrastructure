@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: grafana
+  name: grafana-data
   namespace: grafana
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: grafana
+  volumeName: grafana-data
   storageClassName: nfs
   resources:
     requests:

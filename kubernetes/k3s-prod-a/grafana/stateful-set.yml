@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet # Consider using Deployment with external database
 metadata:
   name: grafana
   namespace: grafana
@@ -19,13 +19,13 @@ spec:
         runAsGroup: 1000
       containers:
         - name: grafana
-          image: grafana/grafana-oss:latest
+          image: docker.io/grafana/grafana-oss:11.2.2@sha256:bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4
           ports:
             - containerPort: 3000
           volumeMounts:
-            - name: grafana
+            - name: grafana-data
               mountPath: /var/lib/grafana
       volumes:
-        - name: grafana
+        - name: grafana-data
           persistentVolumeClaim:
-            claimName: grafana
+            claimName: grafana-data
