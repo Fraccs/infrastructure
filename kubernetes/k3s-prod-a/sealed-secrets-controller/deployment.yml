@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sealed-secrets-controller
+  namespace: kube-system
+  labels:
+    name: sealed-secrets-controller
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 30
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      name: sealed-secrets-controller
+  template:
+    metadata:
+      labels:
+        name: sealed-secrets-controller
+    spec:
+      containers:
+        - name: sealed-secrets-controller
+          image: docker.io/bitnami/sealed-secrets-controller:0.27.1@sha256:18024029150211e677b79d1ed61cc2e6ac7b2cf2479a76fd5a98bb38d29ed06c
+          ports:
+            - containerPort: 8080
+            - containerPort: 8081
+          command:
+            - controller
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          stdin: false
+          tty: false
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      imagePullSecrets: []
+      initContainers: []
+      securityContext:
+        fsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: sealed-secrets-controller
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: tmp
+          emptyDir: {}

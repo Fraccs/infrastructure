@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sealed-secrets-controller-metrics
+  namespace: kube-system
+  labels:
+    name: sealed-secrets-controller-metrics
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 8081
+  selector:
+    name: sealed-secrets-controller
