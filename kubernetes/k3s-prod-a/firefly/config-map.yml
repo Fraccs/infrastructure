@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: firefly
+  namespace: firefly
+data:
+  DB_CONNECTION: "mysql"
+  DB_DATABASE: "firefly"
+  DB_HOST: "deb-04.l.47fc5c.com"
+  DB_PORT: "3306"
+  DEFAULT_LANGUAGE: "en_US"
+  DEFAULT_LOCALE: "it_IT"
+  TRUSTED_PROXIES: "**"
+  TZ: "Europe/Rome"

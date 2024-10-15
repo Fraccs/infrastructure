@@ -1,0 +1,87 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefly
+  namespace: firefly
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: firefly
+  template:
+    metadata:
+      labels:
+        app: firefly
+    spec:
+      containers:
+        - name: firefly
+          image: docker.io/fireflyiii/core:version-6.1.21@sha256:68b79eeb4d54060d715f4c3ea1f6e11e633b3446f6cf705034320ed1b9bea935
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: firefly
+                  key: APP_KEY
+            - name: DB_CONNECTION
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: DB_CONNECTION
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: DB_DATABASE
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: DB_HOST
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: firefly
+                  key: DB_PASSWORD
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: DB_PORT
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: firefly
+                  key: DB_USERNAME
+            - name: DEFAULT_LANGUAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: DEFAULT_LANGUAGE
+            - name: DEFAULT_LOCALE
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: DEFAULT_LOCALE
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: firefly
+                  key: TOKEN
+            - name: TRUSTED_PROXIES
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: TRUSTED_PROXIES
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: firefly
+                  key: TZ
