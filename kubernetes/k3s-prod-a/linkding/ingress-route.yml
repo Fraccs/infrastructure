@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: linkding
+  namespace: linkding
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`linkding.l.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: linkding
+          kind: Service
+          port: 9090
+          scheme: http

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: linkding-data
+spec:
+  capacity:
+    storage: 250Mi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    name: linkding-data
+    namespace: linkding
+  storageClassName: nfs
+  nfs:
+    server: deb-04.l.47fc5c.com
+    path: /srv/volumes/k3s-prod-a/linkding/data

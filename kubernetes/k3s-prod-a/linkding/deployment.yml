@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet # Consider using a multiple-replicas Deployment with an external database
+metadata:
+  name: linkding
+  namespace: linkding
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: linkding
+  template:
+    metadata:
+      labels:
+        app: linkding
+    spec:
+      containers:
+        - name: linkding
+          image: docker.io/sissbruecker/linkding:1.36.0@sha256:019a5d00596ed762f0001ebcc6a0aa2263dbf8a01ec0f3ae5add24cb68caea8b
+          ports:
+           - containerPort: 9090
+          volumeMounts:
+            - name: linkding-data
+              mountPath: /etc/linkding/data
+          env:
+            - name: LD_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_CONTAINER_NAME
+            - name: LD_DB_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_DB_ENGINE
+            - name: LD_DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_DB_HOST
+            - name: LD_DISABLE_BACKGROUND_TASKS
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_DISABLE_BACKGROUND_TASKS
+            - name: LD_DISABLE_URL_VALIDATION
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_DISABLE_URL_VALIDATION
+            - name: LD_ENABLE_AUTH_PROXY
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_ENABLE_AUTH_PROXY
+            - name: LD_HOST_DATA_DIR
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_HOST_DATA_DIR
+            - name: LD_HOST_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: linkding
+                  key: LD_HOST_PORT
+            - name: LD_SUPERUSER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: linkding
+                  key: LD_SUPERUSER_NAME
+            - name: LD_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: linkding
+                  key: LD_SUPERUSER_PASSWORD
+      volumes:
+        - name: linkding-data
+          persistentVolumeClaim:
+            claimName: linkding-data
