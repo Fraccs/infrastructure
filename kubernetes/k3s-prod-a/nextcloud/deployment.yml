@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+        - name: nextcloud
+          image: docker.io/library/nextcloud:30.0.0@sha256:c293951861b5036eb8ec48a14584348fc6699e2e718d785ae8f7551f3befe5d2
+          ports:
+            - name: web
+              containerPort: 80
+          # readinessProbe:
+          # livenessProbe:
+          # startupProbe:
+          #   httpGet:
+          #     path: /status.php
+          #     port: 80
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 5
+          #   timeoutSeconds: 5
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /var/www/html
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: nextcloud
+                  key: MYSQL_DATABASE
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nextcloud
+                  key: MYSQL_HOST
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: nextcloud
+                  key: MYSQL_PORT
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: MYSQL_USER
+      volumes:
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-data
