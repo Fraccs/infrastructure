@@ -13,5 +13,5 @@ spec:
     namespace: homeassistant
   storageClassName: nfs
   nfs:
-    server: deb-01.l.47fc5c.com
-    path: /srv/volumes/k3s-test-a/homeassistant
+    server: deb-04.l.47fc5c.com
+    path: /srv/volumes/k3s-prod-a/homeassistant
