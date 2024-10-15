@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: jellyfin
   namespace: jellyfin
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: jellyfin
-          image: jellyfin/jellyfin:latest
+          image: docker.io/jellyfin/jellyfin:10.9.11@sha256:efc2f4ebef76f0e8d3ea49c87b4c61c7d8847e496dc1fd5a91ce6652e33c116f
           ports:
             - containerPort: 8096
           volumeMounts:

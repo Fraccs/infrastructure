@@ -13,5 +13,5 @@ spec:
     namespace: jellyfin
   storageClassName: nfs
   nfs:
-    server: deb-01.l.47fc5c.com
+    server: deb-04.l.47fc5c.com
     path: /srv/volumes/generic/movies
