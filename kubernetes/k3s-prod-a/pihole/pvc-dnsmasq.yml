@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-dnsmasq
+  namespace: pihole
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: pihole-dnsmasq
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
