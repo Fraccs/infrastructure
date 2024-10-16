@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: qbittorrent
   namespace: qbittorrent
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: qbittorrent
-          image: linuxserver/qbittorrent:latest
+          image: docker.io/linuxserver/qbittorrent:5.0.0@sha256:758c19794b7da7f6c39d9d35d4b07693dac41e0f727b7622fce116ee79375e5c
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -26,13 +26,25 @@ spec:
               mountPath: /downloads
           env:
             - name: PUID
-              value: "1000"
+              valueFrom:
+                configMapKeyRef:
+                  name: qbittorrent
+                  key: PUID
             - name: PGID
-              value: "1000"
+              valueFrom:
+                configMapKeyRef:
+                  name: qbittorrent
+                  key: PGID
             - name: TZ
-              value: "Europe/Rome"
+              valueFrom:
+                configMapKeyRef:
+                  name: qbittorrent
+                  key: TZ
             - name: WEBUI_PORT
-              value: "8080"
+              valueFrom:
+                configMapKeyRef:
+                  name: qbittorrent
+                  key: WEBUI_PORT
       volumes:
         - name: qbittorrent-config
           persistentVolumeClaim:
