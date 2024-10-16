@@ -1,0 +1,85 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: romm
+  namespace: romm
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: romm
+  template:
+    metadata:
+      labels:
+        app: romm
+    spec:
+      containers:
+        - name: romm
+          image: docker.io/rommapp/romm:3.5.1@sha256:abd6aaa499e8632e98001e04dfff46acf986083065a7be9f79157bf1c2c2936f
+          ports:
+            - containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /api/heartbeat
+              port: 8080
+            failureThreshold: 5
+            periodSeconds: 20
+          volumeMounts:
+            - name: romm-library
+              mountPath: /romm/library
+            - name: romm-resources
+              mountPath: /romm/resources
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: romm
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: romm
+                  key: DB_NAME
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: romm
+                  key: DB_PORT
+            - name: ROMM_DB_DRIVER
+              valueFrom:
+                configMapKeyRef:
+                  name: romm
+                  key: ROMM_DB_DRIVER
+            - name: DB_PASSWD
+              valueFrom:
+                secretKeyRef:
+                  name: romm
+                  key: DB_PASSWD
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: romm
+                  key: DB_USER
+            - name: IGDB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: romm
+                  key: IGDB_CLIENT_ID
+            - name: IGDB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: romm
+                  key: IGDB_CLIENT_SECRET
+      volumes:
+        - name: romm-library
+          persistentVolumeClaim:
+            claimName: romm-library
+        - name: romm-resources
+          persistentVolumeClaim:
+            claimName: romm-resources

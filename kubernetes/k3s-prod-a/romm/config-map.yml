@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: romm
+  namespace: romm
+data:
+  DB_HOST: "deb-04.l.47fc5c.com"
+  DB_NAME: "romm"
+  DB_PORT: "3306"
+  ROMM_DB_DRIVER: "mariadb"
