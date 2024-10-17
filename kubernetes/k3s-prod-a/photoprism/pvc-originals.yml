@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: photoprism-originals
+  namespace: photoprism
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: photoprism-originals
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 30Gi
