@@ -24,27 +24,9 @@ spec:
               mountPath: /config
             - name: qbittorrent-downloads
               mountPath: /downloads
-          env:
-            - name: PUID
-              valueFrom:
-                configMapKeyRef:
-                  name: qbittorrent
-                  key: PUID
-            - name: PGID
-              valueFrom:
-                configMapKeyRef:
-                  name: qbittorrent
-                  key: PGID
-            - name: TZ
-              valueFrom:
-                configMapKeyRef:
-                  name: qbittorrent
-                  key: TZ
-            - name: WEBUI_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: qbittorrent
-                  key: WEBUI_PORT
+          envFrom:
+            - configMapRef:
+                name: qbittorrent
       volumes:
         - name: qbittorrent-config
           persistentVolumeClaim:

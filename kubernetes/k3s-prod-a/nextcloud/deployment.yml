@@ -25,46 +25,18 @@ spec:
           ports:
             - name: web
               containerPort: 80
-          # readinessProbe:
-          # livenessProbe:
-          # startupProbe:
+          # startupProbe: # kube-probe is probably being blocked by IP
           #   httpGet:
           #     path: /status.php
           #     port: 80
-          #   initialDelaySeconds: 15
-          #   periodSeconds: 5
-          #   timeoutSeconds: 5
-          #   successThreshold: 1
-          #   failureThreshold: 3
           volumeMounts:
             - name: nextcloud-data
               mountPath: /var/www/html
-          env:
-            - name: MYSQL_DATABASE
-              valueFrom:
-                configMapKeyRef:
-                  name: nextcloud
-                  key: MYSQL_DATABASE
-            - name: MYSQL_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: nextcloud
-                  key: MYSQL_HOST
-            - name: MYSQL_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: nextcloud
-                  key: MYSQL_PORT
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud
-                  key: MYSQL_PASSWORD
-            - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: nextcloud
-                  key: MYSQL_USER
+          envFrom:
+            - configMapRef:
+                name: nextcloud
+            - secretRef:
+                name: nextcloud
       volumes:
         - name: nextcloud-data
           persistentVolumeClaim:

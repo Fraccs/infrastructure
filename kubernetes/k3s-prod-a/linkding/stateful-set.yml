@@ -22,57 +22,11 @@ spec:
           volumeMounts:
             - name: linkding-data
               mountPath: /etc/linkding/data
-          env:
-            - name: LD_CONTAINER_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_CONTAINER_NAME
-            - name: LD_DB_ENGINE
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_DB_ENGINE
-            - name: LD_DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_DB_HOST
-            - name: LD_DISABLE_BACKGROUND_TASKS
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_DISABLE_BACKGROUND_TASKS
-            - name: LD_DISABLE_URL_VALIDATION
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_DISABLE_URL_VALIDATION
-            - name: LD_ENABLE_AUTH_PROXY
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_ENABLE_AUTH_PROXY
-            - name: LD_HOST_DATA_DIR
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_HOST_DATA_DIR
-            - name: LD_HOST_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: linkding
-                  key: LD_HOST_PORT
-            - name: LD_SUPERUSER_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: linkding
-                  key: LD_SUPERUSER_NAME
-            - name: LD_SUPERUSER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: linkding
-                  key: LD_SUPERUSER_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: linkding
+            - secretRef:
+                name: linkding
       volumes:
         - name: linkding-data
           persistentVolumeClaim:

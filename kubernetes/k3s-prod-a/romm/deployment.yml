@@ -35,47 +35,11 @@ spec:
               mountPath: /romm/library
             - name: romm-resources
               mountPath: /romm/resources
-          env:
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: romm
-                  key: DB_HOST
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: romm
-                  key: DB_NAME
-            - name: DB_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: romm
-                  key: DB_PORT
-            - name: ROMM_DB_DRIVER
-              valueFrom:
-                configMapKeyRef:
-                  name: romm
-                  key: ROMM_DB_DRIVER
-            - name: DB_PASSWD
-              valueFrom:
-                secretKeyRef:
-                  name: romm
-                  key: DB_PASSWD
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: romm
-                  key: DB_USER
-            - name: IGDB_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: romm
-                  key: IGDB_CLIENT_ID
-            - name: IGDB_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: romm
-                  key: IGDB_CLIENT_SECRET
+          envFrom:
+            - configMapRef:
+                name: romm
+            - secretRef:
+                name: romm
       volumes:
         - name: romm-library
           persistentVolumeClaim:
