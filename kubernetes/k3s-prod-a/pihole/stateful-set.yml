@@ -17,6 +17,12 @@ spec:
       containers:
         - name: pihole
           image: docker.io/pihole/pihole:2024.07.0@sha256:e53305e9e00d7ac283763ca9f323cc95a47d0113a1e02eb9c6849f309d6202dd
+          startupProbe:
+            httpGet:
+              path: /admin/api.php?status
+              port: 80
+            failureThreshold: 5
+            periodSeconds: 20
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]

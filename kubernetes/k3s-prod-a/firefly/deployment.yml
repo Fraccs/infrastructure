@@ -22,6 +22,10 @@ spec:
       containers:
         - name: firefly
           image: docker.io/fireflyiii/core:version-6.1.21@sha256:68b79eeb4d54060d715f4c3ea1f6e11e633b3446f6cf705034320ed1b9bea935
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
           ports:
             - containerPort: 8080
           envFrom:

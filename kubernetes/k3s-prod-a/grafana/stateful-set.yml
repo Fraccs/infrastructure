@@ -20,6 +20,10 @@ spec:
       containers:
         - name: grafana
           image: docker.io/grafana/grafana-oss:11.2.2@sha256:bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
           ports:
             - containerPort: 3000
           volumeMounts:

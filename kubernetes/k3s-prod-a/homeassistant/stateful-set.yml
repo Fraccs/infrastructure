@@ -17,6 +17,10 @@ spec:
       containers:
         - name: homeassistant
           image: docker.io/linuxserver/homeassistant:2024.10.2@sha256:b8997c5e7989f9cd8a59ffadb9dadd724373b763d8ddc1c80ef618e0e4601eb4
+          startupProbe:
+            httpGet:
+              path: /manifest.json
+              port: 8123
           ports:
             - name: web
               containerPort: 8123

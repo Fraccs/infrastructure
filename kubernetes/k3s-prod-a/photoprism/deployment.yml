@@ -22,13 +22,13 @@ spec:
       containers:
         - name: photoprism
           image: docker.io/photoprism/photoprism:240915@sha256:32da029428be9335889ab13f03ea839201af49c2a1699c8f7c4de5b5911e2e1a
-          ports:
-            - name: web
-              containerPort: 2342
           startupProbe:
             httpGet:
               path: /api/v1/status
               port: 2342
+          ports:
+            - name: web
+              containerPort: 2342
           volumeMounts:
             - name: photoprism-originals
               mountPath: /photoprism/originals

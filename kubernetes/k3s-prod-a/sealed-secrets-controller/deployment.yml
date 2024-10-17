@@ -26,11 +26,10 @@ spec:
       containers:
         - name: sealed-secrets-controller
           image: docker.io/bitnami/sealed-secrets-controller:0.27.1@sha256:18024029150211e677b79d1ed61cc2e6ac7b2cf2479a76fd5a98bb38d29ed06c
-          ports:
-            - containerPort: 8080
-            - containerPort: 8081
-          command:
-            - controller
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
           livenessProbe:
             httpGet:
               path: /healthz
@@ -39,6 +38,11 @@ spec:
             httpGet:
               path: /healthz
               port: 8080
+          ports:
+            - containerPort: 8080
+            - containerPort: 8081
+          command:
+            - controller
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

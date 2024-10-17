@@ -17,6 +17,12 @@ spec:
       containers:
         - name: linkding
           image: docker.io/sissbruecker/linkding:1.36.0@sha256:019a5d00596ed762f0001ebcc6a0aa2263dbf8a01ec0f3ae5add24cb68caea8b
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 9090
+            periodSeconds: 20
+            failureThreshold: 10
           ports:
            - containerPort: 9090
           volumeMounts:

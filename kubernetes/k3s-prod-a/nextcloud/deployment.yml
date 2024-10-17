@@ -25,10 +25,12 @@ spec:
           ports:
             - name: web
               containerPort: 80
-          # startupProbe: # kube-probe is probably being blocked by IP
+          # startupProbe: # returns a 400 to kube-probe
           #   httpGet:
           #     path: /status.php
           #     port: 80
+          #   failureThreshold: 5
+          #   periodSeconds: 20
           volumeMounts:
             - name: nextcloud-data
               mountPath: /var/www/html

@@ -22,14 +22,14 @@ spec:
       containers:
         - name: romm
           image: docker.io/rommapp/romm:3.5.1@sha256:abd6aaa499e8632e98001e04dfff46acf986083065a7be9f79157bf1c2c2936f
-          ports:
-            - containerPort: 8080
           startupProbe:
             httpGet:
               path: /api/heartbeat
               port: 8080
             failureThreshold: 5
             periodSeconds: 20
+          ports:
+            - containerPort: 8080
           volumeMounts:
             - name: romm-library
               mountPath: /romm/library
