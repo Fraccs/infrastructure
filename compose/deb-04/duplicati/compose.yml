@@ -1,0 +1,17 @@
+---
+services:
+  duplicati:
+    image: docker.io/duplicati/duplicati:2.0.8.1_beta_2024-05-07@sha256:0ffff717b1465022c436afa409291c44fb55c601f7ad556b76db6932f3afbdcf
+    container_name: duplicati
+    restart: unless-stopped
+    ports:
+      - 8200:8200
+    volumes:
+      - ./duplicati-data:/data
+      - /srv/volumes/k3s-prod-a/grafana:/grafana:ro
+      - /srv/volumes/k3s-prod-a/homeassistant:/homeassistant:ro
+      - /srv/volumes/k3s-prod-a/homepage:/homepage:ro
+      - /srv/volumes/k3s-prod-a/prometheus:/prometheus:ro
+      - /srv/volumes/k3s-prod-a/pihole:/pihole:ro
+      - /srv/volumes/k3s-prod-a/firefly:/firefly:ro
+      - /srv/volumes/k3s-prod-a/nextcloud:/nextcloud:ro
