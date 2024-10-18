@@ -1,0 +1,76 @@
+# deb-04.l.47fc5c.com:/etc/exports
+
+# generic/movies
+/srv/volumes/generic/movies deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/movies deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/movies deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# generic/music
+/srv/volumes/generic/music deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/music deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/music deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# generic/shows
+/srv/volumes/generic/shows deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/shows deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/shows deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# grafana
+/srv/volumes/k3s-prod-a/grafana deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/grafana deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/grafana deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# homeassistant
+/srv/volumes/k3s-prod-a/homeassistant deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/homeassistant deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/homeassistant deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# homepage
+/srv/volumes/k3s-prod-a/homepage deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/homepage deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/homepage deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# jellyfin
+/srv/volumes/k3s-prod-a/jellyfin deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/jellyfin deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/jellyfin deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# linkding
+/srv/volumes/k3s-prod-a/linkding deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/linkding deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/linkding deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# mariadb
+/srv/volumes/k3s-prod-a/mariadb deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/mariadb deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/mariadb deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# navidrome
+/srv/fast-volumes/k3s-prod-a/navidrome deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/navidrome deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/navidrome deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# nextcloud
+/srv/volumes/k3s-prod-a/nextcloud deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/nextcloud deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/nextcloud deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# pihole
+/srv/volumes/k3s-prod-a/pihole deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/pihole deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/pihole deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# prometheus
+/srv/volumes/k3s-prod-a/prometheus deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/prometheus deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/prometheus deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# qbittorrent
+/srv/volumes/k3s-prod-a/qbittorrent deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/qbittorrent deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/qbittorrent deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# romm
+/srv/volumes/k3s-prod-a/romm deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/romm deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/romm deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
