@@ -1,12 +1,12 @@
 # homelab/compose
 
-> 🐙 Compose deployments in my `homelab`.
+> 🐙 Compose stacks in my `homelab`.
 
 ## Useful information
 
 ### Interpolation of `compose.yml` files
 
-Some `compose.yml` require interpolation. To achieve that, place the variables that have to be interpolated in a `.env` file.
+Some `compose.yml` files require interpolation. To achieve that, place the variables that have to be interpolated in a `.env` file.
 
 ### Environment variables
 
@@ -18,49 +18,13 @@ The following one-liner can help you rename the `.template.*env` files to `*.env
 find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\.template//')"' _ "{}" \;
 ```
 
-## Deployments
+## Stacks
 
-### deb-01
+### deb-04
 
-| Stack | Container Name | Container Image | Host Port | Internal Port | Network |
-| ----- |----------------|-----------------|-----------|---------------| ------- |
-| node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
-| portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
-| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
-
-### ubt-01
-
-| Stack | Container Name | Container Image | Host Port | Internal Port | Network |
-| ----- |----------------|-----------------|-----------|---------------| ------- |
-| node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
-| pihole | pihole | [pihole/pihole:latest](https://hub.docker.com/r/pihole/pihole) | 53,10150 | 53,80 | auto |
-| portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
-| romm | romm | [zurdi15/romm:latest](https://hub.docker.com/r/zurdi15/romm) | 10172 | 8080 | auto |
-| romm | romm-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
-| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
-
-### ubt-02
-
-| Stack | Container Name | Container Image | Host Port | Internal Port | Network |
-| ----- |----------------|-----------------|-----------|---------------| ------- |
-| firefly | firefly | [fireflyiii/core:latest](https://hub.docker.com/r/fireflyiii/core) | 10050 | 8080 | auto |
-| firefly | firefly-cron | [alpine:latest](https://hub.docker.com/_/alpine) | / | / | auto |
-| firefly | firefly-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
-| nextcloud | nextcloud | [nextcloud:latest](https://hub.docker.com/_/nextcloud/) | 10130 | 80 | auto |
-| nextcloud | nextcloud-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
-| node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
-| photoprism | photoprism | [photoprism/photoprism:latest](https://hub.docker.com/r/photoprism/photoprism) | 10157 | 2342 | auto |
-| photoprism | photoprism-mariadb | [mariadb:latest](https://hub.docker.com/_/mariadb) | / | 3306 | auto |
-| portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
-| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
-
-### ubt-03
-
-| Stack | Container Name | Container Image | Host Port | Internal Port | Network |
-| ----- |----------------|-----------------|-----------|---------------| ------- |
-| ghostfolio | ghostfolio | [ghostfolio/ghostfolio:latest](https://hub.docker.com/r/ghostfolio/ghostfolio) | 3333 | 3333 | auto |
-| ghostfolio | ghostfolio-postgres | [postgres:15](https://hub.docker.com/_/postgres) | / | 5432 | auto |
-| ghostfolio | ghostfolio-redis | [redis:alpine](https://hub.docker.com/_/redis) | / | 6379 | auto |
-| node-exporter | node-exporter | [prom/node-exporter:latest](https://hub.docker.com/r/prom/node-exporter) | 9100 | 9100 | auto |
-| portainer-agent | portainer-agent | [portainer/agent:latest](https://hub.docker.com/r/portainer/agent) | 9001 | 9001 | auto |
-| watchtower | watchtower | [containrrr/watchtower:latest](https://hub.docker.com/r/containrrr/watchtower/tags) | 10220 | 8080 | auto |
+| Stack Name | Container Name | Container Image | Image Version | Image SHA256 Digest | Host Port | Internal Port |
+| ----- | -------------- | --------------- | ------------- | ------------------- | --------- | ------------- |
+| duplicati | duplicati | [docker.io/duplicati/duplicati](https://hub.docker.com/r/duplicati/duplicati) | `2.0.8.1_beta_2024-05-07` | `0ffff717b1465022c436afa409291c44fb55c601f7ad556b76db6932f3afbdcf` | 8200 | 8200 |
+| mariadb | mariadb | [docker.io/library/mariadb](https://hub.docker.com/_/mariadb) | `11.5.2` | `baef228246e0bc50fe89b857db989ffe66020a651add05c3933366687b73100c` | 3306 | 3306 |
+| node-exporter | node-exporter | [docker.io/prom/node-exporter](https://hub.docker.com/r/prom/node-exporter) | `v1.8.2` | `065914c03336590ebed517e7df38520f0efb44465fde4123c3f6b7328f5a9396` | 9100 | 9100 |
+| redis | redis | [docker.io/library/redis](https://hub.docker.com/_/redis) | `7.4.1` | `1b5978db511770e4b8e3b06219d59be28281220f5ffa3fb93482087fdfd60624` | 6379 | 6379 |
