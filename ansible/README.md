@@ -22,3 +22,8 @@ ansible homelab -m ping -i inventory.yml --ask-vault-pass
 ansible-playbook -i inventory.yml <path_to_playbook> --ask-vault-pass
 ```
 
+### Edit the contents of a vault
+
+```sh
+ansible-vault edit <path_to_vault>
+```
