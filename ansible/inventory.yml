@@ -1,19 +1,24 @@
 homelab:
   children:
-    hvs:
+    hypervisors:
     vms:
 
-hvs:
+hypervisors:
   hosts:
-    main-server.l.47fc5c.com:
+    prox-01.l.47fc5c.com:
 
 vms:
+  children:
+    workers:
+  hosts:
+    deb-04.l.47fc5c.com:
+      ansible_become_pass: "{{ deb_04_sudo_password }}"
+
+workers:
   hosts:
     deb-01.l.47fc5c.com:
       ansible_become_pass: "{{ deb_01_sudo_password }}"
-    ubt-01.l.47fc5c.com:
-      ansible_become_pass: "{{ ubt_01_sudo_password }}"
-    ubt-02.l.47fc5c.com:
-      ansible_become_pass: "{{ ubt_02_sudo_password }}"
-    ubt-03.l.47fc5c.com:
-      ansible_become_pass: "{{ ubt_03_sudo_password }}"
+    deb-02.l.47fc5c.com:
+      ansible_become_pass: "{{ deb_02_sudo_password }}"
+    deb-03.l.47fc5c.com:
+      ansible_become_pass: "{{ deb_03_sudo_password }}"
