@@ -1,9 +1,0 @@
-# TODO: Target hosts should only be hosts that use apt
-- name: Update apt cache on vms
-  become: true
-  hosts: vms
-  tasks:
-    - name: Update apt cache
-      become: true
-      ansible.builtin.apt:
-        update_cache: true
