@@ -31,6 +31,9 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
+          envFrom:
+            - configMapRef:
+                name: navidrome
       volumes:
         - name: navidrome-data
           persistentVolumeClaim:
