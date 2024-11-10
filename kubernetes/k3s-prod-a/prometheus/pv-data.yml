@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   claimRef:
     name: prometheus-data
-    namespace: prometheus
+    namespace: monitoring
   storageClassName: nfs
   nfs:
     server: deb-04.l.47fc5c.com

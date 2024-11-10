@@ -1,14 +1,14 @@
 ---
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: prometheus
+  name: node-exporter
   namespace: monitoring
 spec:
   type: ClusterIP
   ports:
-    - port: 9090
-      targetPort: 9090
+    - port: 9100
+      targetPort: 9100
       protocol: TCP
   selector:
-    app: prometheus
+      app: node-exporter
