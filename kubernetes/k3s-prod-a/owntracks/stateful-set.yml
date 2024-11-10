@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: owntracks-recorder
+  namespace: owntracks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: owntracks-recorder
+  template:
+    metadata:
+      labels:
+        app: owntracks-recorder
+    spec:
+      containers:
+        - name: owntracks-recorder
+          image: docker.io/owntracks/recorder:0.9.9@sha256:35d717a7cd18f9c41c01404a809f3e722c828bc6137d4c06c2f15f4046fa7a44
+          ports:
+            - containerPort: 8083
+          volumeMounts:
+            - name: owntracks
+              mountPath: /store
+          envFrom:
+            - configMapRef:
+                name: owntracks-recorder
+      volumes:
+        - name: owntracks
+          persistentVolumeClaim:
+            claimName: owntracks

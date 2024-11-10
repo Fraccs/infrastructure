@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: owntracks-recorder
+  namespace: owntracks
+data:
+  OTR_HTTPHOST: "0.0.0.0"
+  OTR_PORT: "0"
