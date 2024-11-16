@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   claimRef:
     name: qbittorrent-config
-    namespace: qbittorrent
+    namespace: torrenting
   storageClassName: nfs
   nfs:
     server: deb-04.l.47fc5c.com
