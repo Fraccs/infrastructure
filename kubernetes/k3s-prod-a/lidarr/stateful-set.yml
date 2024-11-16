@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lidarr
+  namespace: torrenting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lidarr
+  template:
+    metadata:
+      labels:
+        app: lidarr
+    spec:
+      containers:
+        - name: lidarr
+          image: docker.io/linuxserver/lidarr:2.7.1@sha256:46b8237b38950dcad3dc24ca5f5aaa68359c78e024ccc792192263004173a86a
+          ports:
+            - containerPort: 8686
+          volumeMounts:
+            - name: lidarr-config
+              mountPath: /config
+            - name: lidarr-downloads
+              mountPath: /downloads
+            - name: lidarr-music
+              mountPath: /music
+          envFrom:
+            - configMapRef:
+                name: lidarr-env
+      volumes:
+        - name: lidarr-config
+          persistentVolumeClaim:
+            claimName: lidarr-config
+        - name: lidarr-downloads
+          persistentVolumeClaim:
+            claimName: lidarr-downloads
+        - name: lidarr-music
+          persistentVolumeClaim:
+            claimName: lidarr-music

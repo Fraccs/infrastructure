@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lidarr-env
+  namespace: torrenting
+data:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: "Europe/Rome"

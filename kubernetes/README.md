@@ -68,6 +68,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2024.10.2` | `b8997c5e7989f9cd8a59ffadb9dadd724373b763d8ddc1c80ef618e0e4601eb4` |
 | homepage | [ghcr.io/gethomepage/homepage](https://github.com/gethomepage/homepage/pkgs/container/homepage) | `v0.9.11` | `bc737801896bb823f67135d16ae7be2b94a95da5c67243162196a2a0ea8ea281` |
 | jellyfin | [docker.io/jellyfin/jellyfin](https://hub.docker.com/r/jellyfin/jellyfin) | `10.9.11` | `efc2f4ebef76f0e8d3ea49c87b4c61c7d8847e496dc1fd5a91ce6652e33c116f` |
+| lidarr | [docker.io/linuxserver/lidarr](https://hub.docker.com/r/linuxserver/lidarr) | `2.7.1` | `46b8237b38950dcad3dc24ca5f5aaa68359c78e024ccc792192263004173a86a` |
 | linkding | [docker.io/sissbruecker/linkding](https://hub.docker.com/r/sissbruecker/linkding) | `1.36.0` | `019a5d00596ed762f0001ebcc6a0aa2263dbf8a01ec0f3ae5add24cb68caea8b` |
 | navidrome | [docker.io/deluan/navidrome](https://hub.docker.com/r/deluan/navidrome) | `0.53.3` | `6b9e2f5fb7f03dbc116d86ad5fc614c312b326e46638c0438bb14c91a0a49b59` |
 | nextcloud | [docker.io/library/nextcloud](https://hub.docker.com/_/nextcloud) | `30.0.0` | `c293951861b5036eb8ec48a14584348fc6699e2e718d785ae8f7551f3befe5d2` |
@@ -76,6 +77,29 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | photoprism | [docker.io/photoprism/photoprism](https://hub.docker.com/r/photoprism/photoprism) | `240915` | `32da029428be9335889ab13f03ea839201af49c2a1699c8f7c4de5b5911e2e1a` |
 | pihole | [docker.io/pihole/pihole](https://hub.docker.com/r/pihole/pihole) | `2024.07.0` | `e53305e9e00d7ac283763ca9f323cc95a47d0113a1e02eb9c6849f309d6202dd` |
 | prometheus | [docker.io/prom/prometheus](https://hub.docker.com/r/prom/prometheus) | `v2.54.1` | `69961df6ffa67598048a31aa2822d61f3c93b91d7db24e44d9bb03f99d520da9` |
+| prowlarr | [docker.io/linuxserver/prowlarr](https://hub.docker.com/r/linuxserver/prowlarr) | `1.25.4` | `e6d760f17399cd40093ed7e40af7160bc638e6a9690a9c8d024699b5129c1aaa` |
 | qbittorrent | [docker.io/linuxserver/qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent) | `5.0.0` | `758c19794b7da7f6c39d9d35d4b07693dac41e0f727b7622fce116ee79375e5c` |
 | romm | [docker.io/rommapp/romm](https://hub.docker.com/r/rommapp/romm) | `3.5.1` | `abd6aaa499e8632e98001e04dfff46acf986083065a7be9f79157bf1c2c2936` |
 | sealed-secrets-controller | [docker.io/bitnami/sealed-secrets-controller](https://hub.docker.com/r/bitnami/sealed-secrets-controller) | `0.27.1` | `18024029150211e677b79d1ed61cc2e6ac7b2cf2479a76fd5a98bb38d29ed06c` |
+
+## Useful commands
+
+### Sealed secrets
+
+#### Extract `sealed-secrets-controller` keys (backup for disaster recovery)
+
+```sh
+kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > sealed-secrets-controller.key
+```
+
+#### Create a `SealedSecret` resource starting from a `Secret`
+
+```sh
+kubeseal -f <input-secret>.yml -w <output-sealed-secret>.yml
+```
+
+#### Unseal a `SealedSecret` resource
+
+```sh
+kubeseal < <input-sealed-secret>.yml --recovery-unseal --recovery-private-key <sealed-secrets-controller-secret-key>.key -o yaml > <output-secret>.yml
+```

@@ -35,6 +35,11 @@
 /srv/volumes/k3s-prod-a/jellyfin deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/jellyfin deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
+# lidarr
+/srv/volumes/k3s-prod-a/lidarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/lidarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/lidarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # linkding
 /srv/volumes/k3s-prod-a/linkding deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/linkding deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
@@ -69,6 +74,11 @@
 /srv/volumes/k3s-prod-a/prometheus deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/k3s-prod-a/prometheus deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/k3s-prod-a/prometheus deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
+# prowlarr
+/srv/volumes/k3s-prod-a/prowlarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/prowlarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/prowlarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # qbittorrent
 /srv/volumes/k3s-prod-a/qbittorrent deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)

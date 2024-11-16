@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lidarr-config
+  namespace: torrenting
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: lidarr-config
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Gi

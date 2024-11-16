@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prowlarr
+  namespace: torrenting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+        - name: prowlarr
+          image: docker.io/linuxserver/prowlarr:1.25.4@sha256:e6d760f17399cd40093ed7e40af7160bc638e6a9690a9c8d024699b5129c1aaa
+          ports:
+            - containerPort: 8686
+          volumeMounts:
+            - name: prowlarr-config
+              mountPath: /config
+          envFrom:
+            - configMapRef:
+                name: prowlarr-env
+      volumes:
+        - name: prowlarr-config
+          persistentVolumeClaim:
+            claimName: prowlarr-config
