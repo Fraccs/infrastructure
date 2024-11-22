@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: readarr
+  namespace: torrenting
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`readarr.l.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: readarr
+          kind: Service
+          port: 8787
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none

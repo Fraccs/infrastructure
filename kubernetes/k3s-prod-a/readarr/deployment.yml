@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readarr
+  namespace: torrenting
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: readarr
+  template:
+    metadata:
+      labels:
+        app: readarr
+    spec:
+      containers:
+        - name: readarr
+          image: docker.io/linuxserver/readarr:0.4.4-nightly@sha256:c97e38836da9e8b28f40e2d529f4b336b5187dbd7032ff5d0d58e5fe578e82f7
+          ports:
+            - containerPort: 8787
+          volumeMounts:
+            - name: readarr-config
+              mountPath: /config
+            - name: readarr-downloads
+              mountPath: /downloads
+            - name: readarr-books
+              mountPath: /books
+          envFrom:
+            - configMapRef:
+                name: readarr-env
+      volumes:
+        - name: readarr-config
+          persistentVolumeClaim:
+            claimName: readarr-config
+        - name: readarr-downloads
+          persistentVolumeClaim:
+            claimName: readarr-downloads
+        - name: readarr-books
+          persistentVolumeClaim:
+            claimName: readarr-books

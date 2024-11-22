@@ -1,5 +1,10 @@
 # deb-04.l.47fc5c.com:/etc/exports
 
+# generic/books
+/srv/volumes/generic/books deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/books deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/books deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
 # generic/movies
 /srv/volumes/generic/movies deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/movies deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
@@ -85,7 +90,22 @@
 /srv/volumes/k3s-prod-a/qbittorrent deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/qbittorrent deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
+# radarr
+/srv/volumes/k3s-prod-a/radarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/radarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/radarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# readarr
+/srv/volumes/k3s-prod-a/readarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/readarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/readarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # romm
 /srv/volumes/k3s-prod-a/romm deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/romm deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/romm deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# sonarr
+/srv/volumes/k3s-prod-a/sonarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/sonarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/sonarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)

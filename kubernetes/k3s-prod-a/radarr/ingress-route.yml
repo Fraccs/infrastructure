@@ -1,0 +1,22 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radarr
+  namespace: torrenting
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`radarr.l.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: radarr
+          kind: Service
+          port: 7878
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none

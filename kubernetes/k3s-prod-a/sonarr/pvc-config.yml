@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarr-config
+  namespace: torrenting
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: sonarr-config
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Gi

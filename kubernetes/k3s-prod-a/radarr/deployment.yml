@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: torrenting
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+        - name: radarr
+          image: docker.io/linuxserver/radarr:5.15.1@sha256:8144ce04ec85cc838f3a4a5ca944947095b7df11db0a3e34074d0c8505861f83
+          ports:
+            - containerPort: 7878
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: radarr-downloads
+              mountPath: /downloads
+            - name: radarr-movies
+              mountPath: /movies
+          envFrom:
+            - configMapRef:
+                name: radarr-env
+      volumes:
+        - name: radarr-config
+          persistentVolumeClaim:
+            claimName: radarr-config
+        - name: radarr-downloads
+          persistentVolumeClaim:
+            claimName: radarr-downloads
+        - name: radarr-movies
+          persistentVolumeClaim:
+            claimName: radarr-movies

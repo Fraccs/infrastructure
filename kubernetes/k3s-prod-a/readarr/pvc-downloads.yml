@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: readarr-downloads
+  namespace: torrenting
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: readarr-downloads
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Gi

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-downloads
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    name: sonarr-downloads
+    namespace: torrenting
+  storageClassName: nfs
+  nfs:
+    server: deb-04.l.47fc5c.com
+    path: /srv/volumes/k3s-prod-a/qbittorrent/downloads

@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-config
+  namespace: torrenting
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: radarr-config
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Gi

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: readarr-config
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    name: readarr-config
+    namespace: torrenting
+  storageClassName: nfs
+  nfs:
+    server: deb-04.l.47fc5c.com
+    path: /srv/volumes/k3s-prod-a/readarr/config

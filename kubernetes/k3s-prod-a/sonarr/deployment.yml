@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  namespace: torrenting
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+        - name: sonarr
+          image: docker.io/linuxserver/sonarr:4.0.10@sha256:d5a4e51ac29de5d896ec739cb727f3d80cac16d821315c7f2302a3e69832d9ca
+          ports:
+            - containerPort: 8989
+          volumeMounts:
+            - name: sonarr-config
+              mountPath: /config
+            - name: sonarr-downloads
+              mountPath: /downloads
+            - name: sonarr-shows
+              mountPath: /shows
+          envFrom:
+            - configMapRef:
+                name: sonarr-env
+      volumes:
+        - name: sonarr-config
+          persistentVolumeClaim:
+            claimName: sonarr-config
+        - name: sonarr-downloads
+          persistentVolumeClaim:
+            claimName: sonarr-downloads
+        - name: sonarr-shows
+          persistentVolumeClaim:
+            claimName: sonarr-shows
