@@ -1,0 +1,25 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    ports:
+      st-bep-tcp:
+        port: 22000
+        expose: true
+        exposedPort: 22000
+        protocol: TCP
+      st-bep-udp:
+        port: 22000
+        expose: true
+        exposedPort: 22000
+        protocol: UDP
+      st-svc-disc:
+        port: 21027
+        expose: true
+        exposedPort: 21027
+        protocol: UDP
+

@@ -15,6 +15,11 @@
 /srv/volumes/generic/music deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/music deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
 
+# generic/repos
+/srv/volumes/generic/repos deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/generic/repos deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/generic/repos deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # generic/shows
 /srv/volumes/generic/shows deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/shows deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
@@ -109,3 +114,8 @@
 /srv/volumes/k3s-prod-a/sonarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/sonarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/sonarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# syncthing
+/srv/volumes/k3s-prod-a/syncthing deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/syncthing deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/syncthing deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
