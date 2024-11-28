@@ -14,6 +14,9 @@ spec:
       labels:
         app: prometheus
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
       serviceAccountName: prometheus
       containers:
         - name: prometheus
@@ -31,8 +34,8 @@ spec:
           volumeMounts:
             - name: prometheus-config
               mountPath: /etc/prometheus/
-            # - name: prometheus-data
-            #   mountPath: /prometheus/
+            - name: prometheus-data
+              mountPath: /prometheus/
       volumes:
         - name: prometheus-config
           configMap:
