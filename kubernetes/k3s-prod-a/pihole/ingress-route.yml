@@ -11,7 +11,7 @@ spec:
     - match: Host(`pihole.l.47fc5c.com`)
       kind: Rule
       services:
-        - name: pihole-web
+        - name: pihole
           kind: Service
           port: 80
           scheme: http

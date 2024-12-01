@@ -7,19 +7,13 @@ metadata:
 spec:
   valuesContent: |-
     ports:
-      st-bep-tcp:
-        port: 22000
+      dns-tcp:
+        port: 53
         expose: true
-        exposedPort: 22000
+        exposedPort: 53
         protocol: TCP
-      st-bep-udp:
-        port: 22000
+      dns-udp:
+        port: 53
         expose: true
-        exposedPort: 22000
+        exposedPort: 53
         protocol: UDP
-      st-svc-disc:
-        port: 21027
-        expose: true
-        exposedPort: 21027
-        protocol: UDP
-
