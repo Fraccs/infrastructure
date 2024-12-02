@@ -1,8 +1,0 @@
----
-services:
-  redis:
-    image: docker.io/library/redis:7.4.1@sha256:1b5978db511770e4b8e3b06219d59be28281220f5ffa3fb93482087fdfd60624
-    container_name: redis
-    restart: unless-stopped
-    ports:
-      - 6379:6379

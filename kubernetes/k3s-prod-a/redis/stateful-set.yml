@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: docker.io/library/redis:7.4.1@sha256:126cc4da63a39000ce527ae644b880d26608d27d8b7d35b3ee37670f5ee55eea
+          ports:
+            - name: redis
+              containerPort: 6379
