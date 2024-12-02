@@ -5,7 +5,7 @@ metadata:
   name: romm
   namespace: romm
 data:
-  DB_HOST: "deb-04.l.47fc5c.com"
+  DB_HOST: "mariadb.mariadb.svc.cluster.local"
   DB_NAME: "romm"
   DB_PORT: "3306"
   ROMM_DB_DRIVER: "mariadb"

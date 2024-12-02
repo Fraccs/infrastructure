@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb
+  namespace: mariadb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeName: mariadb
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 4Gi

@@ -7,7 +7,7 @@ metadata:
 data:
   DB_CONNECTION: "mysql"
   DB_DATABASE: "firefly"
-  DB_HOST: "deb-04.l.47fc5c.com"
+  DB_HOST: "mariadb.mariadb.svc.cluster.local"
   DB_PORT: "3306"
   DEFAULT_LANGUAGE: "en_US"
   DEFAULT_LOCALE: "it_IT"
