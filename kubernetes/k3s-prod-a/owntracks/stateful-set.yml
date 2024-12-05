@@ -25,6 +25,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: owntracks-recorder
+            - secretRef:
+                name: owntracks-recorder
       volumes:
         - name: owntracks
           persistentVolumeClaim:
