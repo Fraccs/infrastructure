@@ -15,3 +15,5 @@ spec:
           kind: Service
           port: 3000
           scheme: http
+  tls:
+    secretName: grafana-certificate

@@ -15,3 +15,5 @@ spec:
           kind: Service
           port: 8083
           scheme: http
+  tls:
+    secretName: owntracks-certificate

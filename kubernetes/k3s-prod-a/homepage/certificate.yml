@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  secretName: homepage-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
+  dnsNames:
+    - dash.l.47fc5c.com

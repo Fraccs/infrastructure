@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  secretName: nextcloud-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
+  dnsNames:
+    - nextcloud.l.47fc5c.com

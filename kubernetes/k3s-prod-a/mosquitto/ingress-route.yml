@@ -12,3 +12,5 @@ spec:
       services:
         - name: mosquitto
           port: 1883
+  tls:
+    secretName: mosquitto-certificate

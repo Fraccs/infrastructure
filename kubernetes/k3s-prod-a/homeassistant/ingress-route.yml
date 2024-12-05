@@ -15,3 +15,5 @@ spec:
           kind: Service
           port: 8123
           scheme: http
+  tls:
+    secretName: homeassistant-certificate

@@ -15,3 +15,5 @@ spec:
           kind: Service
           port: 4533
           scheme: http
+  tls:
+    secretName: navidrome-certificate

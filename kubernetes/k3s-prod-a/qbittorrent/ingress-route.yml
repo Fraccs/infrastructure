@@ -15,3 +15,5 @@ spec:
           kind: Service
           port: 8080
           scheme: http
+  tls:
+    secretName: qbittorrent-certificate

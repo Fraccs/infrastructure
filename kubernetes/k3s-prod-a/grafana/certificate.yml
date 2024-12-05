@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana
+  namespace: grafana
+spec:
+  secretName: grafana-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
+  dnsNames:
+    - grafana.l.47fc5c.com

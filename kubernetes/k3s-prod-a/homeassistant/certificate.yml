@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  secretName: homeassistant-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
+  dnsNames:
+    - homeassistant.l.47fc5c.com

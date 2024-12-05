@@ -20,3 +20,5 @@ spec:
               httpOnly: true
               secure: true
               sameSite: none
+  tls:
+    secretName: photoprism-certificate
