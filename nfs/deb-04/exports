@@ -15,11 +15,6 @@
 /srv/volumes/generic/music deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/music deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
 
-# generic/repos
-/srv/volumes/generic/repos deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/generic/repos deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/generic/repos deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-
 # generic/shows
 /srv/volumes/generic/shows deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/shows deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
@@ -56,9 +51,14 @@
 /srv/volumes/k3s-prod-a/linkding deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # mariadb
-/srv/volumes/k3s-prod-a/mariadb deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
-/srv/volumes/k3s-prod-a/mariadb deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
-/srv/volumes/k3s-prod-a/mariadb deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/fast-volumes/k3s-prod-a/mariadb deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/mariadb deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/mariadb deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# mosquitto
+/srv/volumes/k3s-prod-a/mosquitto deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/mosquitto deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/mosquitto deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # navidrome
 /srv/fast-volumes/k3s-prod-a/navidrome deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
@@ -80,10 +80,15 @@
 /srv/volumes/k3s-prod-a/pihole deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/k3s-prod-a/pihole deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
+# postgres
+/srv/fast-volumes/k3s-prod-a/postgres deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/postgres deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/postgres deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # prometheus
-/srv/volumes/k3s-prod-a/prometheus deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
-/srv/volumes/k3s-prod-a/prometheus deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
-/srv/volumes/k3s-prod-a/prometheus deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/k3s-prod-a/prometheus deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/prometheus deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/prometheus deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # prowlarr
 /srv/volumes/k3s-prod-a/prowlarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
