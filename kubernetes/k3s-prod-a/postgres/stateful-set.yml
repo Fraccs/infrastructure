@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: docker.io/library/postgres:14.15@sha256:f104f501cd403abdc56cd17fab81fad0b15754e8dce818e20300a17a3628700f
+          ports:
+            - name: postgres
+              containerPort: 5432
+          volumeMounts:
+            - name: postgres
+              mountPath: /var/lib/postgresql/data
+          envFrom:
+            - secretRef:
+                name: postgres
+      volumes:
+        - name: postgres
+          persistentVolumeClaim:
+            claimName: postgres

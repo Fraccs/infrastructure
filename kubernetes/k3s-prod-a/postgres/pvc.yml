@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeName: postgres
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 4Gi
