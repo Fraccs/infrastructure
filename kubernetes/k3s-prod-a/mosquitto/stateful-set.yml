@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mosquitto
+  namespace: mosquitto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      containers:
+        - name: mosquitto
+          image: docker.io/library/eclipse-mosquitto:2.0.20@sha256:c16ebb350bd1509a33ee09edb5bafe4579fe53ae189b756362701bfdc2c0f931
+          ports:
+            - name: mqtt
+              containerPort: 1883
+          volumeMounts:
+            - name: mosquitto
+              mountPath: /mosquitto/config
+              subPath: config/
+            - name: mosquitto-config
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+            - name: mosquitto
+              mountPath: /mosquitto/data
+              subPath: data/
+            - name: mosquitto
+              mountPath: /mosquitto/log
+              subPath: log/
+      volumes:
+        - name: mosquitto
+          persistentVolumeClaim:
+            claimName: mosquitto
+        - name: mosquitto-config
+          configMap:
+            name: mosquitto
