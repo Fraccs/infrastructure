@@ -8,12 +8,20 @@ spec:
   valuesContent: |-
     ports:
       dns-tcp:
+        expose:
+          default: true
         port: 53
-        expose: true
         exposedPort: 53
         protocol: TCP
       dns-udp:
+        expose:
+          default: true
         port: 53
-        expose: true
         exposedPort: 53
         protocol: UDP
+      mqtt:
+        expose:
+          default: true
+        port: 8883
+        exposedPort: 8883
+        protocol: TCP
