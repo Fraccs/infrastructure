@@ -7,6 +7,7 @@ metadata:
 spec:
   valuesContent: |-
     ports:
+      web: null
       dns-tcp:
         expose:
           default: true
