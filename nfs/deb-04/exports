@@ -1,5 +1,15 @@
 # deb-04.l.47fc5c.com:/etc/exports
 
+# dynamic-fast
+/srv/fast-volumes/k3s-prod-a/dynamic deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/dynamic deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/dynamic deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# dynamic-slow
+/srv/volumes/k3s-prod-a/dynamic deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/dynamic deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/k3s-prod-a/dynamic deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # generic/books
 /srv/volumes/generic/books deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/books deb-02.l.47fc5c.com(rw,sync,no_subtree_check)

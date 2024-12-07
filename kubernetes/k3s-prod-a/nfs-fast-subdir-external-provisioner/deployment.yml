@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-fast-subdir-external-provisioner
+  namespace: kube-system
+  labels:
+    app: nfs-fast-subdir-external-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nfs-fast-subdir-external-provisioner
+  template:
+    metadata:
+      labels:
+        app: nfs-fast-subdir-external-provisioner
+    spec:
+      serviceAccountName: nfs-fast-subdir-external-provisioner
+      containers:
+        - name: nfs-fast-subdir-external-provisioner
+          image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2@sha256:374f80dde8bbd498b1083348dd076b8d8d9f9b35386a793f102d5deebe593626
+          volumeMounts:
+            - name: nfs-root
+              mountPath: /persistentvolumes
+          envFrom:
+            - configMapRef:
+                name: nfs-fast-subdir-external-provisioner
+      volumes:
+        - name: nfs-root
+          nfs:
+            server: deb-04.l.47fc5c.com
+            path: /srv/fast-volumes/k3s-prod-a/dynamic
