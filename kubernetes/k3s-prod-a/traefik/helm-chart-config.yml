@@ -8,12 +8,6 @@ spec:
   valuesContent: |-
     ports:
       web: null
-      dns-tcp:
-        expose:
-          default: true
-        port: 53
-        exposedPort: 53
-        protocol: TCP
       dns-udp:
         expose:
           default: true
