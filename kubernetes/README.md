@@ -75,7 +75,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | radarr | [docker.io/linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr) | `5.15.1` | `8144ce04ec85cc838f3a4a5ca944947095b7df11db0a3e34074d0c8505861f83` |
 | readarr | [docker.io/linuxserver/readarr](https://hub.docker.com/r/linuxserver/readarr) | `0.4.4-nightly` | `c97e38836da9e8b28f40e2d529f4b336b5187dbd7032ff5d0d58e5fe578e82f7` |
 | redis | [docker.io/library/redis](https://hub.docker.com/_/redis) | `7.4.1` | `126cc4da63a39000ce527ae644b880d26608d27d8b7d35b3ee37670f5ee55eea` |
-| romm | [docker.io/rommapp/romm](https://hub.docker.com/r/rommapp/romm) | `3.5.1` | `abd6aaa499e8632e98001e04dfff46acf986083065a7be9f79157bf1c2c2936` |
+| romm | [docker.io/rommapp/romm](https://hub.docker.com/r/rommapp/romm) | `3.6.0` | `c51f96b2ccb155b213fa9b7ebee6a39801e451c9b172291c3e70af8a30d37789` |
 | sealed-secrets-controller | [docker.io/bitnami/sealed-secrets-controller](https://hub.docker.com/r/bitnami/sealed-secrets-controller) | `0.27.1` | `18024029150211e677b79d1ed61cc2e6ac7b2cf2479a76fd5a98bb38d29ed06c` |
 | sonarr | [docker.io/linuxserver/sonarr](https://hub.docker.com/r/linuxserver/sonarr) | `4.0.10` | `d5a4e51ac29de5d896ec739cb727f3d80cac16d821315c7f2302a3e69832d9ca` |
 
