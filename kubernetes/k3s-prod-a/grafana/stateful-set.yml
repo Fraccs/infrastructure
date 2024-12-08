@@ -1,9 +1,9 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet # Consider using Deployment with external database
+kind: StatefulSet
 metadata:
   name: grafana
-  namespace: grafana
+  namespace: monitoring
 spec:
   replicas: 1
   selector:
