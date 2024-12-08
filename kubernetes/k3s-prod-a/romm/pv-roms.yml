@@ -2,16 +2,16 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: romm-resources
+  name: romm-roms
 spec:
   capacity:
-    storage: 100Mi
+    storage: 50Gi
   accessModes:
     - ReadWriteMany
   claimRef:
-    name: romm-resources
+    name: romm-roms
     namespace: romm
   storageClassName: nfs
   nfs:
     server: deb-04.l.47fc5c.com
-    path: /srv/volumes/k3s-prod-a/romm/resources
+    path: /srv/volumes/generic/roms

@@ -1,16 +1,11 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: romm
   namespace: romm
 spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+  replicas: 1
   selector:
     matchLabels:
       app: romm
@@ -21,7 +16,7 @@ spec:
     spec:
       containers:
         - name: romm
-          image: docker.io/rommapp/romm:3.5.1@sha256:abd6aaa499e8632e98001e04dfff46acf986083065a7be9f79157bf1c2c2936f
+          image: docker.io/rommapp/romm:3.6.0@sha256:c51f96b2ccb155b213fa9b7ebee6a39801e451c9b172291c3e70af8a30d37789
           startupProbe:
             httpGet:
               path: /api/heartbeat
@@ -31,19 +26,26 @@ spec:
           ports:
             - containerPort: 8080
           volumeMounts:
-            - name: romm-library
-              mountPath: /romm/library
-            - name: romm-resources
+            - name: romm-data
+              mountPath: /romm/assets
+              subPath: assets/
+            - name: romm-data
+              mountPath: /romm/config
+              subPath: config/
+            - name: romm-data
               mountPath: /romm/resources
+              subPath: resources/
+            - name: romm-roms
+              mountPath: /romm/library/roms
           envFrom:
             - configMapRef:
                 name: romm
             - secretRef:
                 name: romm
       volumes:
-        - name: romm-library
+        - name: romm-data
           persistentVolumeClaim:
-            claimName: romm-library
-        - name: romm-resources
+            claimName: romm-data
+        - name: romm-roms
           persistentVolumeClaim:
-            claimName: romm-resources
+            claimName: romm-roms

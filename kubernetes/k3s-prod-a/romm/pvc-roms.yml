@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: romm-resources
+  name: romm-roms
   namespace: romm
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: romm-resources
+  volumeName: romm-roms
   storageClassName: nfs
   resources:
     requests:
-      storage: 100Mi
+      storage: 50Gi

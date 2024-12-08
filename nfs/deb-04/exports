@@ -20,6 +20,11 @@
 /srv/volumes/generic/movies deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/movies deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
 
+# generic/roms
+/srv/volumes/generic/roms deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/roms deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/volumes/generic/roms deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+
 # generic/music
 /srv/volumes/generic/music deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/music deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
