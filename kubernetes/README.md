@@ -81,6 +81,14 @@ curl -sfL https://get.k3s.io | sh -s - server \
 
 ## Useful commands
 
+### Nextcloud
+
+#### Spawn a shell as `www-data` user (for `occ` maintenance)
+
+```sh
+kubectl exec -it <nextcloud_pod> -n <nextcloud_namespace> -- su -s /bin/bash - www-data
+```
+
 ### Sealed secrets
 
 #### Extract `sealed-secrets-controller` keys (backup for disaster recovery)
