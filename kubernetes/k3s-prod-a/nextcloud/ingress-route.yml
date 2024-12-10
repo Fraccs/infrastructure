@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`nextcloud.l.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: nextcloud
+          name: headers
       services:
         - name: nextcloud
           kind: Service
