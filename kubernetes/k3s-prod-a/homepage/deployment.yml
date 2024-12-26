@@ -10,7 +10,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: homepage
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.9.11@sha256:bc737801896bb823f67135d16ae7be2b94a95da5c67243162196a2a0ea8ea281
+          image: ghcr.io/gethomepage/homepage:v0.10.4@sha256:916f33fad511d624859f3a7da384eb89ba181c2cce17dd6fcd8903e3652f4ee0
           startupProbe:
             httpGet:
               path: /api/healthcheck
