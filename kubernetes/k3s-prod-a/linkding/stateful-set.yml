@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet # Consider using a multiple-replicas Deployment with an external database
+kind: StatefulSet
 metadata:
   name: linkding
   namespace: linkding
@@ -21,7 +21,7 @@ spec:
             httpGet:
               path: /health
               port: 9090
-            periodSeconds: 20
+            periodSeconds: 30
             failureThreshold: 10
           ports:
            - containerPort: 9090
