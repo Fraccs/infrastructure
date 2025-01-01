@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cdio
+  namespace: cdio
+data:
+  PGID: "1000"
+  PUID: "1000"
+  TZ: "Etc/UTC"

@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cdio
+  namespace: cdio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cdio
+  template:
+    metadata:
+      labels:
+        app: cdio
+    spec:
+      containers:
+        - name: cdio
+          image: docker.io/linuxserver/changedetection.io:0.48.05@sha256:9b6a05a7ae2896a746ad9b55a56918b242d1768293c3cdbbdf7d179620514c88
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: cdio-config
+              mountPath: /config
+          envFrom:
+            - configMapRef:
+                name: cdio
+      volumes:
+        - name: cdio-config
+          persistentVolumeClaim:
+            claimName: cdio-config
