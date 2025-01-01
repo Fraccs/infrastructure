@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kavita-books
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadOnlyMany
+  claimRef:
+    name: kavita-books
+    namespace: kavita
+  storageClassName: nfs
+  nfs:
+    server: deb-04.l.47fc5c.com
+    path: /srv/volumes/generic/books

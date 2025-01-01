@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kavita
+  namespace: kavita
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kavita
+  template:
+    metadata:
+      labels:
+        app: kavita
+    spec:
+      containers:
+        - name: kavita
+          image: docker.io/jvmilazz0/kavita:0.8.4@sha256:7f4d5de5f9a5a842a83324429d59730b761dca422b8aa2caf28155aa42996421
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: kavita-books
+              mountPath: /books
+            - name: kavita-data
+              mountPath: /kavita/config
+          envFrom:
+            - configMapRef:
+                name: kavita
+      volumes:
+        - name: kavita-books
+          persistentVolumeClaim:
+            claimName: kavita-books
+        - name: kavita-data
+          persistentVolumeClaim:
+            claimName: kavita-data
