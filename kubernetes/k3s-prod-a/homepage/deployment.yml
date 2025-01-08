@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: homepage
-          image: ghcr.io/gethomepage/homepage:v0.10.8@sha256:b6433c5eb6f4e043514651667abc5030f6ac1b0458cb56c4872ad320085dc2df
+          image: ghcr.io/gethomepage/homepage:v0.10.9@sha256:825395081356da24a5cf250de14498cf0fffe0e9a2a743ac8b7e7fe95040113a
           startupProbe:
             httpGet:
               path: /api/healthcheck
