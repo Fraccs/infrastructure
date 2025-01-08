@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet # Consider using Deployment with external database
+kind: StatefulSet
 metadata:
   name: homeassistant
   namespace: homeassistant
@@ -16,11 +16,13 @@ spec:
     spec:
       containers:
         - name: homeassistant
-          image: docker.io/linuxserver/homeassistant:2024.10.2@sha256:b8997c5e7989f9cd8a59ffadb9dadd724373b763d8ddc1c80ef618e0e4601eb4
+          image: docker.io/linuxserver/homeassistant:2025.1.1@sha256:a969b677cba8da29db03b81643d092bc4b8fa067a19268d9de0fe84a028c2020
           startupProbe:
             httpGet:
               path: /manifest.json
               port: 8123
+            periodSeconds: 30
+            failureThreshold: 10
           ports:
             - name: web
               containerPort: 8123
