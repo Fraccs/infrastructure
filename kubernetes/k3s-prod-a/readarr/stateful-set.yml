@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: readarr
-          image: docker.io/linuxserver/readarr:0.4.4-nightly@sha256:c97e38836da9e8b28f40e2d529f4b336b5187dbd7032ff5d0d58e5fe578e82f7
+          image: docker.io/linuxserver/readarr:0.4.8-nightly@sha256:340fb3140a807a5bc1abf8232863cb6487ce2d9d4b4a8b001137f858c62926b5
           ports:
             - containerPort: 8787
           volumeMounts:
