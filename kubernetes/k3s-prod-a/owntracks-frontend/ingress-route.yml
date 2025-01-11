@@ -2,7 +2,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: owntracks-recorder
+  name: owntracks-frontend
   namespace: owntracks
 spec:
   entryPoints:
@@ -11,9 +11,9 @@ spec:
     - match: Host(`owntracks.l.47fc5c.com`)
       kind: Rule
       services:
-        - name: owntracks-recorder
+        - name: owntracks-frontend
           kind: Service
-          port: 8083
+          port: 80
           scheme: http
   tls:
     secretName: owntracks-certificate

@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: owntracks-frontend
+  namespace: owntracks
+data:
+  PGID: "1000"
+  PUID: "1000"
+  SERVER_HOST: "owntracks-recorder.owntracks.svc.cluster.local"
+  SERVER_PORT: "8083"
+  TZ: "Europe/Rome"

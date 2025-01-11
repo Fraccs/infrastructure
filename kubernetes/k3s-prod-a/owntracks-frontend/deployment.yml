@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: owntracks-frontend
+  namespace: owntracks
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: owntracks-frontend
+  template:
+    metadata:
+      labels:
+        app: owntracks-frontend
+    spec:
+      containers:
+        - name: owntracks-frontend
+          image: docker.io/owntracks/frontend:2.15.3@sha256:45000a65ed59b2d148822dcfa98f1065945bbe38ebbebfe9bf2e43509fce41cc
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: owntracks-frontend
