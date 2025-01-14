@@ -18,6 +18,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
         --tls-san 192.168.1.250 \
         --embedded-registry \
         --etcd-expose-metrics \
+        --disable=local-storage \
         --cluster-init
 ```
 
@@ -29,6 +30,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
         --tls-san 192.168.1.250 \
         --embedded-registry \
         --etcd-expose-metrics \
+        --disable=local-storage \
         --server https://192.168.1.250:6443
 ```
 
@@ -40,6 +42,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
         --tls-san 192.168.1.250 \
         --embedded-registry \
         --etcd-expose-metrics \
+        --disable=local-storage \
         --server https://192.168.1.250:6443
 ```
 
