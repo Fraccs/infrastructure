@@ -6,7 +6,7 @@
 
 | Cluster Name | N. of Nodes | Nodes | Distribution | Version | IngressController |
 | ------------ | ----------- | ----- | ------------ | ------- | ----------------- |
-| `k3s-prod-a` | 3 | `deb-01`,`deb-02`,`deb-03` | [k3s](https://k3s.io/) | `v1.30.6+k3s1` | [traefik](https://doc.traefik.io/traefik) |
+| `k3s-prod-a` | 3 | `deb-01`,`deb-02`,`deb-03` | [k3s](https://k3s.io/) | `v1.30.8+k3s1` | [traefik](https://doc.traefik.io/traefik) |
 
 #### Manual installation
 
@@ -83,6 +83,17 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | sonarr | [docker.io/linuxserver/sonarr](https://hub.docker.com/r/linuxserver/sonarr) | `4.0.12` | `4092d2141b796ef01f3c7b0d3390910fb71a11b2e9acdbd9427aa9a8864d6139` |
 
 ## Useful commands
+
+### k3s
+
+#### Manual upgrade of k3s
+
+> Use the same command that was used for installation and pass the `INSTALL_K3S_VERSION` env variable.
+
+```sh
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=vX.Y.Z+k3s1 sh -s - server \
+        <exact_same_flags_that_were_used_at_installation>
+```
 
 ### Nextcloud
 
