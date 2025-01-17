@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: kube-vip-ds
-    app.kubernetes.io/version: v0.8.8
+    app.kubernetes.io/version: v0.8.9
 spec:
   selector:
     matchLabels:
@@ -15,7 +15,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: kube-vip-ds
-        app.kubernetes.io/version: v0.8.8
+        app.kubernetes.io/version: v0.8.9
     spec:
       serviceAccountName: kube-vip
       hostNetwork: true
@@ -31,7 +31,7 @@ spec:
                   operator: Exists
       containers:
         - name: kube-vip
-          image: ghcr.io/kube-vip/kube-vip:v0.8.8@sha256:5a2d3e8f8a96de429707308673549585bf2db984d1449e1107b4f6ab7129707f
+          image: ghcr.io/kube-vip/kube-vip:v0.8.9@sha256:0b4d9e0f17b00bb7514ab19ea268cec1c80529b4a81931acb5c5729dcf094345
           securityContext:
             capabilities:
               add:
