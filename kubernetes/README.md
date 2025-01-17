@@ -82,7 +82,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | readarr | [docker.io/linuxserver/readarr](https://hub.docker.com/r/linuxserver/readarr) | `0.4.8-nightly` | `340fb3140a807a5bc1abf8232863cb6487ce2d9d4b4a8b001137f858c62926b5` |
 | redis | [docker.io/library/redis](https://hub.docker.com/_/redis) | `7.4.1` | `126cc4da63a39000ce527ae644b880d26608d27d8b7d35b3ee37670f5ee55eea` |
 | romm | [docker.io/rommapp/romm](https://hub.docker.com/r/rommapp/romm) | `3.7.2` | `a8eab796fd0e425cd6fdd177536ac9b82f493c300a7d9fd8a3a519d8ea42044c` |
-| sealed-secrets-controller | [docker.io/bitnami/sealed-secrets-controller](https://hub.docker.com/r/bitnami/sealed-secrets-controller) | `0.27.1` | `18024029150211e677b79d1ed61cc2e6ac7b2cf2479a76fd5a98bb38d29ed06c` |
+| sealed-secrets-controller | [docker.io/bitnami/sealed-secrets-controller](https://hub.docker.com/r/bitnami/sealed-secrets-controller) | `0.28.0` | `e7caa0351663f4c7e6cb531732625e390c163dec7793272ec65d78e5926a5c37` |
 | sonarr | [docker.io/linuxserver/sonarr](https://hub.docker.com/r/linuxserver/sonarr) | `4.0.12` | `4092d2141b796ef01f3c7b0d3390910fb71a11b2e9acdbd9427aa9a8864d6139` |
 
 ## Useful commands
