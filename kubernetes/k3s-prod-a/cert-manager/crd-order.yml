@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/name: 'cert-manager'
     app.kubernetes.io/instance: 'cert-manager'
     app.kubernetes.io/component: "crds"
-    app.kubernetes.io/version: "v1.16.2"
+    app.kubernetes.io/version: "v1.16.3"
 spec:
   group: acme.cert-manager.io
   names:

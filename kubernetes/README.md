@@ -50,9 +50,9 @@ curl -sfL https://get.k3s.io | sh -s - server \
 
 | Application | Container Image | Image Version | Manifest Digest (SHA256) |
 | ----------- | --------------- | ------------- | ------------------- |
-| cert-manager | [quay.io/jetstack/cert-manager-controller](https://quay.io/jetstack/cert-manager-controller) | `v1.16.2` | `de97c3767802e33d3096ad9b276598ceee3ed92a0c67907221581b36c8ad055f` |
-| cert-manager-cainjector | [quay.io/jetstack/cert-manager-cainjector](https://quay.io/jetstack/cert-manager-cainjector) | `v1.16.2` | `0a1f62ea3390a73239c0b4214e0ada1fb89c52d30677aebcdc3ca54508996511` |
-| cert-manager-webhook | [quay.io/jetstack/cert-manager-webhook](https://quay.io/jetstack/cert-manager-webhook) | `v1.16.2` | `25d87dff68f00587a3e76a1e5d530d40b6f0f7872e6d634db01a593047849109` |
+| cert-manager-controller | [quay.io/jetstack/cert-manager-controller](https://quay.io/jetstack/cert-manager-controller) | `v1.16.3` | `17c8f2d46fd16087c9ee92688304b3e38b32cbcb1f5885412e5a35e8852bc029` |
+| cert-manager-cainjector | [quay.io/jetstack/cert-manager-cainjector](https://quay.io/jetstack/cert-manager-cainjector) | `v1.16.3` | `e25e5f62648966d9c442c38ef3004efb60072069d91cf6f1a9a480c16550d09e` |
+| cert-manager-webhook | [quay.io/jetstack/cert-manager-webhook](https://quay.io/jetstack/cert-manager-webhook) | `v1.16.3` | `0eb32021bf2f30d923c439fd79b1b2fd3d8cf877e3c915f8a34c12803138a145` |
 | changedetection.io | [docker.io/linuxserver/changedetection.io](https://hub.docker.com/r/linuxserver/changedetection.io) | `0.48.05` | `9b6a05a7ae2896a746ad9b55a56918b242d1768293c3cdbbdf7d179620514c88` |
 | firefly | [docker.io/fireflyiii/core](https://hub.docker.com/r/fireflyiii/core) | `version-6.1.21` | `68b79eeb4d54060d715f4c3ea1f6e11e633b3446f6cf705034320ed1b9bea935` |
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.2.2` | `bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4` |
