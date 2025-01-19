@@ -1,0 +1,8 @@
+---
+- name: Apply NFS exports
+  hosts: deb-04.l.47fc5c.com
+  become: true
+  roles:
+    - nfs_exports_apply
+  vars:
+    nfs_exports_file_path: "{{ playbook_dir }}/files/exports"

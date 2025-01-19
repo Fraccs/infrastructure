@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Copy the exports file to the target machine
+  ansible.builtin.copy:
+    src: "{{ nfs_exports_file_path }}"
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
+
+- name: Apply the NFS exports
+  ansible.builtin.command: exportfs -a
