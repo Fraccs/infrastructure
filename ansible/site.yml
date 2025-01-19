@@ -1,0 +1,5 @@
+---
+# Execute every playbook
+# - name: Deploy homelab
+#   become: true
+#   hosts: homelab
