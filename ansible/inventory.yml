@@ -1,20 +1,31 @@
+---
 homelab:
   children:
-    hypervisors:
-    vms:
-
-hypervisors:
-  hosts:
-    prox-01.l.47fc5c.com:
-
-vms:
-  children:
-    workers:
+    kubernetes_clusters:
+    # pfsense_clusters:
+    # proxmox_clusters:
+    # truenas_clusters:
   hosts:
     deb-04.l.47fc5c.com:
       ansible_become_pass: "{{ deb_04_sudo_password }}"
 
-workers:
+# pfsense_clusters:
+#   children:
+#     pfsense_it_mi_01:
+#     pfsense_it_mi_02:
+#     pfsense_it_pc_01:
+
+# proxmox_01:
+#   hosts:
+#     node-01.proxmox-01.l.47fc5c.com:
+#     node-02.proxmox-01.l.47fc5c.com:
+#     node-03.proxmox-01.l.47fc5c.com:
+
+# proxmox_clusters:
+#   children:
+#     proxmox_01:
+
+k3s_prod_a_servers:
   hosts:
     deb-01.l.47fc5c.com:
       ansible_become_pass: "{{ deb_01_sudo_password }}"
@@ -22,3 +33,43 @@ workers:
       ansible_become_pass: "{{ deb_02_sudo_password }}"
     deb-03.l.47fc5c.com:
       ansible_become_pass: "{{ deb_03_sudo_password }}"
+
+k3s_prod_a:
+  children:
+    k3s_prod_a_servers:
+
+k3s_clusters:
+  children:
+    k3s_prod_a:
+    # k3s_prod_b:
+    # k3s_test_a:
+    # k3s_stage_a:
+
+# k8s_prod_a_servers:
+#   hosts:
+#     node-01.k8s-prod-a.l.47fc5c.com:
+#     node-02.k8s-prod-a.l.47fc5c.com:
+#     node-03.k8s-prod-a.l.47fc5c.com:
+
+# k8s_prod_a_agents:
+#   hosts:
+#     node-04.k8s-prod-a.l.47fc5c.com:
+#     node-05.k8s-prod-a.l.47fc5c.com:
+
+# k8s_prod_a:
+#   children:
+#     k8s_prod_a_servers:
+#     k8s_prod_a_agents:
+
+# k8s_clusters:
+#   children:
+#     k8s_prod_a:
+
+kubernetes_clusters:
+  children:
+    k3s_clusters:
+    # k8s_clusters:
+
+# truenas_clusters:
+#   children:
+#     truenas_01:
