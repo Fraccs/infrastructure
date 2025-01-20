@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: homeassistant
-          image: docker.io/linuxserver/homeassistant:2025.1.2@sha256:dfc3575a773a19cef0589788dc0fd33a049a6b23e1b186d36215e41c85d28d90
+          image: docker.io/linuxserver/homeassistant:2025.1.3@sha256:5655112a5a16ee4541d422a4003a9ce6a5f55920548a9a927aec4c03b04129ec
           startupProbe:
             httpGet:
               path: /manifest.json
