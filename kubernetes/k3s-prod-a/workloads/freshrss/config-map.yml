@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: freshrss
+  namespace: freshrss
+data:
+  BASE_URL: "https://freshrss.l.47fc5c.com"
+  TZ: "Europe/Rome"
+  TRUSTED_PROXY: "10.42.0.0/16"

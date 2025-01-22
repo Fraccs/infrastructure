@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: freshrss
+  namespace: freshrss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: freshrss
+  template:
+    metadata:
+      labels:
+        app: freshrss
+    spec:
+      containers:
+        - name: freshrss
+          image: docker.io/freshrss/freshrss:1.25.0@sha256:0e780fff57060cb8e0694b371e1dd4b5b8f175c5b662d7da3f34c115d5aa4ff9
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: freshrss-data
+              mountPath: /var/www/FreshRSS/data
+            - name: freshrss-extensions
+              mountPath: /var/www/FreshRSS/extensions
+          envFrom:
+            - configMapRef:
+                name: freshrss
+      volumes:
+        - name: freshrss-data
+          persistentVolumeClaim:
+            claimName: freshrss-data
+        - name: freshrss-extensions
+          persistentVolumeClaim:
+            claimName: freshrss-extensions
