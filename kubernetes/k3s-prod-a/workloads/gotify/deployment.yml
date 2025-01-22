@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotify
+  namespace: gotify
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: gotify
+  template:
+    metadata:
+      labels:
+        app: gotify
+    spec:
+      containers:
+        - name: gotify
+          image: docker.io/gotify/server:2.6.1@sha256:fc6ea284ee82af1fbd3a3cde407fd540bd3ee5407ac440f642de42b803e73b11
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 80
+            failureThreshold: 5
+            periodSeconds: 20
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: gotify-data
+              mountPath: /app/data
+          envFrom:
+            - configMapRef:
+                name: gotify
+            - secretRef:
+                name: gotify
+      volumes:
+        - name: gotify-data
+          persistentVolumeClaim:
+            claimName: gotify-data

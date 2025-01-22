@@ -55,6 +55,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | cert-manager-webhook | [quay.io/jetstack/cert-manager-webhook](https://quay.io/jetstack/cert-manager-webhook) | `v1.16.3` | `0eb32021bf2f30d923c439fd79b1b2fd3d8cf877e3c915f8a34c12803138a145` |
 | changedetection.io | [docker.io/linuxserver/changedetection.io](https://hub.docker.com/r/linuxserver/changedetection.io) | `0.48.05` | `9b6a05a7ae2896a746ad9b55a56918b242d1768293c3cdbbdf7d179620514c88` |
 | firefly | [docker.io/fireflyiii/core](https://hub.docker.com/r/fireflyiii/core) | `version-6.1.21` | `68b79eeb4d54060d715f4c3ea1f6e11e633b3446f6cf705034320ed1b9bea935` |
+| gotify | [docker.io/gotify/server](https://hub.docker.com/r/gotify/server) | `2.6.1` | `fc6ea284ee82af1fbd3a3cde407fd540bd3ee5407ac440f642de42b803e73b11` |
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.2.2` | `bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4` |
 | homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2025.1.3` | `5655112a5a16ee4541d422a4003a9ce6a5f55920548a9a927aec4c03b04129ec` |
 | homepage | [ghcr.io/gethomepage/homepage](https://github.com/gethomepage/homepage/pkgs/container/homepage) | `v0.10.9` | `825395081356da24a5cf250de14498cf0fffe0e9a2a743ac8b7e7fe95040113a` |
