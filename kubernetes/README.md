@@ -58,7 +58,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.2.2` | `bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4` |
 | homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2025.1.3` | `5655112a5a16ee4541d422a4003a9ce6a5f55920548a9a927aec4c03b04129ec` |
 | homepage | [ghcr.io/gethomepage/homepage](https://github.com/gethomepage/homepage/pkgs/container/homepage) | `v0.10.9` | `825395081356da24a5cf250de14498cf0fffe0e9a2a743ac8b7e7fe95040113a` |
-| jellyfin | [docker.io/jellyfin/jellyfin](https://hub.docker.com/r/jellyfin/jellyfin) | `10.9.11` | `efc2f4ebef76f0e8d3ea49c87b4c61c7d8847e496dc1fd5a91ce6652e33c116f` |
+| jellyfin | [docker.io/jellyfin/jellyfin](https://hub.docker.com/r/jellyfin/jellyfin) | `10.10.4` | `6f2d2ed23b29564c93a53de18398e07dedaf3f5ac5428e88bd0afe30f9509309` |
 | kavita | [docker.io/jvmilazz0/kavita](https://hub.docker.com/r/jvmilazz0/kavita) | `0.8.4` | `7f4d5de5f9a5a842a83324429d59730b761dca422b8aa2caf28155aa42996421` |
 | kube-vip | [ghcr.io/kube-vip/kube-vip](https://github.com/kube-vip/kube-vip/pkgs/container/kube-vip) | `v0.8.9` | `0b4d9e0f17b00bb7514ab19ea268cec1c80529b4a81931acb5c5729dcf094345` |
 | lidarr | [docker.io/linuxserver/lidarr](https://hub.docker.com/r/linuxserver/lidarr) | `2.8.2` | `e15772e07979510d40f7300c325a3e14dbe5b9b0cfaac8eefa4f93826809dc02` |
