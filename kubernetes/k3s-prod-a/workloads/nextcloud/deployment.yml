@@ -21,11 +21,11 @@ spec:
     spec:
       containers:
         - name: nextcloud
-          image: docker.io/library/nextcloud:30.0.3@sha256:97bfb8ad50609d7b63fa66e2aceddf13ba35b98f693b8dac8f172b5e262c6f08
+          image: docker.io/library/nextcloud:30.0.5@sha256:765abbfbcd410978e133c89599fd7d80ab33263515147ffcc13a8c4a9dfb25e7
           ports:
             - name: web
               containerPort: 80
-          startupProbe:
+          readinessProbe:
             httpGet:
               path: /status.php
               port: 80
