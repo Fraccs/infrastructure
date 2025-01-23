@@ -14,4 +14,4 @@ spec:
   storageClassName: nfs
   nfs:
     server: deb-04.l.47fc5c.com
-    path: /srv/volumes/k3s-prod-a/homepage/config
+    path: /srv/fast-volumes/k3s-prod-a/homepage/config
