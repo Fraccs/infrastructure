@@ -61,9 +61,9 @@
 /srv/fast-volumes/k3s-prod-a/kavita deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # lidarr
-/srv/volumes/k3s-prod-a/lidarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/lidarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/lidarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/lidarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/lidarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/lidarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # linkding
 /srv/volumes/k3s-prod-a/linkding deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
@@ -111,9 +111,9 @@
 /srv/volumes/k3s-prod-a/prometheus deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # prowlarr
-/srv/volumes/k3s-prod-a/prowlarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/prowlarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/prowlarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/prowlarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/prowlarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/prowlarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # qbittorrent
 /srv/volumes/k3s-prod-a/qbittorrent deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
@@ -121,14 +121,14 @@
 /srv/volumes/k3s-prod-a/qbittorrent deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # radarr
-/srv/volumes/k3s-prod-a/radarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/radarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/radarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/radarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/radarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/radarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # readarr
-/srv/volumes/k3s-prod-a/readarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/readarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/readarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/readarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/readarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/readarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # romm
 /srv/volumes/k3s-prod-a/romm deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
@@ -136,9 +136,9 @@
 /srv/volumes/k3s-prod-a/romm deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # sonarr
-/srv/volumes/k3s-prod-a/sonarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/sonarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/sonarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/sonarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/sonarr deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/sonarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # syncthing
 /srv/volumes/k3s-prod-a/syncthing deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
