@@ -86,9 +86,9 @@
 /srv/fast-volumes/k3s-prod-a/navidrome deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # nextcloud
-/srv/volumes/k3s-prod-a/nextcloud deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/nextcloud deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/nextcloud deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/nextcloud deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/nextcloud deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/nextcloud deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # owntracks
 /srv/fast-volumes/k3s-prod-a/owntracks deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)

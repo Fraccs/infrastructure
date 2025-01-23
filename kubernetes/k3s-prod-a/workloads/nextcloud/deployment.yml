@@ -10,7 +10,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: nextcloud
@@ -25,12 +25,12 @@ spec:
           ports:
             - name: web
               containerPort: 80
-          # startupProbe: # returns a 400 to kube-probe
-          #   httpGet:
-          #     path: /status.php
-          #     port: 80
-          #   failureThreshold: 5
-          #   periodSeconds: 20
+          startupProbe:
+            httpGet:
+              path: /status.php
+              port: 80
+            failureThreshold: 3
+            periodSeconds: 5
           volumeMounts:
             - name: nextcloud-data
               mountPath: /var/www/html
