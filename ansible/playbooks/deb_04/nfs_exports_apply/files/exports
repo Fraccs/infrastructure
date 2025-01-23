@@ -96,9 +96,9 @@
 /srv/fast-volumes/k3s-prod-a/owntracks deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # pihole
-/srv/volumes/k3s-prod-a/pihole deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/pihole deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/pihole deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/pihole deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/pihole deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/pihole deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # postgres
 /srv/fast-volumes/k3s-prod-a/postgres deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)

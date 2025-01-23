@@ -30,19 +30,18 @@ spec:
             - containerPort: 80
             - containerPort: 53
           volumeMounts:
-            - name: pihole-data
+            - name: pihole
               mountPath: /etc/pihole
-            - name: pihole-dnsmasq
+              subPath: etc-pihole/
+            - name: pihole
               mountPath: /etc/dnsmasq.d
+              subPath: etc-dnsmasq.d/
           envFrom:
             - configMapRef:
                 name: pihole
             - secretRef:
                 name: pihole
       volumes:
-        - name: pihole-data
+        - name: pihole
           persistentVolumeClaim:
-            claimName: pihole-data
-        - name: pihole-dnsmasq
-          persistentVolumeClaim:
-            claimName: pihole-dnsmasq
+            claimName: pihole

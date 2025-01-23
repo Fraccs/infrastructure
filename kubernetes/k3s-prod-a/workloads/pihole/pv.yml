@@ -2,16 +2,16 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pihole-dnsmasq
+  name: pihole
 spec:
   capacity:
-    storage: 1Mi
+    storage: 2Gi
   accessModes:
     - ReadWriteMany
   claimRef:
-    name: pihole-dnsmasq
+    name: pihole
     namespace: pihole
   storageClassName: nfs
   nfs:
     server: deb-04.l.47fc5c.com
-    path: /srv/volumes/k3s-prod-a/pihole/etc-dnsmasq.d
+    path: /srv/fast-volumes/k3s-prod-a/pihole
