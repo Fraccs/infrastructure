@@ -36,9 +36,9 @@
 /srv/volumes/generic/shows deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
 
 # grafana
-/srv/volumes/k3s-prod-a/grafana deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
-/srv/volumes/k3s-prod-a/grafana deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
-/srv/volumes/k3s-prod-a/grafana deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/fast-volumes/k3s-prod-a/grafana deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/fast-volumes/k3s-prod-a/grafana deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
+/srv/fast-volumes/k3s-prod-a/grafana deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
 
 # homeassistant
 /srv/fast-volumes/k3s-prod-a/homeassistant deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
