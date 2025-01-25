@@ -20,6 +20,11 @@
 /srv/volumes/generic/downloads deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/volumes/generic/downloads deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
+# generic/gallery
+/srv/volumes/generic/gallery deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/generic/gallery deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/generic/gallery deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # generic/movies
 /srv/volumes/generic/movies deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/movies deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
@@ -54,6 +59,11 @@
 /srv/fast-volumes/k3s-prod-a/homepage deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/fast-volumes/k3s-prod-a/homepage deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 /srv/fast-volumes/k3s-prod-a/homepage deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
+# immich
+/srv/fast-volumes/k3s-prod-a/immich deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/immich deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/immich deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # jellyfin
 /srv/fast-volumes/k3s-prod-a/jellyfin deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)

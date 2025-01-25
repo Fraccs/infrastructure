@@ -60,6 +60,9 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.2.2` | `bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4` |
 | homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2025.1.3` | `5655112a5a16ee4541d422a4003a9ce6a5f55920548a9a927aec4c03b04129ec` |
 | homepage | [ghcr.io/gethomepage/homepage](https://github.com/gethomepage/homepage/pkgs/container/homepage) | `v0.10.9` | `825395081356da24a5cf250de14498cf0fffe0e9a2a743ac8b7e7fe95040113a` |
+| immich-machine-learning | [ghcr.io/immich-app/immich-machine-learning](https://github.com/immich-app/immich/pkgs/container/immich-machine-learning) | `v1.124.2` | `397673b786ceb06d3fba848e2fc5ba8cd8a42351e9bd15eb439662da405a7918` |
+| immich-pgvectors | [docker.io/tensorchord/pgvecto-rs](https://hub.docker.com/r/tensorchord/pgvecto-rs) | `pg14-v0.2.0` | `90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0` |
+| immich-server | [ghcr.io/immich-app/immich-server](https://github.com/immich-app/immich/pkgs/container/immich-server) | `v1.124.2` | `b3fdb7fd96ac1d6cd40d3810dc54afa656b1097401a7c819e0c55aee68b39ee3` |
 | jellyfin | [docker.io/jellyfin/jellyfin](https://hub.docker.com/r/jellyfin/jellyfin) | `10.10.4` | `6f2d2ed23b29564c93a53de18398e07dedaf3f5ac5428e88bd0afe30f9509309` |
 | kavita | [docker.io/jvmilazz0/kavita](https://hub.docker.com/r/jvmilazz0/kavita) | `0.8.4` | `7f4d5de5f9a5a842a83324429d59730b761dca422b8aa2caf28155aa42996421` |
 | kube-vip | [ghcr.io/kube-vip/kube-vip](https://github.com/kube-vip/kube-vip/pkgs/container/kube-vip) | `v0.8.9` | `0b4d9e0f17b00bb7514ab19ea268cec1c80529b4a81931acb5c5729dcf094345` |

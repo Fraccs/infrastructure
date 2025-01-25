@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-server
+  namespace: immich
+data:
+  DB_DATABASE_NAME: "immich"
+  DB_HOSTNAME: "immich-pgvectors.immich.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_USERNAME: "immich"
+  IMMICH_TELEMETRY_INCLUDE: "all"
+  IMMICH_TRUSTED_PROXIES: "10.42.0.0/16"
+  REDIS_DBINDEX: "1"
+  REDIS_HOSTNAME: "redis.redis.svc.cluster.local"
+  REDIS_PORT: "6379"
+  TZ: "Europe/Rome"

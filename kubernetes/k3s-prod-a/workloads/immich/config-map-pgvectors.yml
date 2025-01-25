@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-pgvectors
+  namespace: immich
+data:
+  POSTGRES_DB: "immich"
+  POSTGRES_INITDB_ARGS: "--data-checksums"
+  POSTGRES_USER: "immich"

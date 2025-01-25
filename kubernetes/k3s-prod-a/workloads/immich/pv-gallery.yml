@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-gallery
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    name: immich-gallery
+    namespace: immich
+  storageClassName: nfs
+  nfs:
+    server: deb-04.l.47fc5c.com
+    path: /srv/volumes/generic/gallery

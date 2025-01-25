@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: immich-server
+  namespace: immich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-server
+  template:
+    metadata:
+      labels:
+        app: immich-server
+    spec:
+      containers:
+        - name: immich-server
+          image: ghcr.io/immich-app/immich-server:v1.124.2@sha256:b3fdb7fd96ac1d6cd40d3810dc54afa656b1097401a7c819e0c55aee68b39ee3
+          ports:
+            - containerPort: 2283
+          volumeMounts:
+            - name: immich-server-data
+              mountPath: /usr/src/app/upload
+            - name: immich-gallery
+              mountPath: /usr/src/app/upload/library
+          envFrom:
+            - configMapRef:
+                name: immich-server
+            - secretRef:
+                name: immich-server
+      volumes:
+        - name: immich-server-data
+          persistentVolumeClaim:
+            claimName: immich-server-data
+        - name: immich-gallery
+          persistentVolumeClaim:
+            claimName: immich-gallery

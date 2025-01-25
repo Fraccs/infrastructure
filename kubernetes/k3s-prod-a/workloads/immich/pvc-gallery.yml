@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-gallery
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: immich-gallery
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 100Gi

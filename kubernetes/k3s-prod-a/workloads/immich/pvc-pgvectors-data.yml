@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-pgvectors-data
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: immich-pgvectors-data
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 2Gi

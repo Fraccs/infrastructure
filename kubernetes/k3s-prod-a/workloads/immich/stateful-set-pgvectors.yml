@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: immich-pgvectors
+  namespace: immich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-pgvectors
+  template:
+    metadata:
+      labels:
+        app: immich-pgvectors
+    spec:
+      containers:
+        - name: immich-pgvectors
+          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: immich-pgvectors-data
+              mountPath: /var/lib/postgresql/data
+          envFrom:
+            - configMapRef:
+                name: immich-pgvectors
+            - secretRef:
+                name: immich-pgvectors
+      volumes:
+        - name: immich-pgvectors-data
+          persistentVolumeClaim:
+            claimName: immich-pgvectors-data
