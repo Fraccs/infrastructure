@@ -15,6 +15,11 @@
 /srv/volumes/generic/books deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/books deb-03.l.47fc5c.com(rw,sync,no_subtree_check)
 
+# generic/downloads
+/srv/volumes/generic/downloads deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/generic/downloads deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/volumes/generic/downloads deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+
 # generic/movies
 /srv/volumes/generic/movies deb-01.l.47fc5c.com(rw,sync,no_subtree_check)
 /srv/volumes/generic/movies deb-02.l.47fc5c.com(rw,sync,no_subtree_check)
@@ -116,9 +121,9 @@
 /srv/fast-volumes/k3s-prod-a/prowlarr deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # qbittorrent
-/srv/volumes/k3s-prod-a/qbittorrent deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/qbittorrent deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
-/srv/volumes/k3s-prod-a/qbittorrent deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/qbittorrent deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/qbittorrent deb-02.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
+/srv/fast-volumes/k3s-prod-a/qbittorrent deb-03.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
 
 # radarr
 /srv/fast-volumes/k3s-prod-a/radarr deb-01.l.47fc5c.com(rw,sync,no_subtree_check,no_root_squash)
