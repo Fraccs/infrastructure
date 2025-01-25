@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
     name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
   dnsNames:
-    - kavita.l.47fc5c.com
+    - kavita.47fc5c.com

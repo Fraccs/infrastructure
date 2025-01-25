@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
     name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
   dnsNames:
-    - linkding.l.47fc5c.com
+    - linkding.47fc5c.com

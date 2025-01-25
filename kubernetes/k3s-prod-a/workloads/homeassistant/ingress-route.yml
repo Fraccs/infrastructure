@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`homeassistant.l.47fc5c.com`)
+    - match: Host(`homeassistant.47fc5c.com`)
       kind: Rule
       services:
         - name: homeassistant

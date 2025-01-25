@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`gotify.l.47fc5c.com`)
+    - match: Host(`gotify.47fc5c.com`)
       kind: Rule
       services:
         - name: gotify

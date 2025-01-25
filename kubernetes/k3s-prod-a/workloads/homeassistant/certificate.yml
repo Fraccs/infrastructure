@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
     name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
   dnsNames:
-    - homeassistant.l.47fc5c.com
+    - homeassistant.47fc5c.com

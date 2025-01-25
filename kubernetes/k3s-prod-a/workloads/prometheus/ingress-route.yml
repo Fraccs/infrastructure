@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`prometheus.l.47fc5c.com`)
+    - match: Host(`prometheus.47fc5c.com`)
       kind: Rule
       services:
         - name: prometheus

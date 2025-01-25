@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
     name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
   dnsNames:
-    - pihole.l.47fc5c.com
+    - pihole.47fc5c.com

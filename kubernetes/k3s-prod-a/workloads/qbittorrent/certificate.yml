@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
     name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
   dnsNames:
-    - qbittorrent.l.47fc5c.com
+    - qbittorrent.47fc5c.com

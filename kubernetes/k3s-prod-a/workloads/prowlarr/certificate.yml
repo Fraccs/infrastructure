@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
     name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
   dnsNames:
-    - prowlarr.l.47fc5c.com
+    - prowlarr.47fc5c.com

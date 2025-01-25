@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`cdio.l.47fc5c.com`)
+    - match: Host(`cdio.47fc5c.com`)
       kind: Rule
       services:
         - name: cdio

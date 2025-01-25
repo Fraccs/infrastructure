@@ -12,7 +12,7 @@ data:
       - job_name: 'navidrome'
         static_configs:
           - targets:
-            - navidrome.l.47fc5c.com:443
+            - navidrome.47fc5c.com:443
         scheme: https
       - job_name: 'node-exporter'
         static_configs:

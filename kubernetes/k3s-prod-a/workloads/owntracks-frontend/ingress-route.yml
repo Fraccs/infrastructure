@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`owntracks.l.47fc5c.com`)
+    - match: Host(`owntracks.47fc5c.com`)
       kind: Rule
       services:
         - name: owntracks-frontend
