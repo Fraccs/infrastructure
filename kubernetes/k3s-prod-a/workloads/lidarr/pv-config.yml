@@ -13,5 +13,5 @@ spec:
     namespace: torrenting
   storageClassName: nfs
   nfs:
-    server: deb-04.l.47fc5c.com
+    server: nfs.47fc5c.com
     path: /srv/fast-volumes/k3s-prod-a/lidarr/config
