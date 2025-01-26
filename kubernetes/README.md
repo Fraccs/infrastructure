@@ -80,7 +80,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | pihole | [docker.io/pihole/pihole](https://hub.docker.com/r/pihole/pihole) | `2024.07.0` | `e53305e9e00d7ac283763ca9f323cc95a47d0113a1e02eb9c6849f309d6202dd` |
 | postgres | [docker.io/library/postgres](https://hub.docker.com/_/postgres) | `14.15` | `f104f501cd403abdc56cd17fab81fad0b15754e8dce818e20300a17a3628700f` |
 | prometheus | [docker.io/prom/prometheus](https://hub.docker.com/r/prom/prometheus) | `v2.54.1` | `69961df6ffa67598048a31aa2822d61f3c93b91d7db24e44d9bb03f99d520da9` |
-| prowlarr | [docker.io/linuxserver/prowlarr](https://hub.docker.com/r/linuxserver/prowlarr) | `1.29.2` | `a6402bbab8f83d5d4ae2ef457177eb345a5148b824c5c9a11959efc5bbb47687` |
+| prowlarr | [docker.io/linuxserver/prowlarr](https://hub.docker.com/r/linuxserver/prowlarr) | `1.30.2` | `a8f6136e9b40016a5585a169f05884efc74d999b594421aefeed73d4ad57bc4c` |
 | qbittorrent | [docker.io/linuxserver/qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent) | `5.0.0` | `758c19794b7da7f6c39d9d35d4b07693dac41e0f727b7622fce116ee79375e5c` |
 | radarr | [docker.io/linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr) | `5.17.2` | `03f527a304676d75350fa0c013c13e42668c4d36cc00639a4ad9a1ff558f923c` |
 | readarr | [docker.io/linuxserver/readarr](https://hub.docker.com/r/linuxserver/readarr) | `0.4.10-nightly` | `59fc952ec6aa2d7b5070672d86e5554f7649aae545526c8d1d6f5a82b2a270c2` |
