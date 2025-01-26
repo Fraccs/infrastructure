@@ -6,7 +6,7 @@ homelab:
     # proxmox_clusters:
     # truenas_clusters:
   hosts:
-    deb-04.l.47fc5c.com:
+    deb-04.47fc5c.com:
       ansible_become_pass: "{{ deb_04_sudo_password }}"
 
 # pfsense_clusters:
@@ -17,9 +17,9 @@ homelab:
 
 # proxmox_01:
 #   hosts:
-#     node-01.proxmox-01.l.47fc5c.com:
-#     node-02.proxmox-01.l.47fc5c.com:
-#     node-03.proxmox-01.l.47fc5c.com:
+#     node-01.proxmox-01.47fc5c.com:
+#     node-02.proxmox-01.47fc5c.com:
+#     node-03.proxmox-01.47fc5c.com:
 
 # proxmox_clusters:
 #   children:
@@ -27,12 +27,12 @@ homelab:
 
 k3s_prod_a_servers:
   hosts:
-    deb-01.l.47fc5c.com:
-      ansible_become_pass: "{{ deb_01_sudo_password }}"
-    deb-02.l.47fc5c.com:
-      ansible_become_pass: "{{ deb_02_sudo_password }}"
-    deb-03.l.47fc5c.com:
-      ansible_become_pass: "{{ deb_03_sudo_password }}"
+    node-01.k3s-prod-a.47fc5c.com:
+      ansible_become_pass: "{{ node_01_k3s_prod_a_sudo_password }}"
+    node-02.k3s-prod-a.47fc5c.com:
+      ansible_become_pass: "{{ node_02_k3s_prod_a_sudo_password }}"
+    node-03.k3s-prod-a.47fc5c.com:
+      ansible_become_pass: "{{ node_03_k3s_prod_a_sudo_password }}"
 
 k3s_prod_a:
   children:
@@ -47,14 +47,14 @@ k3s_clusters:
 
 # k8s_prod_a_servers:
 #   hosts:
-#     node-01.k8s-prod-a.l.47fc5c.com:
-#     node-02.k8s-prod-a.l.47fc5c.com:
-#     node-03.k8s-prod-a.l.47fc5c.com:
+#     node-01.k8s-prod-a.47fc5c.com:
+#     node-02.k8s-prod-a.47fc5c.com:
+#     node-03.k8s-prod-a.47fc5c.com:
 
 # k8s_prod_a_agents:
 #   hosts:
-#     node-04.k8s-prod-a.l.47fc5c.com:
-#     node-05.k8s-prod-a.l.47fc5c.com:
+#     node-04.k8s-prod-a.47fc5c.com:
+#     node-05.k8s-prod-a.47fc5c.com:
 
 # k8s_prod_a:
 #   children:
