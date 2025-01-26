@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: jellyfin
-          image: docker.io/jellyfin/jellyfin:10.10.4@sha256:6f2d2ed23b29564c93a53de18398e07dedaf3f5ac5428e88bd0afe30f9509309
+          image: docker.io/jellyfin/jellyfin:10.10.5@sha256:0ff2f1533e53e7811a04e6cfaf38ce5f467079271e7ed6155bdf36b60423095b
           startupProbe:
             httpGet:
               path: /health
