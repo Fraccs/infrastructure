@@ -17,8 +17,8 @@ data:
       - job_name: 'node-exporter'
         static_configs:
           - targets:
-            - nodex.deb-04.l.47fc5c.com:443
-            - nodex.pfsense.l.47fc5c.com:443
+            - nodex.deb-04.47fc5c.com:443
+            - nodex.pfsense.47fc5c.com:443
         scheme: https
       - job_name: 'node-exporter-k3s-prod-a-nodes'
         kubernetes_sd_configs:
