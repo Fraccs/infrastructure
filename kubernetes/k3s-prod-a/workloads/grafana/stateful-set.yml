@@ -19,7 +19,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: grafana
-          image: docker.io/grafana/grafana-oss:11.2.2@sha256:bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4
+          image: docker.io/grafana/grafana-oss:11.5.0@sha256:58aeabeae706b990b3b1fc5ae8c97fd131921b2d6eb26a137ebaa91689d6ebfe
           startupProbe:
             httpGet:
               path: /api/health
