@@ -60,9 +60,9 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.2.2` | `bc4bf0f6981764044ec565fac1c85c53d947be3a9bd2300824a243e87412cce4` |
 | homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2025.1.4` | `8a3d58bbfe3f75ed7330722ef59ace7935da6b7f9791542186997986570281e7` |
 | homepage | [ghcr.io/gethomepage/homepage](https://github.com/gethomepage/homepage/pkgs/container/homepage) | `v0.10.9` | `825395081356da24a5cf250de14498cf0fffe0e9a2a743ac8b7e7fe95040113a` |
-| immich-machine-learning | [ghcr.io/immich-app/immich-machine-learning](https://github.com/immich-app/immich/pkgs/container/immich-machine-learning) | `v1.125.3` | `6f5cce23383f057438fc9214a42f0f9528e3a736f4a9745cd3eecd887074cb7d` |
+| immich-machine-learning | [ghcr.io/immich-app/immich-machine-learning](https://github.com/immich-app/immich/pkgs/container/immich-machine-learning) | `v1.125.6` | `fd374624062244ed947ca9f89cf76aad04f71d3ea321ffb63690bc820fecd8c8` |
 | immich-pgvectors | [docker.io/tensorchord/pgvecto-rs](https://hub.docker.com/r/tensorchord/pgvecto-rs) | `pg14-v0.2.0` | `90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0` |
-| immich-server | [ghcr.io/immich-app/immich-server](https://github.com/immich-app/immich/pkgs/container/immich-server) | `v1.125.3` | `436ebe8fd4010e4a2d8ebcdb9bd43e1b1280f3d95434a6fd46ec01105532c223` |
+| immich-server | [ghcr.io/immich-app/immich-server](https://github.com/immich-app/immich/pkgs/container/immich-server) | `v1.125.6` | `d03b72a5033009d450c99316e2a0190a65d63d98fefd493273b37af91f5c66ee` |
 | jellyfin | [docker.io/jellyfin/jellyfin](https://hub.docker.com/r/jellyfin/jellyfin) | `10.10.5` | `0ff2f1533e53e7811a04e6cfaf38ce5f467079271e7ed6155bdf36b60423095b` |
 | kavita | [docker.io/jvmilazz0/kavita](https://hub.docker.com/r/jvmilazz0/kavita) | `0.8.4` | `7f4d5de5f9a5a842a83324429d59730b761dca422b8aa2caf28155aa42996421` |
 | kube-vip | [ghcr.io/kube-vip/kube-vip](https://github.com/kube-vip/kube-vip/pkgs/container/kube-vip) | `v0.8.9` | `0b4d9e0f17b00bb7514ab19ea268cec1c80529b4a81931acb5c5729dcf094345` |
