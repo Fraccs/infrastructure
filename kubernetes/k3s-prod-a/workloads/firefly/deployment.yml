@@ -10,7 +10,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: firefly
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: firefly
-          image: docker.io/fireflyiii/core:version-6.1.21@sha256:68b79eeb4d54060d715f4c3ea1f6e11e633b3446f6cf705034320ed1b9bea935
+          image: docker.io/fireflyiii/core:version-6.2.0@sha256:64f2395ab115d35d0c3f9980a6cceb7609dd257ce904b8e7da6043a40e361df3
           startupProbe:
             httpGet:
               path: /health
