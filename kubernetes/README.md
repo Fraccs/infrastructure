@@ -54,7 +54,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | cert-manager-cainjector | [quay.io/jetstack/cert-manager-cainjector](https://quay.io/jetstack/cert-manager-cainjector) | `v1.16.3` | `e25e5f62648966d9c442c38ef3004efb60072069d91cf6f1a9a480c16550d09e` |
 | cert-manager-webhook | [quay.io/jetstack/cert-manager-webhook](https://quay.io/jetstack/cert-manager-webhook) | `v1.16.3` | `0eb32021bf2f30d923c439fd79b1b2fd3d8cf877e3c915f8a34c12803138a145` |
 | changedetection.io | [docker.io/linuxserver/changedetection.io](https://hub.docker.com/r/linuxserver/changedetection.io) | `0.49.0` | `1502a132c0259aa75b2043cfb39ba37f09d4558bce52936795832f846c56d014` |
-| firefly | [docker.io/fireflyiii/core](https://hub.docker.com/r/fireflyiii/core) | `version-6.2.0` | `64f2395ab115d35d0c3f9980a6cceb7609dd257ce904b8e7da6043a40e361df3` |
+| firefly | [docker.io/fireflyiii/core](https://hub.docker.com/r/fireflyiii/core) | `version-6.2.2` | `adfe71e32f5bf36b948216b8d2fb974b6b4538ef6e0ca0d36648de0eccd2c868` |
 | freshrss | [docker.io/freshrss/freshrss](https://hub.docker.com/r/freshrss/freshrss) | `1.25.0` | `0e780fff57060cb8e0694b371e1dd4b5b8f175c5b662d7da3f34c115d5aa4ff9` |
 | gotify | [docker.io/gotify/server](https://hub.docker.com/r/gotify/server) | `2.6.1` | `fc6ea284ee82af1fbd3a3cde407fd540bd3ee5407ac440f642de42b803e73b11` |
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.5.0` | `58aeabeae706b990b3b1fc5ae8c97fd131921b2d6eb26a137ebaa91689d6ebfe` |
