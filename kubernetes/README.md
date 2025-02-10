@@ -58,7 +58,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | freshrss | [docker.io/freshrss/freshrss](https://hub.docker.com/r/freshrss/freshrss) | `1.25.0` | `0e780fff57060cb8e0694b371e1dd4b5b8f175c5b662d7da3f34c115d5aa4ff9` |
 | gotify | [docker.io/gotify/server](https://hub.docker.com/r/gotify/server) | `2.6.1` | `fc6ea284ee82af1fbd3a3cde407fd540bd3ee5407ac440f642de42b803e73b11` |
 | grafana | [docker.io/grafana/grafana-oss](https://hub.docker.com/r/grafana/grafana-oss) | `11.5.1` | `3d6742db32ccf46d1c4223697bc4beaeb50a363f0abc8395454a6a365b963d76` |
-| homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2025.2.0` | `019ac3cec2007526f781e2ca07a7f5a367f2856e31ca63ffb5019c1714596e2b` |
+| homeassistant | [docker.io/linuxserver/homeassistant](https://hub.docker.com/r/linuxserver/homeassistant) | `2025.2.1` | `67eb823f51d042bf49ded51213f497baf4abab5fbf5d4f68364930abd7bf8911` |
 | homepage | [ghcr.io/gethomepage/homepage](https://github.com/gethomepage/homepage/pkgs/container/homepage) | `v0.10.9` | `825395081356da24a5cf250de14498cf0fffe0e9a2a743ac8b7e7fe95040113a` |
 | immich-machine-learning | [ghcr.io/immich-app/immich-machine-learning](https://github.com/immich-app/immich/pkgs/container/immich-machine-learning) | `v1.125.7` | `982bbc55eff67a8ccb74282e8ba3faeb8eb7423dfa9ebde8b262cd09e0367a35` |
 | immich-pgvectors | [docker.io/tensorchord/pgvecto-rs](https://hub.docker.com/r/tensorchord/pgvecto-rs) | `pg14-v0.2.0` | `90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0` |
