@@ -82,7 +82,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | prometheus | [docker.io/prom/prometheus](https://hub.docker.com/r/prom/prometheus) | `v2.54.1` | `69961df6ffa67598048a31aa2822d61f3c93b91d7db24e44d9bb03f99d520da9` |
 | prowlarr | [docker.io/linuxserver/prowlarr](https://hub.docker.com/r/linuxserver/prowlarr) | `1.30.2` | `a8f6136e9b40016a5585a169f05884efc74d999b594421aefeed73d4ad57bc4c` |
 | qbittorrent | [docker.io/linuxserver/qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent) | `5.0.0` | `758c19794b7da7f6c39d9d35d4b07693dac41e0f727b7622fce116ee79375e5c` |
-| radarr | [docker.io/linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr) | `5.17.2` | `03f527a304676d75350fa0c013c13e42668c4d36cc00639a4ad9a1ff558f923c` |
+| radarr | [docker.io/linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr) | `5.18.4` | `06551a0e67bd46d857434f6a695adb9104819376b6dff19e64402384935dcd36` |
 | readarr | [docker.io/linuxserver/readarr](https://hub.docker.com/r/linuxserver/readarr) | `0.4.10-nightly` | `59fc952ec6aa2d7b5070672d86e5554f7649aae545526c8d1d6f5a82b2a270c2` |
 | redis | [docker.io/library/redis](https://hub.docker.com/_/redis) | `7.4.1` | `126cc4da63a39000ce527ae644b880d26608d27d8b7d35b3ee37670f5ee55eea` |
 | romm | [docker.io/rommapp/romm](https://hub.docker.com/r/rommapp/romm) | `3.7.3` | `61bc20fca829c71946639323204dc6059fbf570db3cd6e17afb5b11631dc33a6` |
