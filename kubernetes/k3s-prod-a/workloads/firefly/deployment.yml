@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: firefly
-          image: docker.io/fireflyiii/core:version-6.2.4@sha256:50e918dccae7680d3bf811a77b0f6c84e1069174fb0a35b77593ef4867fc7726
+          image: docker.io/fireflyiii/core:version-6.2.5@sha256:b54629671aa2727eb82c94115ab6301015af59a054cc7149f5aefed44bf05f68
           startupProbe:
             httpGet:
               path: /health
