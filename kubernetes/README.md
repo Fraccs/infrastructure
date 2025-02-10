@@ -53,7 +53,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | cert-manager-controller | [quay.io/jetstack/cert-manager-controller](https://quay.io/jetstack/cert-manager-controller) | `v1.16.3` | `17c8f2d46fd16087c9ee92688304b3e38b32cbcb1f5885412e5a35e8852bc029` |
 | cert-manager-cainjector | [quay.io/jetstack/cert-manager-cainjector](https://quay.io/jetstack/cert-manager-cainjector) | `v1.16.3` | `e25e5f62648966d9c442c38ef3004efb60072069d91cf6f1a9a480c16550d09e` |
 | cert-manager-webhook | [quay.io/jetstack/cert-manager-webhook](https://quay.io/jetstack/cert-manager-webhook) | `v1.16.3` | `0eb32021bf2f30d923c439fd79b1b2fd3d8cf877e3c915f8a34c12803138a145` |
-| changedetection.io | [docker.io/linuxserver/changedetection.io](https://hub.docker.com/r/linuxserver/changedetection.io) | `0.49.0` | `1502a132c0259aa75b2043cfb39ba37f09d4558bce52936795832f846c56d014` |
+| changedetection.io | [docker.io/linuxserver/changedetection.io](https://hub.docker.com/r/linuxserver/changedetection.io) | `0.49.1` | `ebde8a7310c1fb9f96f643475a0ba09c90036b786c1291f6d09656baa71785d5` |
 | firefly | [docker.io/fireflyiii/core](https://hub.docker.com/r/fireflyiii/core) | `version-6.2.5` | `b54629671aa2727eb82c94115ab6301015af59a054cc7149f5aefed44bf05f68` |
 | freshrss | [docker.io/freshrss/freshrss](https://hub.docker.com/r/freshrss/freshrss) | `1.25.0` | `0e780fff57060cb8e0694b371e1dd4b5b8f175c5b662d7da3f34c115d5aa4ff9` |
 | gotify | [docker.io/gotify/server](https://hub.docker.com/r/gotify/server) | `2.6.1` | `fc6ea284ee82af1fbd3a3cde407fd540bd3ee5407ac440f642de42b803e73b11` |
