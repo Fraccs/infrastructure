@@ -1,6 +1,6 @@
 ---
 - name: Apply NFS exports
-  hosts: deb-04.l.47fc5c.com
+  hosts: deb-04.47fc5c.com
   become: true
   roles:
     - nfs_exports_apply
