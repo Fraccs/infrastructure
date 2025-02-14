@@ -6,7 +6,7 @@
 
 | Cluster Name | N. of Nodes | Nodes | Distribution | Version | IngressController |
 | ------------ | ----------- | ----- | ------------ | ------- | ----------------- |
-| `k3s-prod-a` | 3 | `deb-01`,`deb-02`,`deb-03` | [k3s](https://k3s.io/) | `v1.32.0+k3s1` | [traefik](https://doc.traefik.io/traefik) |
+| `k3s-prod-a` | 3 | `deb-01`,`deb-02`,`deb-03` | [k3s](https://k3s.io/) | `v1.32.1+k3s1` | [traefik](https://doc.traefik.io/traefik) |
 
 #### Manual installation
 
