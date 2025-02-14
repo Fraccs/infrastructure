@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: gotify
-          image: docker.io/gotify/server:2.6.1@sha256:fc6ea284ee82af1fbd3a3cde407fd540bd3ee5407ac440f642de42b803e73b11
+          image: docker.io/gotify/server:2.6.1@sha256:04f4c4bb7cdde8c84e5a89d1287bd1f766c02c1cd477dc01c47acae80bff3c77
           startupProbe:
             httpGet:
               path: /health
