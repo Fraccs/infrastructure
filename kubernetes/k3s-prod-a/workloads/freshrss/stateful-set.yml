@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: freshrss
-          image: docker.io/freshrss/freshrss:1.25.0@sha256:0e780fff57060cb8e0694b371e1dd4b5b8f175c5b662d7da3f34c115d5aa4ff9
+          image: docker.io/freshrss/freshrss:1.25.0@sha256:e7897e90c1e0ab4a68cb643ff509dec4e3b85bbe42e2688ed9f95eb190bcb2b1
           ports:
             - containerPort: 80
           volumeMounts:
