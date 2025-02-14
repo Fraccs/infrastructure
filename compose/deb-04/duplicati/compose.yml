@@ -1,7 +1,7 @@
 ---
 services:
   duplicati:
-    image: docker.io/duplicati/duplicati:2.0.8.1_beta_2024-05-07@sha256:0ffff717b1465022c436afa409291c44fb55c601f7ad556b76db6932f3afbdcf
+    image: docker.io/duplicati/duplicati:2.0.8.1_beta_2024-05-07@sha256:97b8ef7bcaa095793ef9f39049851f987860a8c832aaf67ef977ff398f9e996e
     container_name: duplicati
     restart: unless-stopped
     ports:
