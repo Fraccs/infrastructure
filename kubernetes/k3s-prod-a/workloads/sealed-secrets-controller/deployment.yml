@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: sealed-secrets-controller
-          image: docker.io/bitnami/sealed-secrets-controller:0.28.0@sha256:e7caa0351663f4c7e6cb531732625e390c163dec7793272ec65d78e5926a5c37
+          image: docker.io/bitnami/sealed-secrets-controller:0.28.0@sha256:8fecbbd6db6838b8754def3d850a2de8189ee96dfee61d6ed0c2424739771bd7
           startupProbe:
             httpGet:
               path: /healthz
