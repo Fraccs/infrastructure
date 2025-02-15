@@ -1,7 +1,7 @@
 ---
 services:
   node-exporter:
-    image: docker.io/prom/node-exporter:v1.8.2@sha256:065914c03336590ebed517e7df38520f0efb44465fde4123c3f6b7328f5a9396
+    image: docker.io/prom/node-exporter:v1.8.2@sha256:4032c6d5bfd752342c3e631c2f1de93ba6b86c41db6b167b9a35372c139e7706
     container_name: node-exporter
     restart: unless-stopped
     ports:
