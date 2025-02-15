@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: linkding
-          image: docker.io/sissbruecker/linkding:1.38.0@sha256:469404bee8e6dcfea8f68e4f9d790afd0b5be05bc0f734ce9b9a6fdddc4c57f5
+          image: docker.io/sissbruecker/linkding:1.38.0@sha256:09e1a54b083832b93a67c08d2302149027f713fc0052d8d8859205e3aa2bfcfe
           startupProbe:
             httpGet:
               path: /health
