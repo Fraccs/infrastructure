@@ -48,6 +48,9 @@ curl -sfL https://get.k3s.io | sh -s - server \
 
 #### Workloads
 
+> [!WARNING]
+> I'm working on a solution to automatically update this table to match the kubernetes manifests in this repository. The workloads listed below and their versions are not up-to-date.
+
 | Application | Container Image | Image Version | Manifest Digest (SHA256) |
 | ----------- | --------------- | ------------- | ------------------- |
 | cert-manager-controller | [quay.io/jetstack/cert-manager-controller](https://quay.io/jetstack/cert-manager-controller) | `v1.16.3` | `17c8f2d46fd16087c9ee92688304b3e38b32cbcb1f5885412e5a35e8852bc029` |
