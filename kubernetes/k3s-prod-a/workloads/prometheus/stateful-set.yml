@@ -20,7 +20,7 @@ spec:
       serviceAccountName: prometheus
       containers:
         - name: prometheus
-          image: docker.io/prom/prometheus:v2.54.1@sha256:69961df6ffa67598048a31aa2822d61f3c93b91d7db24e44d9bb03f99d520da9
+          image: docker.io/prom/prometheus:v2.55.1@sha256:b1935d181b6dd8e9c827705e89438815337e1b10ae35605126f05f44e5c6940f
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
