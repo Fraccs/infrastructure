@@ -79,7 +79,7 @@ curl -sfL https://get.k3s.io | sh -s - server \
 | owntracks-recorder | [docker.io/owntracks/recorder](https://hub.docker.com/r/owntracks/recorder) | `0.9.9` | `897bf5a2e84c64ddc334e4f82e3f8a9330e54bbeba8174767652f2b879e6d0db` |
 | pihole | [docker.io/pihole/pihole](https://hub.docker.com/r/pihole/pihole) | `2024.07.0` | `e53305e9e00d7ac283763ca9f323cc95a47d0113a1e02eb9c6849f309d6202dd` |
 | postgres | [docker.io/library/postgres](https://hub.docker.com/_/postgres) | `14.15` | `f104f501cd403abdc56cd17fab81fad0b15754e8dce818e20300a17a3628700f` |
-| prometheus | [docker.io/prom/prometheus](https://hub.docker.com/r/prom/prometheus) | `v2.54.1` | `69961df6ffa67598048a31aa2822d61f3c93b91d7db24e44d9bb03f99d520da9` |
+| prometheus | [docker.io/prom/prometheus](https://hub.docker.com/r/prom/prometheus) | `v2.55.1` | `b1935d181b6dd8e9c827705e89438815337e1b10ae35605126f05f44e5c6940f` |
 | prowlarr | [docker.io/linuxserver/prowlarr](https://hub.docker.com/r/linuxserver/prowlarr) | `1.30.2` | `53e8a473db4fb811a54bce1cf9fe3c2962752e40e4696e04974b804d1333d4fa` |
 | qbittorrent | [docker.io/linuxserver/qbittorrent](https://hub.docker.com/r/linuxserver/qbittorrent) | `5.0.0` | `525262e8916d4d112d73427a841dcae3464f7fe3234e1c859c6d0b03245f98ae` |
 | radarr | [docker.io/linuxserver/radarr](https://hub.docker.com/r/linuxserver/radarr) | `5.18.4` | `06551a0e67bd46d857434f6a695adb9104819376b6dff19e64402384935dcd36` |
