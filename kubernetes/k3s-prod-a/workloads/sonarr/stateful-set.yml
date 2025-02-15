@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sonarr
-          image: docker.io/linuxserver/sonarr:4.0.12@sha256:4092d2141b796ef01f3c7b0d3390910fb71a11b2e9acdbd9427aa9a8864d6139
+          image: docker.io/linuxserver/sonarr:4.0.12@sha256:0b45e56ad4acd89072b96702e4cc1088fb31235d6fa8458c738e250ebb7acaa4
           ports:
             - containerPort: 8989
           volumeMounts:
