@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: lidarr
-          image: docker.io/linuxserver/lidarr:2.9.6@sha256:db74142cff8b43e163bcb15bd8a30afe768bfb9fefb1d2967be073b4003b000d
+          image: docker.io/linuxserver/lidarr:2.9.6@sha256:4f31ca3afa04ad6ad643a5e27cd6a68c2cde581483f7117dd4baae0b33cd1e71
           ports:
             - containerPort: 8686
           volumeMounts:
