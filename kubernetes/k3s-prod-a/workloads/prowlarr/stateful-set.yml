@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: prowlarr
-          image: docker.io/linuxserver/prowlarr:1.30.2@sha256:a8f6136e9b40016a5585a169f05884efc74d999b594421aefeed73d4ad57bc4c
+          image: docker.io/linuxserver/prowlarr:1.30.2@sha256:53e8a473db4fb811a54bce1cf9fe3c2962752e40e4696e04974b804d1333d4fa
           ports:
             - containerPort: 8686
           volumeMounts:
