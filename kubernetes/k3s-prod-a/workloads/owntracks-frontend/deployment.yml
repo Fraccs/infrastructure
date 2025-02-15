@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: owntracks-frontend
-          image: docker.io/owntracks/frontend:2.15.3@sha256:45000a65ed59b2d148822dcfa98f1065945bbe38ebbebfe9bf2e43509fce41cc
+          image: docker.io/owntracks/frontend:2.15.3@sha256:efa313bdec583939f6edc70eb148670a8bba1a5aed0508a326f5b2f2751d0861
           ports:
             - containerPort: 80
           envFrom:
