@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: owntracks-recorder
-          image: docker.io/owntracks/recorder:0.9.9@sha256:897bf5a2e84c64ddc334e4f82e3f8a9330e54bbeba8174767652f2b879e6d0db
+          image: docker.io/owntracks/recorder:0.9.9@sha256:f2ba3b0c814e9b01fc519c6715cbdd8430363e06aa889c69c01b044e155d0c9e
           ports:
             - containerPort: 8083
           volumeMounts:
