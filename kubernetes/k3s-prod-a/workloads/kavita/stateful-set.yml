@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kavita
-          image: docker.io/jvmilazz0/kavita:0.8.4@sha256:7f4d5de5f9a5a842a83324429d59730b761dca422b8aa2caf28155aa42996421
+          image: docker.io/jvmilazz0/kavita:0.8.4@sha256:07393ed7d6860e7312c0197b8c1ebcd4d53c52b7cabd542db08613410ff22c69
           ports:
             - containerPort: 5000
           volumeMounts:
