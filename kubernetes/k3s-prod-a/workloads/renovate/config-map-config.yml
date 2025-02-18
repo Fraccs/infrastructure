@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-config
+  namespace: renovate
+data:
+  config.json: |-
+    {
+      "dependencyDashboard": true,
+      "extends": [
+        ":semanticCommitTypeAll(bump)",
+        ":semanticCommitScopeDisabled"
+      ],
+      "kubernetes": {
+        "fileMatch": ["kubernetes/.+\\.yml$"]
+      },
+      "major": {
+        "dependencyDashboardApproval": true
+      },
+      "repositories": ["fraccs/homelab"]
+    }

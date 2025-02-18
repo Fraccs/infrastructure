@@ -1,0 +1,33 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renovate-bot
+  namespace: renovate
+spec:
+  schedule: "0 */2 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: renovate-bot
+              image: docker.io/renovate/renovate:39.170.1@sha256:03b77bfac3368ccdcc2a2161021314a520de5172115bbc4678f13733d65feeab
+              envFrom:
+                - configMapRef:
+                    name: renovate-env
+                - secretRef:
+                    name: renovate
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /opt/renovate/
+                - name: work-volume
+                  mountPath: /tmp/renovate/
+          volumes:
+            - name: config-volume
+              configMap:
+                name: renovate-config
+            - name: work-volume
+              emptyDir: {}
