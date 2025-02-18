@@ -1,0 +1,67 @@
+---
+crds:
+  install: true # -- Install and upgrade CRDs
+  keep: false # -- Keep CRDs on chart uninstall
+
+global:
+  domain: argocd.k3s-prod-a.47fc5c.com
+  image:
+    repository: quay.io/argoproj/argocd
+    tag: "v2.14.2@sha256:018f6444077deb39eac7c549a0ffe68d75da71751dd19899e05d3b60e1c2476f"
+    imagePullPolicy: IfNotPresent
+  tls:
+    create: false
+
+dex:
+  enabled: false
+
+controller:
+  name: application-controller
+  replicas: 1
+  metrics:
+    enabled: true
+
+redis:
+  enabled: false
+
+externalRedis:
+  host: "redis.redis.svc.cluster.local"
+  port: 6379
+
+redisSecretInit:
+  enabled: false
+
+configs:
+  params:
+    server.insecure: true
+
+server:
+  name: server
+  replicas: 1
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  metrics:
+    enabled: true
+
+repoServer:
+  name: repo-server
+  replicas: 1
+  metrics:
+    enabled: true
+
+applicationSet:
+  name: applicationset-controller
+  replicas: 1
+  metrics:
+    enabled: true
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+notifications:
+  enabled: false
