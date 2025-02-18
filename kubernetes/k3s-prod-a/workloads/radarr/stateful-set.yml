@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: radarr
-          image: docker.io/linuxserver/radarr:5.18.4@sha256:06551a0e67bd46d857434f6a695adb9104819376b6dff19e64402384935dcd36
+          image: docker.io/linuxserver/radarr:5.18.4@sha256:fbe114e1ba6a72f31bfd38e1133367a1b4a0dfbeedf7419703838f54cc0c501c
           ports:
             - containerPort: 7878
           volumeMounts:
