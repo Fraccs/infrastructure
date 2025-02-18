@@ -6,5 +6,5 @@ metadata:
   namespace: nextcloud
 data:
   MYSQL_DATABASE: "nextcloud"
-  MYSQL_HOST: "deb-04.l.47fc5c.com"
+  MYSQL_HOST: "mariadb.mariadb.svc.cluster.local"
   MYSQL_PORT: "3306"

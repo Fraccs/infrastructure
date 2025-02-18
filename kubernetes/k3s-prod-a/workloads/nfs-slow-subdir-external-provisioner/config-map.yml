@@ -6,5 +6,5 @@ metadata:
   namespace: kube-system
 data:
   PROVISIONER_NAME: k8s-sigs.io/nfs-slow-subdir-external-provisioner
-  NFS_SERVER: deb-04.l.47fc5c.com
+  NFS_SERVER: nfs.47fc5c.com
   NFS_PATH: /srv/volumes/k3s-prod-a/dynamic
