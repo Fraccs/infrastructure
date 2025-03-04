@@ -10,7 +10,7 @@ spec:
     automated:
       prune: true
   source:
-    repoURL: https://github.com/fraccs/homelab.git
+    repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
     targetRevision: HEAD
     path: kubernetes/k3s-prod-a/workloads/kube-vip
   destination:
