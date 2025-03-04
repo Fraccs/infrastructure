@@ -9,6 +9,8 @@ data:
     {
       "dependencyDashboard": true,
       "extends": [
+        ":prConcurrentLimitNone",
+        ":prHourlyLimitNone",
         ":semanticCommitTypeAll(bump)",
         ":semanticCommitScopeDisabled"
       ],
