@@ -9,10 +9,9 @@ data:
   LD_HOST_PORT: "9090"
   LD_HOST_DATA_DIR: "./data"
   LD_DISABLE_BACKGROUND_TASKS: "False"
-  LD_DISABLE_URL_VALIDATION: "False" # Option to disable URL validation for bookmarks completely
-  LD_ENABLE_AUTH_PROXY: "False" # Enables support for authentication proxies such as Authelia
-  # LD_CSRF_TRUSTED_ORIGINS: ""
-  LD_DB_ENGINE: "sqlite"
-  # LD_DB_DATABASE: ""
-  # LD_DB_USER: ""
-  LD_DB_HOST: "localhost"
+  LD_DISABLE_URL_VALIDATION: "False"
+  LD_ENABLE_AUTH_PROXY: "False"
+  LD_DB_ENGINE: "postgres"
+  LD_DB_DATABASE: "linkding"
+  LD_DB_USER: "linkding"
+  LD_DB_HOST: "postgres.postgres.svc.cluster.local"

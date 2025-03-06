@@ -1,11 +1,16 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: linkding
   namespace: linkding
 spec:
-  replicas: 1
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: linkding
@@ -26,7 +31,7 @@ spec:
           ports:
            - containerPort: 9090
           volumeMounts:
-            - name: linkding-data
+            - name: linkding
               mountPath: /etc/linkding/data
           envFrom:
             - configMapRef:
@@ -34,6 +39,6 @@ spec:
             - secretRef:
                 name: linkding
       volumes:
-        - name: linkding-data
+        - name: linkding
           persistentVolumeClaim:
-            claimName: linkding-data
+            claimName: linkding

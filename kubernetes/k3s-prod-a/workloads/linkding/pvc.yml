@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: linkding-data
+  name: linkding
   namespace: linkding
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: linkding-data
+  volumeName: linkding
   storageClassName: nfs
   resources:
     requests:
