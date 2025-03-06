@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v1.128.0@sha256:e0babbef630539dfd23c93b09ec36c9c1a072e891197e8d3e968f87544118296
+          image: ghcr.io/immich-app/immich-server:v1.129.0@sha256:70ad5939f6041a2d23c8c84d1e90cb43f55fb0513c45a579b7745dbd982ed2b5
           ports:
             - containerPort: 2283
           volumeMounts:
