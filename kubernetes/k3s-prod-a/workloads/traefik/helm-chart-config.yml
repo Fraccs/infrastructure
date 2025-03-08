@@ -6,6 +6,8 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    deployment:
+      replicas: 3
     ports:
       web: null
       dns-udp:
