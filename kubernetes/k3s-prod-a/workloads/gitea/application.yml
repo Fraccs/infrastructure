@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+  sources:
+    - repoURL: https://dl.gitea.com/charts/
+      chart: gitea
+      targetRevision: 1.22.3
+      helm:
+        valueFiles:
+          - $values/kubernetes/k3s-prod-a/workloads/gitea/values.yml
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitea

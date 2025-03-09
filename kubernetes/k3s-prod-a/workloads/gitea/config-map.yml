@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitea
+  namespace: gitea
+data:
+  server: |
+    DOMAIN=gitea.47fc5c.com
+    ROOT_URL=https://gitea.47fc5c.com
+    SSH_DOMAIN=gitea.47fc5c.com
