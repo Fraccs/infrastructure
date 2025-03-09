@@ -19,6 +19,9 @@ spec:
     - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
       targetRevision: HEAD
       ref: values
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-prod-a/workloads/gitea
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
