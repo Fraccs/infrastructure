@@ -50,5 +50,5 @@ actions:
 postgresql-ha:
   enabled: false
 
-# redis-cluster:
-#   enabled: false
+redis-cluster:
+  enabled: false
