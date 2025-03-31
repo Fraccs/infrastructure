@@ -30,9 +30,9 @@ spec:
             - name: web
               containerPort: 3000
           volumeMounts:
-            - name: homepage-config
+            - name: homepage
               mountPath: /app/config
       volumes:
-        - name: homepage-config
+        - name: homepage
           persistentVolumeClaim:
-            claimName: homepage-config
+            claimName: homepage
