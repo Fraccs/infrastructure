@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
     targetRevision: HEAD
-    path: kubernetes/k3s-prod-a/workloads/freshrss
+    path: kubernetes/k3s-01/workloads/freshrss
   destination:
     server: https://kubernetes.default.svc
     namespace: freshrss
