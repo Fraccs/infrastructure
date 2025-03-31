@@ -2,13 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: owntracks-data
+  name: owntracks
   namespace: owntracks
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: owntracks-data
-  storageClassName: nfs
+  storageClassName: longhorn
   resources:
     requests:
       storage: 1Gi

@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: 8083
           volumeMounts:
-            - name: owntracks-data
+            - name: owntracks
               mountPath: /store
           envFrom:
             - configMapRef:
@@ -28,6 +28,6 @@ spec:
             - secretRef:
                 name: owntracks-recorder
       volumes:
-        - name: owntracks-data
+        - name: owntracks
           persistentVolumeClaim:
-            claimName: owntracks-data
+            claimName: owntracks
