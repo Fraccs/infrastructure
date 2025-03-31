@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+  source:
+    chart: traefik/traefik
+    repoURL: https://traefik.github.io/charts
+    targetRevision: v34.4.1
+    helm:
+      valueFiles:
+        - values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
