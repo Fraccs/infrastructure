@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: cdio-config
+  name: cdio
   namespace: cdio
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: nfs-slow
+  storageClassName: longhorn
   resources:
     requests:
       storage: 100Mi

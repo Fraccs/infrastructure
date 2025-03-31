@@ -20,12 +20,12 @@ spec:
           ports:
             - containerPort: 5000
           volumeMounts:
-            - name: cdio-config
+            - name: cdio
               mountPath: /config
           envFrom:
             - configMapRef:
                 name: cdio
       volumes:
-        - name: cdio-config
+        - name: cdio
           persistentVolumeClaim:
-            claimName: cdio-config
+            claimName: cdio
