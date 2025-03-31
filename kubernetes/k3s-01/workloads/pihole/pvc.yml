@@ -7,8 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: pihole
-  storageClassName: nfs
+  storageClassName: longhorn
   resources:
     requests:
       storage: 2Gi
