@@ -15,7 +15,7 @@ spec:
       targetRevision: v34.4.1
       helm:
         valueFiles:
-          - $values/kubernetes/k3s-01/workloads/sealed-secrets/values.yml
+          - $values/kubernetes/k3s-01/workloads/traefik/values.yml
     - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
       targetRevision: HEAD
       ref: values
