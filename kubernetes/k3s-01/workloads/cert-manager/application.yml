@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+  sources:
+    - repoURL: https://charts.jetstack.io/
+      chart: sealed-secrets
+      targetRevision: v1.17.1
+      helm:
+        valueFiles:
+          - $values/kubernetes/k3s-01/workloads/cert-manager/values.yml
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-01/workloads/cert-manager
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
