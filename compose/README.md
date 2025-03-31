@@ -20,9 +20,4 @@ find . -type f -name '.template.*env' -exec sh -c 'mv $1 "$(echo "$1" | sed 's/\
 
 ## Stacks
 
-### deb-04
-
-| Stack Name | Container Name | Container Image | Image Version | Image SHA256 Digest | Host Port | Internal Port |
-| ----- | -------------- | --------------- | ------------- | ------------------- | --------- | ------------- |
-| duplicati | duplicati | [docker.io/duplicati/duplicati](https://hub.docker.com/r/duplicati/duplicati) | `2.0.8.1_beta_2024-05-07` | `0ffff717b1465022c436afa409291c44fb55c601f7ad556b76db6932f3afbdcf` | 8200 | 8200 |
-| node-exporter | node-exporter | [docker.io/prom/node-exporter](https://hub.docker.com/r/prom/node-exporter) | `v1.8.2` | `065914c03336590ebed517e7df38520f0efb44465fde4123c3f6b7328f5a9396` | 9100 | 9100 |
+*Currently I run everything on Kubernetes, any future compose deployment will be listed here.*
