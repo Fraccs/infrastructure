@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.k3s-prod-a.47fc5c.com`)
+    - match: Host(`argocd.k3s-01.47fc5c.com`)
       kind: Rule
       services:
         - name: argocd-server
