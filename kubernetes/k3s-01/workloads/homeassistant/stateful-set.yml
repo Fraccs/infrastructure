@@ -27,9 +27,9 @@ spec:
             - name: web
               containerPort: 8123
           volumeMounts:
-            - name: homeassistant-config
+            - name: homeassistant
               mountPath: /config
       volumes:
-        - name: homeassistant-config
+        - name: homeassistant
           persistentVolumeClaim:
-            claimName: homeassistant-config
+            claimName: homeassistant
