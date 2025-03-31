@@ -2,13 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nextcloud-data
+  name: nextcloud
   namespace: nextcloud
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: nextcloud-data
-  storageClassName: nfs
+  storageClassName: longhorn
   resources:
     requests:
       storage: 10Gi

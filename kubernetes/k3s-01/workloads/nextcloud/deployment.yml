@@ -32,7 +32,7 @@ spec:
             failureThreshold: 3
             periodSeconds: 5
           volumeMounts:
-            - name: nextcloud-data
+            - name: nextcloud
               mountPath: /var/www/html
           envFrom:
             - configMapRef:
@@ -40,6 +40,6 @@ spec:
             - secretRef:
                 name: nextcloud
       volumes:
-        - name: nextcloud-data
+        - name: nextcloud
           persistentVolumeClaim:
-            claimName: nextcloud-data
+            claimName: nextcloud
