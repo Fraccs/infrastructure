@@ -4,7 +4,7 @@ crds:
   keep: false # -- Keep CRDs on chart uninstall
 
 global:
-  domain: argocd.k3s-prod-a.47fc5c.com
+  domain: argocd.k3s-01.47fc5c.com
   image:
     repository: quay.io/argoproj/argocd
     tag: "v2.14.3@sha256:1dfd2fd5112e29db186d6cd7dca75882c0475d812d82e9095dd2edec938825ff"
