@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: navidrome
-          image: docker.io/deluan/navidrome:0.55.0@sha256:2a1d37af7901d8dec5a7c7147600469f39b6e6137f857ead61124b3b709f0953
+          image: docker.io/deluan/navidrome:0.55.2@sha256:3a66e262b7ea836faa06c08ad5b32076c49e9e63e2fa4de10080c8e9be9f0846
           startupProbe:
             httpGet:
               path: /app
