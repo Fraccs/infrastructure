@@ -761,9 +761,9 @@ service:
   labels: {}
   # -- Additional entries here will be added to the service spec.
   # -- Cannot contain type, selector or ports entries.
-  spec: {}
+  spec:
   # externalTrafficPolicy: Cluster
-  # loadBalancerIP: "1.2.3.4"
+    loadBalancerIP: 10.200.1.10
   # clusterIP: "2.3.4.5"
   loadBalancerSourceRanges: []
   # - 192.168.0.1/32
