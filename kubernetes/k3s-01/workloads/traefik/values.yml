@@ -693,12 +693,12 @@ ports:
     #   - namespace-name1@kubernetescrd
     #   - namespace-name2@kubernetescrd
     middlewares: []
-  dns-udp:
-    expose:
-      default: true
-    port: 53
-    exposedPort: 53
-    protocol: UDP
+  # dns-udp:
+  #   expose:
+  #     default: true
+  #   port: 53
+  #   exposedPort: 53
+  #   protocol: UDP
   ssh:
     expose:
       default: true
@@ -711,6 +711,18 @@ ports:
     port: 8883
     exposedPort: 8883
     protocol: TCP
+  bep-tcp:
+    expose:
+      default: true
+    port: 22000
+    exposedPort: 22000
+    protocol: TCP
+  bep-udp:
+    expose:
+      default: true
+    port: 22000
+    exposedPort: 22000
+    protocol: UDP
   metrics:
     # -- When using hostNetwork, use another port to avoid conflict with node exporter:
     # https://github.com/prometheus/prometheus/wiki/Default-port-allocations

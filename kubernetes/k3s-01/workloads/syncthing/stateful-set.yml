@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: syncthing
+  namespace: syncthing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syncthing
+  template:
+    metadata:
+      labels:
+        app: syncthing
+    spec:
+      containers:
+        - name: syncthing
+          image: docker.io/syncthing/syncthing:1.29.4@sha256:648640e6db80ef0a1420d9e0835ecbf802b1950750b672086c600fd5462ebe7e
+          volumeMounts:
+            - name: syncthing-config
+              mountPath: /config
+            - name: syncthing-repos
+              mountPath: /repos
+          envFrom:
+            - configMapRef:
+                name: syncthing
+      volumes:
+        - name: syncthing-config
+          persistentVolumeClaim:
+            claimName: syncthing-config
+        - name: syncthing-repos
+          persistentVolumeClaim:
+            claimName: syncthing-repos

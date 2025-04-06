@@ -1,0 +1,13 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  name: syncthing
+  namespace: syncthing
+spec:
+  entryPoints:
+    - bep-udp
+  routes:
+    - services:
+      - name: syncthing
+        port: 22000
