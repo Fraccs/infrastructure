@@ -17,8 +17,6 @@ spec:
       containers:
         - name: kavita
           image: docker.io/jvmilazz0/kavita:0.8.5@sha256:70aa4f9fd42ce458f9f8b516d740dc67507559261f7d1d50c6c9cea79cf0e12d
-          ports:
-            - containerPort: 5000
           volumeMounts:
             - name: kavita-books
               mountPath: /books

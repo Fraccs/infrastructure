@@ -6,9 +6,8 @@ metadata:
   namespace: kavita
 spec:
   accessModes:
-    - ReadWriteMany
-  volumeName: kavita-data
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
-      storage: 500Mi
+      storage: 250Mi

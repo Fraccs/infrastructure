@@ -14,4 +14,4 @@ spec:
   storageClassName: nfs
   nfs:
     server: nfs.47fc5c.com
-    path: /srv/volumes/generic/books
+    path: /mnt/pool-0/volumes/generic/books
