@@ -17,15 +17,13 @@ spec:
       containers:
         - name: prowlarr
           image: docker.io/linuxserver/prowlarr:1.31.2@sha256:30186e7d5841c4c4909d2362bda40b29db7d2a06125e5927cc957e05d5b037a1
-          ports:
-            - containerPort: 8686
           volumeMounts:
-            - name: prowlarr-config
+            - name: prowlarr
               mountPath: /config
           envFrom:
             - configMapRef:
-                name: prowlarr-env
+                name: prowlarr
       volumes:
-        - name: prowlarr-config
+        - name: prowlarr
           persistentVolumeClaim:
-            claimName: prowlarr-config
+            claimName: prowlarr

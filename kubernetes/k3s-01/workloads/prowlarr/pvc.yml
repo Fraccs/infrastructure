@@ -2,13 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prowlarr-config
+  name: prowlarr
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
-  volumeName: prowlarr-config
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
-      storage: 1Gi
+      storage: 250Mi
