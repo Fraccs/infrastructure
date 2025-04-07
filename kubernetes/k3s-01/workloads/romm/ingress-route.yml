@@ -13,7 +13,7 @@ spec:
       services:
         - name: romm
           kind: Service
-          port: 8080
+          port: 8090
           scheme: http
           sticky:
             cookie:

@@ -6,7 +6,7 @@ metadata:
   namespace: romm
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: romm-roms
   storageClassName: nfs
   resources:
