@@ -5,13 +5,13 @@ metadata:
   name: immich-gallery
 spec:
   capacity:
-    storage: 100Gi
+    storage: 250Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   claimRef:
     name: immich-gallery
     namespace: immich
   storageClassName: nfs
   nfs:
     server: nfs.47fc5c.com
-    path: /srv/volumes/generic/gallery
+    path: /mnt/pool-0/volumes/generic/gallery

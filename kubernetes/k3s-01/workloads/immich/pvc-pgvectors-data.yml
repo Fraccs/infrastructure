@@ -6,9 +6,8 @@ metadata:
   namespace: immich
 spec:
   accessModes:
-    - ReadWriteMany
-  volumeName: immich-pgvectors-data
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
       storage: 2Gi

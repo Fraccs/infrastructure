@@ -6,9 +6,9 @@ metadata:
   namespace: immich
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: immich-gallery
   storageClassName: nfs
   resources:
     requests:
-      storage: 100Gi
+      storage: 250Gi

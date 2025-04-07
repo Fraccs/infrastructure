@@ -6,8 +6,8 @@ metadata:
   namespace: immich
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: nfs-slow
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
       storage: 16Gi
