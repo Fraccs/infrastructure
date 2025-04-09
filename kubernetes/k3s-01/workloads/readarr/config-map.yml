@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: readarr-env
+  name: readarr
   namespace: torrenting
 data:
   PUID: "1000"

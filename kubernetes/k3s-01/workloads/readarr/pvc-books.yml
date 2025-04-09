@@ -6,7 +6,7 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: readarr-books
   storageClassName: nfs
   resources:

@@ -6,9 +6,8 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
-  volumeName: readarr-config
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
-      storage: 1Gi
+      storage: 500Mi
