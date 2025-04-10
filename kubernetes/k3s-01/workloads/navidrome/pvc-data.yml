@@ -6,9 +6,8 @@ metadata:
   namespace: navidrome
 spec:
   accessModes:
-    - ReadWriteMany
-  volumeName: navidrome-data
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
-      storage: 500Mi
+      storage: 1Gi

@@ -21,8 +21,6 @@ spec:
             httpGet:
               path: /app
               port: 4533
-          ports:
-            - containerPort: 4533
           volumeMounts:
             - name: navidrome-data
               mountPath: /data

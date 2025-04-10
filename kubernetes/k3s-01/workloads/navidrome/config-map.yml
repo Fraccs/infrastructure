@@ -6,5 +6,5 @@ metadata:
   namespace: navidrome
 data:
   ND_PROMETHEUS_ENABLED: "true"
-  ND_PROMETHEUS_METRICSPATH: "/metrics" # This instance isn't exposed to the internet so this is fine
+  ND_PROMETHEUS_METRICSPATH: "/metrics"
   ND_SCANSCHEDULE: "@daily"

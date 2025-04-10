@@ -6,9 +6,9 @@ metadata:
   namespace: navidrome
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   volumeName: navidrome-music
   storageClassName: nfs
   resources:
     requests:
-      storage: 100Gi
+      storage: 250Gi
