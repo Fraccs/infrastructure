@@ -7,8 +7,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  volumeName: qbittorrent-config
-  storageClassName: nfs
+  storageClassName: longhorn
   resources:
     requests:
       storage: 50Mi

@@ -21,8 +21,9 @@ spec:
             httpGet:
               path: /
               port: 8080
-          ports:
-            - containerPort: 8080
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
           volumeMounts:
             - name: qbittorrent-config
               mountPath: /config

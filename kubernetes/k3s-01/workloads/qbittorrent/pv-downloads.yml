@@ -5,13 +5,13 @@ metadata:
   name: qbittorrent-downloads
 spec:
   capacity:
-    storage: 500Gi
+    storage: 50Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   claimRef:
     name: qbittorrent-downloads
     namespace: torrenting
   storageClassName: nfs
   nfs:
     server: nfs.47fc5c.com
-    path: /srv/volumes/generic/downloads
+    path: /mnt/pool-0/volumes/generic/downloads

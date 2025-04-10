@@ -6,9 +6,9 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: qbittorrent-downloads
   storageClassName: nfs
   resources:
     requests:
-      storage: 500Gi
+      storage: 50Gi
