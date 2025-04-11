@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sonarr
-          image: docker.io/linuxserver/sonarr:4.0.13@sha256:d88a342d8db9418908bcf7f755455c407a415b22bff2cc87819734bfd5f9eb0f
+          image: docker.io/linuxserver/sonarr:4.0.14@sha256:4b0ed282b712870c9b784596f6d64c403fde1c5bf3a5ebe975d927618c0b222a
           volumeMounts:
             - name: sonarr-config
               mountPath: /config
