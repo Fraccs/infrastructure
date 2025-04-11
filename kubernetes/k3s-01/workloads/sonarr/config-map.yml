@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sonarr-env
+  name: sonarr
   namespace: torrenting
 data:
   PUID: "1000"

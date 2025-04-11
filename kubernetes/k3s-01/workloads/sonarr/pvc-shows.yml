@@ -6,7 +6,7 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: sonarr-shows
   storageClassName: nfs
   resources:

@@ -6,9 +6,9 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   volumeName: sonarr-downloads
   storageClassName: nfs
   resources:
     requests:
-      storage: 1Gi
+      storage: 50Gi
