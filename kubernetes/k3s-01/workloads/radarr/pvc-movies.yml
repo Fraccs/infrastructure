@@ -6,9 +6,9 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: radarr-movies
   storageClassName: nfs
   resources:
     requests:
-      storage: 100Gi
+      storage: 1Ti
