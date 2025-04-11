@@ -19,7 +19,7 @@ spec:
           image: docker.io/syncthing/syncthing:1.29.4@sha256:648640e6db80ef0a1420d9e0835ecbf802b1950750b672086c600fd5462ebe7e
           volumeMounts:
             - name: syncthing-config
-              mountPath: /config
+              mountPath: /var/syncthing
             - name: syncthing-repos
               mountPath: /repos
           envFrom:
