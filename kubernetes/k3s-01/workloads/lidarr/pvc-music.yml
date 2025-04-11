@@ -6,9 +6,9 @@ metadata:
   namespace: torrenting
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeName: lidarr-music
   storageClassName: nfs
   resources:
     requests:
-      storage: 100Gi
+      storage: 250Gi

@@ -5,13 +5,13 @@ metadata:
   name: lidarr-music
 spec:
   capacity:
-    storage: 100Gi
+    storage: 250Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   claimRef:
     name: lidarr-music
     namespace: torrenting
   storageClassName: nfs
   nfs:
     server: nfs.47fc5c.com
-    path: /srv/volumes/generic/music
+    path: /mnt/pool-0/volumes/generic/music
