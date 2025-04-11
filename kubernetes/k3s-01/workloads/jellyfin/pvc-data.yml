@@ -2,13 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jellyfin-cache
+  name: jellyfin-data
   namespace: jellyfin
 spec:
   accessModes:
-    - ReadWriteMany
-  volumeName: jellyfin-cache
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: longhorn
   resources:
     requests:
-      storage: 100Mi
+      storage: 1Gi

@@ -23,24 +23,21 @@ spec:
               port: 8096
             periodSeconds: 12
             failureThreshold: 5
-          ports:
-            - containerPort: 8096
           volumeMounts:
-            - name: jellyfin-cache
+            - name: jellyfin-data
               mountPath: /cache
-            - name: jellyfin-config
+              subPath: cache/
+            - name: jellyfin-data
               mountPath: /config
+              subPath: config/
             - name: jellyfin-movies
               mountPath: /movies
             - name: jellyfin-shows
               mountPath: /shows
       volumes:
-        - name: jellyfin-cache
+        - name: jellyfin-data
           persistentVolumeClaim:
-            claimName: jellyfin-cache
-        - name: jellyfin-config
-          persistentVolumeClaim:
-            claimName: jellyfin-config
+            claimName: jellyfin-data
         - name: jellyfin-movies
           persistentVolumeClaim:
             claimName: jellyfin-movies
