@@ -1,0 +1,54 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  policyTypes:
+    - Ingress
+    - Egress
+  podSelector:
+    matchLabels:
+      app: postgres
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: authentik
+        podSelector:
+          matchLabels:
+            access-postgres: "true"
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: freshrss
+        podSelector:
+          matchLabels:
+            app: freshrss
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: gitea
+        podSelector:
+          matchLabels:
+            app: gitea
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: gotify
+        podSelector:
+          matchLabels:
+            app: gotify
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: linkding
+        podSelector:
+          matchLabels:
+            app: linkding
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            access-postgres: "true"
+      ports:
+        - protocol: TCP
+          port: 5432
