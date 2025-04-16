@@ -1,0 +1,62 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lidarr
+  namespace: torrenting
+spec:
+  policyTypes:
+    - Ingress
+    - Egress
+  podSelector:
+    matchLabels:
+      app: lidarr
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: traefik
+      - podSelector:
+          matchLabels:
+            app: prowlarr
+      ports:
+        - protocol: TCP
+          port: 8686
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            app: prowlarr
+      ports:
+        - protocol: TCP
+          port: 9696
+    - to:
+      - podSelector:
+          matchLabels:
+            app: qbittorrent
+      ports:
+        - protocol: TCP
+          port: 8080
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: postgres
+        podSelector:
+          matchLabels:
+            app: postgres
+      ports:
+        - protocol: TCP
+          port: 5432
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
