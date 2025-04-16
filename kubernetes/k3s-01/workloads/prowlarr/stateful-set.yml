@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: prowlarr
+        access-postgres: "true"
     spec:
       containers:
         - name: prowlarr

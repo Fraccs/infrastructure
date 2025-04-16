@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: sonarr
+        access-postgres: "true"
     spec:
       containers:
         - name: sonarr
