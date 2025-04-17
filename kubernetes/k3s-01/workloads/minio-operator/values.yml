@@ -1,6 +1,6 @@
 ---
 operator:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: quay.io/minio/operator
     tag: v7.0.1
@@ -8,6 +8,8 @@ operator:
   env:
     - name: OPERATOR_STS_ENABLED
       value: "on"
+    - name: WATCHED_NAMESPACE
+      value: "minio"
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
