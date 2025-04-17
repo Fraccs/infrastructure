@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sealed-secrets
+  name: sealed-secrets-controller
   namespace: argocd
 spec:
   project: default
@@ -15,13 +15,13 @@ spec:
       targetRevision: 2.17.2
       helm:
         valueFiles:
-          - $values/kubernetes/k3s-01/workloads/sealed-secrets/values.yml
+          - $values/kubernetes/k3s-01/workloads/sealed-secrets-controller/values.yml
     - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
       targetRevision: HEAD
       ref: values
     - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
       targetRevision: HEAD
-      path: kubernetes/k3s-01/workloads/sealed-secrets
+      path: kubernetes/k3s-01/workloads/sealed-secrets-controller
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
