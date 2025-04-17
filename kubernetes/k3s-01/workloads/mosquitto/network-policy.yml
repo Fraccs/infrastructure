@@ -18,7 +18,7 @@ spec:
             kubernetes.io/metadata.name: kube-system
         podSelector:
           matchLabels:
-            app.kubernetes.io: traefik
+            app.kubernetes.io/name: traefik
       - namespaceSelector:
           matchLabels:
             kubernetes.io/metadata.name: owntracks
