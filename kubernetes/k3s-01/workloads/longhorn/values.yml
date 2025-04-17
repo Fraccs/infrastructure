@@ -1,0 +1,28 @@
+---
+persistence:
+  defaultClass: true
+  defaultFsType: ext4
+  defaultClassReplicaCount: 3
+  reclaimPolicy: Retain
+  migratable: false
+  recurringJobSelector:
+    enable: false
+  backingImage:
+    enable: false
+  defaultDiskSelector:
+    enable: false
+  removeSnapshotsDuringFilesystemTrim: ignored
+  dataEngine: v1
+  backupTargetName: default
+
+defaultBackupStore:
+  backupTarget: nfs://truenas.47fc5c.com:/mnt/pool-0/volumes/generic/backups
+
+defaultSettings:
+  defaultDataPath: /mnt/longhorn
+  storageOverProvisioningPercentage: 100
+  storageMinimalAvailablePercentage: 25
+  storageReservedPercentageForDefaultDisk: 0
+  upgradeChecker: false
+  defaultReplicaCount: 3
+  allowCollectingLonghornUsageMetrics: false
