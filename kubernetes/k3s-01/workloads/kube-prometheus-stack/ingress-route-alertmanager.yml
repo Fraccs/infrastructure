@@ -1,0 +1,24 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: alertmanager
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`alertmanager.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: kube-prometheus-stack-alertmanager
+          kind: Service
+          port: 9093
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
+  tls:
+    secretName: alertmanager-certificate

@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  secretName: prometheus-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
+  dnsNames:
+    - prometheus.47fc5c.com
