@@ -16,7 +16,7 @@ persistence:
   backupTargetName: default
 
 defaultBackupStore:
-  backupTarget: nfs://truenas.47fc5c.com:/mnt/pool-0/volumes/generic/backups
+  backupTarget: nfs://nfs.47fc5c.com:/mnt/pool-0/volumes/generic/backups
 
 defaultSettings:
   defaultDataPath: /mnt/longhorn
