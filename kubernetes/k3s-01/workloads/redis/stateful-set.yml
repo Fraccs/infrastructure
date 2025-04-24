@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: docker.io/library/redis:7.4.2@sha256:0d0bc2957854f95f8ea48571c41e19664041b5dcbbfd69800f441f5a8e9581bc
+          image: docker.io/library/redis:7.4.3@sha256:8cbe88d8403023e700cc31b058bd192f7ebb7381210b17581b37f6440bc1c8e8
           ports:
             - name: redis
               containerPort: 6379
