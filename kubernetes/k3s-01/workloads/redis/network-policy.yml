@@ -16,9 +16,6 @@ spec:
       - namespaceSelector:
           matchLabels:
             kubernetes.io/metadata.name: argocd
-        podSelector:
-          matchLabels:
-            app.kubernetes.io/name: argocd
       - namespaceSelector:
           matchLabels:
             kubernetes.io/metadata.name: authentik
