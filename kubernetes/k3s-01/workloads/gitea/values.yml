@@ -12,7 +12,7 @@ gitea:
   metrics:
     enabled: true
 
-replicaCount: 3
+replicaCount: 2
 
 strategy:
   rollingUpdate:
