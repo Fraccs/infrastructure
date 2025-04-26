@@ -361,6 +361,12 @@ ports:
     port: 22
     exposedPort: 22
     protocol: TCP
+  dns-udp:
+    expose:
+      default: true
+    port: 53
+    exposedPort: 53
+    protocol: UDP
   mqtt:
     expose:
       default: true
