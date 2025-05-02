@@ -39,8 +39,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: pihole
-            # - secretRef:
-            #     name: pihole
       volumes:
         - name: pihole
           persistentVolumeClaim:

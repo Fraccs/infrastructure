@@ -6,7 +6,7 @@ metadata:
   namespace: pihole
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: longhorn
   resources:
     requests:

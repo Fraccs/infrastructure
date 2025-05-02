@@ -5,5 +5,5 @@ metadata:
   name: pihole
   namespace: pihole
 data:
-  DNS1: "192.168.1.1"
+  FTLCONF_dns_upstreams: "10.10.10.10;10.10.10.11;10.10.10.12"
   TZ: "Europe/Rome"
