@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: prowlarr
-          image: docker.io/linuxserver/prowlarr:1.34.1@sha256:cc04fd226d3418e493c015eb9ad66857066a4ddf024d7214ab2b39712e19e74c
+          image: docker.io/linuxserver/prowlarr:1.35.1@sha256:126ead562b0fb1716e5c07db1df81f96351ae4de07b0101423cbc9317ccf012d
           volumeMounts:
             - name: prowlarr
               mountPath: /config
