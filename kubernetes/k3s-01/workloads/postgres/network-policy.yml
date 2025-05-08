@@ -49,6 +49,12 @@ spec:
         podSelector:
           matchLabels:
             access-postgres: "true"
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: vaultwarden
+        podSelector:
+          matchLabels:
+            app: vaultwarden
       ports:
         - protocol: TCP
           port: 5432
