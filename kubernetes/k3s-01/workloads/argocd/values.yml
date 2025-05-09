@@ -7,7 +7,6 @@ global:
   domain: argocd.k3s-01.47fc5c.com
   image:
     repository: quay.io/argoproj/argocd
-    tag: "v2.14.3@sha256:1dfd2fd5112e29db186d6cd7dca75882c0475d812d82e9095dd2edec938825ff"
     imagePullPolicy: IfNotPresent
   tls:
     create: false
@@ -20,6 +19,7 @@ controller:
   replicas: 1
   metrics:
     enabled: true
+  extraArgs: ["--redisdb=4"]
 
 redis:
   enabled: false
@@ -27,6 +27,7 @@ redis:
 externalRedis:
   host: "redis.redis.svc.cluster.local"
   port: 6379
+  existingSecret: argocd-redis
 
 redisSecretInit:
   enabled: false
@@ -45,12 +46,14 @@ server:
       maxUnavailable: 0
   metrics:
     enabled: true
+  extraArgs: ["--redisdb=4"]
 
 repoServer:
   name: repo-server
   replicas: 1
   metrics:
     enabled: true
+  extraArgs: ["--redisdb=4"]
 
 applicationSet:
   name: applicationset-controller
