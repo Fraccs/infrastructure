@@ -9,12 +9,3 @@ data:
     DOMAIN=gitea.47fc5c.com
     ROOT_URL=https://gitea.47fc5c.com
     SSH_DOMAIN=gitea.47fc5c.com
-  session: |
-    PROVIDER_CONFIG=redis://:@redis.redis.svc.cluster.local:6379
-    PROVIDER=redis
-  cache: |
-    HOST=redis://:@redis.redis.svc.cluster.local:6379
-    ADAPTER=redis
-  queue: |
-    TYPE=redis
-    CONN_STR=redis://:@redis.redis.svc.cluster.local:6379
