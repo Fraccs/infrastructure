@@ -10,6 +10,6 @@ data:
   DB_PORT: "3306"
   REDIS_HOST: "redis.redis.svc.cluster.local"
   REDIS_PORT: "6379"
-  REDIS_DB: "10"
+  REDIS_DB: "2"
   ROMM_DB_DRIVER: "mariadb"
   ROMM_PORT: "8090"
