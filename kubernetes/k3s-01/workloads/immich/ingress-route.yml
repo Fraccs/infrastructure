@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`immich.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: immich
+          name: immich-ipallowlist
       services:
         - name: immich-server
           kind: Service
