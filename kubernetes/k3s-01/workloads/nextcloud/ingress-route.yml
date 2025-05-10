@@ -13,6 +13,8 @@ spec:
       middlewares:
         - namespace: nextcloud
           name: headers
+        - namespace: nextcloud
+          name: nextcloud-ipallowlist
       services:
         - name: nextcloud
           kind: Service
