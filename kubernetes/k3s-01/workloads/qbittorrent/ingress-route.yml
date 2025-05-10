@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`qbittorrent.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: torrenting
+          name: qbittorrent-ipallowlist
       services:
         - name: qbittorrent
           kind: Service
