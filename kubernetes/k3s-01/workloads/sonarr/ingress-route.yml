@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`sonarr.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: torrenting
+          name: sonarr-ipallowlist
       services:
         - name: sonarr
           kind: Service
