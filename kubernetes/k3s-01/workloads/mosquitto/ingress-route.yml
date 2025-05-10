@@ -9,6 +9,9 @@ spec:
     - mqtt
   routes:
     - match: HostSNI(`*`)
+      middlewares:
+        - namespace: mosquitto
+          name: mosquitto-ipallowlist
       services:
         - name: mosquitto
           port: 1883
