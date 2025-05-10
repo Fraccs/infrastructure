@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`syncthing.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: syncthing
+          name: syncthing-ipallowlist
       services:
         - name: syncthing
           kind: Service
