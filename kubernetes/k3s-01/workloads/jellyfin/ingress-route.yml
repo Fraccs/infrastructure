@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`jellyfin.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: jellyfin
+          name: jellyfin-ipallowlist
       services:
         - name: jellyfin
           kind: Service
