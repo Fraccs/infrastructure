@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`pihole.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: pihole
+          name: pihole-ipallowlist
       services:
         - name: pihole
           kind: Service
