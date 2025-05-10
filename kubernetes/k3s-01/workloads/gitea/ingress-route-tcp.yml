@@ -9,6 +9,9 @@ spec:
     - ssh
   routes:
     - match: HostSNI(`*`)
+      middlewares:
+        - namespace: gitea
+          name: gitea-ipallowlist
       services:
         - name: gitea-ssh
           port: 22

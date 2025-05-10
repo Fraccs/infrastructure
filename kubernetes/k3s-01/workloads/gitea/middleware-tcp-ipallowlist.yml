@@ -1,0 +1,12 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: MiddlewareTCP
+metadata:
+  name: gitea-ipallowlist
+  namespace: gitea
+spec:
+  ipAllowList:
+    sourceRange:
+      - 172.16.0.2
+      - 192.168.10.3
+      - 192.168.10.4
