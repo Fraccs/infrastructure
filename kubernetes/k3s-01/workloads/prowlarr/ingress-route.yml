@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`prowlarr.47fc5c.com`)
       kind: Rule
+      middleware:
+        - namespace: torrenting
+          name: prowlarr-ipallowlist
       services:
         - name: prowlarr
           kind: Service
