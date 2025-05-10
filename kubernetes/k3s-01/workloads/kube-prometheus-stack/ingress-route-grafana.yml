@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`grafana.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: monitoring
+          name: kube-prometheus-stack-ipallowlist
       services:
         - name: kube-prometheus-stack-grafana
           kind: Service
