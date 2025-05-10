@@ -12,7 +12,7 @@ spec:
       kind: Rule
       middlewares:
         - namespace: nextcloud
-          name: headers
+          name: nextcloud-headers
         - namespace: nextcloud
           name: nextcloud-ipallowlist
       services:
