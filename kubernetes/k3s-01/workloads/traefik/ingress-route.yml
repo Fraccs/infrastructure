@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`traefik.k3s-01.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: kube-system
+          name: traefik-ipallowlist
       services:
         - name: api@internal
           kind: TraefikService
