@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`ui.minio.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: minio
+          name: minio-ipallowlist
       services:
         - name: minio-console
           kind: Service
