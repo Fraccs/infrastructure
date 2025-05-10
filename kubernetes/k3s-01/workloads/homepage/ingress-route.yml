@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`dash.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: homepage
+          name: homepage-ipallowlist
       services:
         - name: homepage
           kind: Service
