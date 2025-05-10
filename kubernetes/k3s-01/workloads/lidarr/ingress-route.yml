@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`lidarr.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: torrenting
+          name: lidarr-ipallowlist
       services:
         - name: lidarr
           kind: Service
