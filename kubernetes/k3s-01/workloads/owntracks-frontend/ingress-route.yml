@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`owntracks.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: owntracks
+          name: owntracks-frontend-ipallowlist
       services:
         - name: owntracks-frontend
           kind: Service
