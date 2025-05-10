@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`cdio.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: cdio
+          name: cdio-ipallowlist
       services:
         - name: cdio
           kind: Service
