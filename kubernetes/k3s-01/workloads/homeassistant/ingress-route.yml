@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`homeassistant.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: homeassistant
+          name: homeassistant-ipallowlist
       services:
         - name: homeassistant
           kind: Service
