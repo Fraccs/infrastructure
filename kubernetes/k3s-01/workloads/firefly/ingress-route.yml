@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`firefly.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: firefly
+          name: firefly-ipallowlist
       services:
         - name: firefly
           kind: Service
