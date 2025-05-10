@@ -1,0 +1,14 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: navidrome-ipallowlist
+  namespace: navidrome
+spec:
+  ipAllowList:
+    sourceRange:
+      - 172.16.0.2
+      - 172.16.0.3
+      - 192.168.10.3
+      - 192.168.10.4
+      - 192.168.20.3
