@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`gotify.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: gotify
+          name: gotify-ipallowlist
       services:
         - name: gotify
           kind: Service
