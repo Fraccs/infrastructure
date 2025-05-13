@@ -28,7 +28,9 @@ spec:
               add: ["NET_ADMIN"]
           ports:
             - containerPort: 80
+              protocol: TCP
             - containerPort: 53
+              protocol: UDP
           volumeMounts:
             - name: pihole
               mountPath: /etc/pihole
