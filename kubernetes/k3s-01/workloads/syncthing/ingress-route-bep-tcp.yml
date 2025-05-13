@@ -9,6 +9,9 @@ spec:
     - bep-tcp
   routes:
     - match: HostSNI(`*`)
+      middlewares:
+        - namespace: syncthing
+          name: syncthing-ipallowlist
       services:
         - name: syncthing
           port: 22000
