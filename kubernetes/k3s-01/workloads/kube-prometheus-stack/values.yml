@@ -319,33 +319,6 @@ alertmanager:
   ##      https://prometheus.io/docs/alerting/notification_examples/
   tplConfig: false
 
-  ## Alertmanager template files to format alerts
-  ## By default, templateFiles are placed in /etc/alertmanager/config/ and if
-  ## they have a .tmpl file suffix will be loaded. See config.templates above
-  ## to change, add other suffixes. If adding other suffixes, be sure to update
-  ## config.templates above to include those suffixes.
-  ## ref: https://prometheus.io/docs/alerting/notifications/
-  ##      https://prometheus.io/docs/alerting/notification_examples/
-  ##
-  templateFiles: {}
-  ## An example template:
-  #   template_1.tmpl: |-
-  #       {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
-  #
-  #       {{ define "slack.myorg.text" }}
-  #       {{- $root := . -}}
-  #       {{ range .Alerts }}
-  #         *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-  #         *Cluster:* {{ template "cluster" $root }}
-  #         *Description:* {{ .Annotations.description }}
-  #         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
-  #         *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
-  #         *Details:*
-  #           {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
-  #           {{ end }}
-  #       {{ end }}
-  #       {{ end }}
-
   ingress:
     enabled: false
   route:
@@ -430,8 +403,8 @@ alertmanager:
     image:
       registry: quay.io
       repository: prometheus/alertmanager
-      tag: v0.28.0
-      sha: ""
+      # tag: ""
+      # sha: ""
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
     ## So when true the config part will be ignored (including templateFiles) and the one in the secret will be used
@@ -884,33 +857,6 @@ kubelet:
     ## Attach metadata to discovered targets. Requires Prometheus v2.45 for endpoints created by the operator.
     attachMetadata:
       node: false
-    ## Scrape interval. If not set, the Prometheus default scrape interval is used.
-    interval: ""
-    ## If true, Prometheus use (respect) labels provided by exporter.
-    ##
-    honorLabels: true
-    ## If true, Prometheus ingests metrics with timestamp provided by exporter. If false, Prometheus ingests metrics with timestamp of scrape.
-    ##
-    honorTimestamps: true
-    ## If true, defines whether Prometheus tracks staleness of the metrics that have an explicit timestamp present in scraped data. Has no effect if `honorTimestamps` is false.
-    ## We recommend enabling this if you want the best possible accuracy for container_ metrics scraped from cadvisor.
-    ## For more details see: https://github.com/prometheus-community/helm-charts/pull/5063#issuecomment-2545374849
-    trackTimestampsStaleness: true
-    ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
-    ##
-    sampleLimit: 0
-    ## TargetLimit defines a limit on the number of scraped targets that will be accepted.
-    ##
-    targetLimit: 0
-    ## Per-scrape limit on number of labels that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
-    ##
-    labelLimit: 0
-    ## Per-scrape limit on length of labels name that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
-    ##
-    labelNameLengthLimit: 0
-    ## Per-scrape limit on length of labels value that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
-    ##
-    labelValueLengthLimit: 0
     ## proxyUrl: URL of a proxy that should be used for scraping.
     ##
     proxyUrl: ""
@@ -1899,8 +1845,8 @@ prometheusOperator:
         registry: quay.io
         repository: prometheus-operator/admission-webhook
         # if not set appVersion field from Chart.yaml is used
-        tag: ""
-        sha: ""
+        # tag: ""
+        # sha: ""
         pullPolicy: IfNotPresent
 
       ## Define Log Format
@@ -2267,45 +2213,15 @@ prometheusOperator:
       drop:
       - ALL
 
-  # Enable vertical pod autoscaler support for prometheus-operator
   verticalPodAutoscaler:
     enabled: false
 
-    # Recommender responsible for generating recommendation for the object.
-    # List should be empty (then the default recommender will generate the recommendation)
-    # or contain exactly one recommender.
-    # recommenders:
-    # - name: custom-recommender-performance
-
-    # List of resources that the vertical pod autoscaler can control. Defaults to cpu and memory
-    controlledResources: []
-    # Specifies which resource values should be controlled: RequestsOnly or RequestsAndLimits.
-    # controlledValues: RequestsAndLimits
-
-    # Define the max allowed resources for the pod
-    maxAllowed: {}
-    # cpu: 200m
-    # memory: 100Mi
-    # Define the min allowed resources for the pod
-    minAllowed: {}
-    # cpu: 200m
-    # memory: 100Mi
-
-    updatePolicy:
-      # Specifies minimal number of replicas which need to be alive for VPA Updater to attempt pod eviction
-      # minReplicas: 1
-      # Specifies whether recommended updates are applied when a Pod is started and whether recommended updates
-      # are applied during the life of a Pod. Possible values are "Off", "Initial", "Recreate", and "Auto".
-      updateMode: Auto
-
-  ## Prometheus-operator image
-  ##
   image:
     registry: quay.io
     repository: prometheus-operator/prometheus-operator
     # if not set appVersion field from Chart.yaml is used
-    tag: ""
-    sha: ""
+    # tag: ""
+    # sha: ""
     pullPolicy: IfNotPresent
 
   ## Prometheus image to use for prometheuses managed by the operator
@@ -2324,52 +2240,35 @@ prometheusOperator:
   ##
   # alertmanagerDefaultBaseImageRegistry: quay.io
 
-  ## Prometheus-config-reloader
-  ##
   prometheusConfigReloader:
     image:
       registry: quay.io
       repository: prometheus-operator/prometheus-config-reloader
       # if not set appVersion field from Chart.yaml is used
-      tag: ""
-      sha: ""
-
+      # tag: ""
+      # sha: ""
     # add prometheus config reloader liveness and readiness probe. Default: false
     enableProbe: false
 
-  ## Thanos side-car image when configured
-  ##
-  thanosImage:
-    registry: quay.io
-    repository: thanos/thanos
-    tag: v0.37.2
-    sha: ""
-
   ## Set a Label Selector to filter watched prometheus and prometheusAgent
-  ##
   prometheusInstanceSelector: ""
 
   ## Set a Label Selector to filter watched alertmanager
-  ##
   alertmanagerInstanceSelector: ""
 
   ## Set a Label Selector to filter watched thanosRuler
   thanosRulerInstanceSelector: ""
 
   ## Set a Field Selector to filter watched secrets
-  ##
   secretFieldSelector: "type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1"
 
   ## If false then the user will opt out of automounting API credentials.
-  ##
   automountServiceAccountToken: true
 
   ## Additional volumes
-  ##
   extraVolumes: []
 
   ## Additional volume mounts
-  ##
   extraVolumeMounts: []
 
 prometheus:
@@ -2622,8 +2521,8 @@ prometheus:
     image:
       registry: quay.io
       repository: prometheus/prometheus
-      tag: v3.2.1
-      sha: ""
+      # tag: ""
+      # sha: ""
 
     ## Alertmanagers to which alerts will be sent
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#alertmanagerendpoints
@@ -2900,7 +2799,7 @@ prometheus:
          accessModes: ["ReadWriteOnce"]
          resources:
            requests:
-             storage: 10Gi
+             storage: 16Gi
 
     ## Using tmpfs volume
     ##
