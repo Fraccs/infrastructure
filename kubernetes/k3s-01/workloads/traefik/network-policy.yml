@@ -1,0 +1,350 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  policyTypes:
+    # - Ingress
+    - Egress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  egress:
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: argocd
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: argocd-server
+      ports:
+        - protocol: TCP
+          port: 8080
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: authentik
+        podSelector:
+          matchLabels:
+            app: authentik
+      ports:
+        - protocol: TCP
+          port: 9000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: cdio
+        podSelector:
+          matchLabels:
+            app: cdio
+      ports:
+        - protocol: TCP
+          port: 5000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: firefly
+        podSelector:
+          matchLabels:
+            app: firefly
+      ports:
+        - protocol: TCP
+          port: 8080
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: freshrss
+        podSelector:
+          matchLabels:
+            app: freshrss
+      ports:
+        - protocol: TCP
+          port: 80
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: gitea
+        podSelector:
+          matchLabels:
+            app: gitea
+      ports:
+        - protocol: TCP
+          port: 2222
+        - protocol: TCP
+          port: 3000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: gotify
+        podSelector:
+          matchLabels:
+            app: gotify
+      ports:
+        - protocol: TCP
+          port: 80
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: homeassistant
+        podSelector:
+          matchLabels:
+            app: homeassistant
+      ports:
+        - protocol: TCP
+          port: 8123
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: homepage
+        podSelector:
+          matchLabels:
+            app: homepage
+      ports:
+        - protocol: TCP
+          port: 3000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: immich
+        podSelector:
+          matchLabels:
+            app: immich-server
+      ports:
+        - protocol: TCP
+          port: 2283
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: jellyfin
+        podSelector:
+          matchLabels:
+            app: jellyfin
+      ports:
+        - protocol: TCP
+          port: 8096
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kavita
+        podSelector:
+          matchLabels:
+            app: kavita
+      ports:
+        - protocol: TCP
+          port: 5000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: linkding
+        podSelector:
+          matchLabels:
+            app: linkding
+      ports:
+        - protocol: TCP
+          port: 9090
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: longhorn-system
+        podSelector:
+          matchLabels:
+            app: longhorn-ui
+      ports:
+        - protocol: TCP
+          port: 8000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: minio
+        podSelector:
+          matchLabels:
+            v1.min.io/console: minio-console
+      ports:
+        - protocol: TCP
+          port: 9090
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: monitoring
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: alertmanager
+      ports:
+        - protocol: TCP
+          port: 9093
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: monitoring
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: grafana
+      ports:
+        - protocol: TCP
+          port: 3000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: monitoring
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: prometheus
+      ports:
+        - protocol: TCP
+          port: 9090
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: mosquitto
+        podSelector:
+          matchLabels:
+            app: mosquitto
+      ports:
+        - protocol: TCP
+          port: 1883
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: navidrome
+        podSelector:
+          matchLabels:
+            app: navidrome
+      ports:
+        - protocol: TCP
+          port: 4533
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: nextcloud
+        podSelector:
+          matchLabels:
+            app: nextcloud
+      ports:
+        - protocol: TCP
+          port: 80
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: owntracks
+        podSelector:
+          matchLabels:
+            app: owntracks-frontend
+      ports:
+        - protocol: TCP
+          port: 80
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: pihole
+        podSelector:
+          matchLabels:
+            app: pihole
+      ports:
+        - protocol: TCP
+          port: 80
+        - protocol: UDP
+          port: 53
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: romm
+        podSelector:
+          matchLabels:
+            app: romm
+      ports:
+        - protocol: TCP
+          port: 8090
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: syncthing
+        podSelector:
+          matchLabels:
+            app: syncthing
+      ports:
+        - protocol: TCP
+          port: 8384
+        - protocol: TCP
+          port: 22000
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            app: lidarr
+      ports:
+        - protocol: TCP
+          port: 8686
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            app: prowlarr
+      ports:
+        - protocol: TCP
+          port: 9696
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            app: qbittorrent
+      ports:
+        - protocol: TCP
+          port: 8080
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            app: radarr
+      ports:
+        - protocol: TCP
+          port: 7878
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            app: readarr
+      ports:
+        - protocol: TCP
+          port: 8787
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: torrenting
+        podSelector:
+          matchLabels:
+            app: sonarr
+      ports:
+        - protocol: TCP
+          port: 8989
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: vaultwarden
+        podSelector:
+          matchLabels:
+            app: vaultwarden
+      ports:
+        - protocol: TCP
+          port: 80
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
