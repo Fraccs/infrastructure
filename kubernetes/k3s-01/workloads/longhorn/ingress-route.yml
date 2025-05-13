@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`longhorn.k3s-01.47fc5c.com`)
       kind: Rule
+      middlewares:
+        - namespace: longhorn-system
+          name: longhorn-ipallowlist
       services:
         - name: longhorn-frontend
           kind: Service
