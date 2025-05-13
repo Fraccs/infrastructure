@@ -378,12 +378,6 @@ ports:
     port: 22000
     exposedPort: 22000
     protocol: TCP
-  bep-udp:
-    expose:
-      default: true
-    port: 22000
-    exposedPort: 22000
-    protocol: UDP
   metrics:
     # -- When using hostNetwork, use another port to avoid conflict with node exporter:
     # https://github.com/prometheus/prometheus/wiki/Default-port-allocations
