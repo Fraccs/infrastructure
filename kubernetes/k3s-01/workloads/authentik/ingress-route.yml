@@ -1,0 +1,27 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`auth.47fc5c.com`)
+      kind: Rule
+      middlewares:
+        - namespace: authentik
+          name: authentik-ipallowlist
+      services:
+        - name: authentik-server
+          kind: Service
+          port: 80
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
+  tls:
+    secretName: authentik-certificate

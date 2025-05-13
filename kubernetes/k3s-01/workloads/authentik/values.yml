@@ -1,0 +1,341 @@
+---
+global:
+  namespaceOverride: "authentik"
+  additionalLabels:
+    app: authentik
+  revisionHistoryLimit: 3
+  image:
+    repository: ghcr.io/goauthentik/server
+    pullPolicy: IfNotPresent
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+authentik:
+  log_level: info
+  events:
+    context_processors:
+      geoip: /geoip/GeoLite2-City.mmdb # -- Path for the GeoIP City database. If the file doesn't exist, GeoIP features are disabled.
+      asn: /geoip/GeoLite2-ASN.mmdb # -- Path for the GeoIP ASN database. If the file doesn't exist, GeoIP features are disabled.
+  web:
+    path: / # -- Relative path the authentik instance will be available at. Value _must_ contain both a leading and trailing slash.
+  email:
+    host: "" # -- SMTP Server emails are sent from, fully optional
+    port: 587 # -- SMTP server port
+    # username: "" # -- SMTP credentials, when left empty, no authentication will be done
+    # password: "" # -- SMTP credentials, when left empty, no authentication will be done
+    use_tls: true # -- Use StartTLS. Enable either use_tls or use_ssl, they can't be enabled at the same time.
+    use_ssl: false # -- Use SSL. Enable either use_tls or use_ssl, they can't be enabled at the same time.
+    timeout: 30 # -- Connection timeout
+    from: "" # -- Email from address, can either be in the format "foo@bar.baz" or "authentik <foo@bar.baz>"
+  outposts:
+    # -- Template used for managed outposts. The following placeholders can be used
+    # %(type)s - the type of the outpost
+    # %(version)s - version of your authentik install
+    # %(build_hash)s - only for beta versions, the build hash of the image
+    container_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
+  error_reporting:
+    # -- This sends anonymous usage-data, stack traces on errors and
+    # performance data to sentry.beryju.org, and is fully opt-in
+    enabled: false
+    # -- This is a string that is sent to sentry with your error reports
+    environment: "k8s"
+    # -- Send PII (Personally identifiable information) data to sentry
+    send_pii: false
+  postgresql:
+    host: "postgres.postgres.svc.cluster.local"
+    name: "authentik"
+    user: "authentik"
+    port: 5432
+  redis:
+    host: "redis.redis.svc.cluster.local"
+
+server:
+  name: server
+  replicas: 2
+  autoscaling:
+    enabled: false
+  pdb:
+    enabled: false
+  envFrom:
+    - secretRef:
+        name: authentik-env
+  podLabels:
+    access-postgres: "true"
+  containerPorts:
+    http: 9000
+    https: 9443
+    metrics: 9300
+  hostNetwork: false
+  # -- [DNS configuration]
+  dnsConfig: {}
+  # -- Alternative DNS policy for authentik server pods
+  dnsPolicy: ""
+  # -- serviceAccount to use for authentik server pods
+  serviceAccountName: ~
+  # -- authentik server pod-level security context
+  # @default -- `{}` (See [values.yaml])
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  containerSecurityContext: {}
+    # Not all of the following has been tested. Use at your own risk.
+    # runAsNonRoot: true
+    # readOnlyRootFilesystem: true
+    # allowPrivilegeEscalation: false
+    # seccomProfile:
+    #   type: RuntimeDefault
+    # capabilities:
+    #   drop:
+    #     - ALL
+
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+    httpGet:
+      path: "{{ .Values.authentik.web.path }}-/health/live/"
+      port: http
+  readinessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+    httpGet:
+      path: "{{ .Values.authentik.web.path }}-/health/ready/"
+      port: http
+  startupProbe:
+    failureThreshold: 60
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+    httpGet:
+      path: "{{ .Values.authentik.web.path }}-/health/live/"
+      port: http
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  ## authentik server service configuration
+  service:
+    # -- authentik server service annotations
+    annotations: {}
+    # -- authentik server service labels
+    labels: {}
+    # -- authentik server service type
+    type: ClusterIP
+    # -- authentik server service http port for NodePort service type (only if `server.service.type` is set to `NodePort`)
+    nodePortHttp: 30080
+    # -- authentik server service https port for NodePort service type (only if `server.service.type` is set to `NodePort`)
+    nodePortHttps: 30443
+    # -- authentik server service http port
+    servicePortHttp: 80
+    # -- authentik server service https port
+    servicePortHttps: 443
+    # -- authentik server service http port name
+    servicePortHttpName: http
+    # -- authentik server service https port name
+    servicePortHttpsName: https
+    # -- authentik server service http port appProtocol
+    # servicePortHttpAppProtocol: HTTP
+    # -- authentik server service https port appProtocol
+    # servicePortHttpsAppProtocol: HTTPS
+    # -- LoadBalancer will get created with the IP specified in this field
+    loadBalancerIP: ""
+    # -- Source IP ranges to allow access to service from
+    loadBalancerSourceRanges: []
+    # -- authentik server service external IPs
+    externalIPs: []
+    # -- Denotes if this service desires to route external traffic to node-local or cluster-wide endpoints
+    externalTrafficPolicy: ""
+    # -- Used to maintain session affinity. Supports `ClientIP` and `None`
+    sessionAffinity: ""
+    # -- Session affinity configuration
+    sessionAffinityConfig: {}
+  metrics:
+    # -- deploy metrics service
+    enabled: false
+    service:
+      # -- metrics service type
+      type: ClusterIP
+      # -- metrics service clusterIP. `None` makes a "headless service" (no virtual IP)
+      clusterIP: ""
+      # -- metrics service annotations
+      annotations: {}
+      # -- metrics service labels
+      labels: {}
+      # -- metrics service port
+      servicePort: 9300
+      # -- metrics service port name
+      portName: metrics
+    serviceMonitor:
+      # -- enable a prometheus ServiceMonitor
+      enabled: false
+      # -- Prometheus ServiceMonitor interval
+      interval: 30s
+      # -- Prometheus ServiceMonitor scrape timeout
+      scrapeTimeout: 3s
+      # -- Prometheus [RelabelConfigs] to apply to samples before scraping
+      relabelings: []
+      # -- Prometheus [MetricsRelabelConfigs] to apply to samples before ingestion
+      metricRelabelings: []
+      # -- Prometheus ServiceMonitor selector
+      selector: {}
+        # prometheus: kube-prometheus
+
+      # -- Prometheus ServiceMonitor scheme
+      scheme: ""
+      # -- Prometheus ServiceMonitor tlsConfig
+      tlsConfig: {}
+      # -- Prometheus ServiceMonitor namespace
+      namespace: ""
+      # -- Prometheus ServiceMonitor labels
+      labels: {}
+      # -- Prometheus ServiceMonitor annotations
+      annotations: {}
+
+  ingress:
+    enabled: false
+
+worker:
+  name: worker
+  replicas: 2
+  deploymentStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  autoscaling:
+    enabled: false
+  pdb:
+    enabled: false
+  envFrom:
+    - secretRef:
+        name: authentik-env
+  podLabels:
+    access-postgres: "true"
+  hostNetwork: false
+  # -- [DNS configuration]
+  dnsConfig: {}
+  # -- Alternative DNS policy for authentik worker pods
+  dnsPolicy: ""
+  # -- serviceAccount to use for authentik worker pods. If set, overrides the value used when serviceAccount.create is true
+  serviceAccountName: ~
+  # -- authentik worker pod-level security context
+  # @default -- `{}` (See [values.yaml])
+  securityContext: {}
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # fsGroup: 1000
+  # -- authentik worker container-level security context
+  # @default -- See [values.yaml]
+  containerSecurityContext: {}
+    # Not all of the following has been tested. Use at your own risk.
+    # runAsNonRoot: true
+    # readOnlyRootFilesystem: true
+    # allowPrivilegeEscalation: false
+    # seccomProfile:
+    #   type: RuntimeDefault
+    # capabilities:
+    #   drop:
+    #     - ALL
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+    exec:
+      command:
+        - ak
+        - healthcheck
+  readinessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+    exec:
+      command:
+        - ak
+        - healthcheck
+  startupProbe:
+    failureThreshold: 60
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+    exec:
+      command:
+        - ak
+        - healthcheck
+
+serviceAccount:
+  # -- Create service account. Needed for managed outposts
+  create: true
+  # -- additional service account annotations
+  annotations: {}
+  serviceAccountSecret:
+    # As we use the authentik-remote-cluster chart as subchart, and that chart
+    # creates a service account secret by default which we don't need here,
+    # disable its creation
+    enabled: false
+  fullnameOverride: authentik
+
+geoip:
+  enabled: false # -- enable GeoIP sidecars for the authentik server and worker pods
+  editionIds: "GeoLite2-City GeoLite2-ASN"
+  updateInterval: 8 # -- GeoIP update frequency in hours
+  # accountId: "" # -- sign up under https://www.maxmind.com/en/geolite2/signup
+  # licenseKey: "" # -- sign up under https://www.maxmind.com/en/geolite2/signup
+  ## use existing secret instead of values above
+  existingSecret:
+    secretName: ""
+    accountId: "account_id" # -- key in the secret containing the account ID
+    licenseKey: "license_key" # -- key in the secret containing the license key
+  image:
+    repository: ghcr.io/maxmind/geoipupdate
+    # tag: v7.1.0
+    # digest: ""
+    # pullPolicy: IfNotPresent
+  containerSecurityContext:
+    runAsNonRoot: true
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    seccomProfile:
+      type: RuntimeDefault
+    capabilities:
+      drop:
+        - ALL
+
+prometheus:
+  rules:
+    enabled: true
+    # -- PrometheusRule namespace
+    namespace: ""
+    # -- PrometheusRule selector
+    selector: {}
+      # prometheus: kube-prometheus
+
+    # -- PrometheusRule labels
+    labels: {}
+    # -- PrometheusRule annotations
+    annotations: {}
+
+postgresql:
+  enabled: false
+
+redis:
+  enabled: false
