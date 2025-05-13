@@ -15,9 +15,5 @@ spec:
       port: 22000
       targetPort: 22000
       protocol: TCP
-    - name: bep-udp
-      port: 22000
-      targetPort: 22000
-      protocol: UDP
   selector:
     app: syncthing

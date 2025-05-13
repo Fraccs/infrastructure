@@ -23,5 +23,3 @@ spec:
           port: 8384
         - protocol: TCP
           port: 22000
-        - protocol: UDP
-          port: 22000
