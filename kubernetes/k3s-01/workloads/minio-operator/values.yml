@@ -3,7 +3,6 @@ operator:
   replicaCount: 2
   image:
     repository: quay.io/minio/operator
-    tag: v7.0.1
     pullPolicy: IfNotPresent
   env:
     - name: OPERATOR_STS_ENABLED
