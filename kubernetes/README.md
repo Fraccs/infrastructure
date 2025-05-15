@@ -4,47 +4,9 @@
 
 ## Clusters
 
-| Cluster Name | N. of Nodes | Nodes | Distribution | Version | IngressController |
-| ------------ | ----------- | ----- | ------------ | ------- | ----------------- |
-| `k3s-prod-a` | 3 | `deb-01`,`deb-02`,`deb-03` | [k3s](https://k3s.io/) | `v1.32.1+k3s1` | [traefik](https://doc.traefik.io/traefik) |
-
-#### Manual installation
-
-`deb-01`
-```sh
-curl -sfL https://get.k3s.io | sh -s - server \
-        --token=<token> \
-        --tls-san k3s-prod-a.l.47fc5c.com \
-        --tls-san 192.168.1.250 \
-        --embedded-registry \
-        --etcd-expose-metrics \
-        --disable=local-storage \
-        --cluster-init
-```
-
-`deb-02`
-```sh
-curl -sfL https://get.k3s.io | sh -s - server \
-        --token=<token> \
-        --tls-san k3s-prod-a.l.47fc5c.com \
-        --tls-san 192.168.1.250 \
-        --embedded-registry \
-        --etcd-expose-metrics \
-        --disable=local-storage \
-        --server https://192.168.1.250:6443
-```
-
-`deb-03`
-```sh
-curl -sfL https://get.k3s.io | sh -s - server \
-        --token=<token> \
-        --tls-san k3s-prod-a.l.47fc5c.com \
-        --tls-san 192.168.1.250 \
-        --embedded-registry \
-        --etcd-expose-metrics \
-        --disable=local-storage \
-        --server https://192.168.1.250:6443
-```
+| Cluster Name | N. of Nodes | Distribution | Version | IngressController |
+| ------------ | ----------- | ------------ | ------- | ----------------- |
+| `k3s-01` | 3 | [k3s](https://k3s.io/) | `v1.32.2+k3s1` | [traefik](https://doc.traefik.io/traefik) |
 
 #### Workloads
 
