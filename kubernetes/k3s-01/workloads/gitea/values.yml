@@ -1,6 +1,12 @@
 ---
 namespace: gitea
 
+global:
+  imageRegistry: docker.io
+
+image:
+  repository: gitea/gitea
+
 gitea:
   additionalConfigSources:
     - configMap:
