@@ -25,7 +25,7 @@ redis:
   enabled: false
 
 externalRedis:
-  host: "redis.redis.svc.cluster.local"
+  host: "redis.redis.svc.k3s-01.47fc5c.com"
   port: 6379
   existingSecret: argocd-redis
 

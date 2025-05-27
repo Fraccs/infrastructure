@@ -14,4 +14,4 @@ data:
   LD_DB_ENGINE: "postgres"
   LD_DB_DATABASE: "linkding"
   LD_DB_USER: "linkding"
-  LD_DB_HOST: "postgres.postgres.svc.cluster.local"
+  LD_DB_HOST: "postgres.postgres.svc.k3s-01.47fc5c.com"

@@ -2000,7 +2000,7 @@ prometheusOperator:
   ## Without this specified option cluster.peer will have value alertmanager-monitoring-alertmanager-0.alertmanager-operated:9094 (default value)
   ## With this specified option cluster.peer will have value alertmanager-monitoring-alertmanager-0.alertmanager-operated.namespace.svc.cluster-domain:9094
   ##
-  # clusterDomain: "cluster.local"
+  clusterDomain: "k3s-01.47fc5c.com"
 
   networkPolicy:
     ## Enable creation of NetworkPolicy resources.

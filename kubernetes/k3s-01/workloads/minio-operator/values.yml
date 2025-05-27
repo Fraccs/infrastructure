@@ -5,6 +5,8 @@ operator:
     repository: quay.io/minio/operator
     pullPolicy: IfNotPresent
   env:
+    - name: CLUSTER_DOMAIN
+      value: "k3s-01.47fc5c.com"
     - name: OPERATOR_STS_ENABLED
       value: "on"
     - name: WATCHED_NAMESPACE

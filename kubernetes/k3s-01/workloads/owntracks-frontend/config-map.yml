@@ -7,6 +7,6 @@ metadata:
 data:
   PGID: "1000"
   PUID: "1000"
-  SERVER_HOST: "owntracks-recorder.owntracks.svc.cluster.local"
+  SERVER_HOST: "owntracks-recorder.owntracks.svc.k3s-01.47fc5c.com"
   SERVER_PORT: "8083"
   TZ: "Europe/Rome"

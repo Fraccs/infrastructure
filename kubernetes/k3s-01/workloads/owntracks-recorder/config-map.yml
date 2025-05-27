@@ -5,7 +5,7 @@ metadata:
   name: owntracks-recorder
   namespace: owntracks
 data:
-  OTR_HOST: "mosquitto.mosquitto.svc.cluster.local"
+  OTR_HOST: "mosquitto.mosquitto.svc.k3s-01.47fc5c.com"
   OTR_PORT: "1883"
   PGID: "1000"
   PUID: "1000"
