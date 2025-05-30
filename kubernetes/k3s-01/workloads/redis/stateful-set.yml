@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: docker.io/library/redis:7.4.3@sha256:8cbe88d8403023e700cc31b058bd192f7ebb7381210b17581b37f6440bc1c8e8
+          image: docker.io/library/redis:7.4.4@sha256:386e6c443372b9ba651d593baa881c802f3d3f093e2586602e05d6ba47ea733e
           command: ["redis-server", "/data/redis.conf"]
           volumeMounts:
             - name: redis-config
