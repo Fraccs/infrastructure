@@ -12,7 +12,7 @@ spec:
   sources:
     - repoURL: https://operator.min.io
       chart: operator
-      targetRevision: 7.1.0
+      targetRevision: 7.1.1
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/minio-operator/values.yml
