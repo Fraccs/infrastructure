@@ -10,15 +10,15 @@ spec:
     automated:
       prune: true
   sources:
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      ref: values
     - repoURL: https://operator.min.io
       chart: operator
       targetRevision: 7.1.1
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/minio-operator/values.yml
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: minio-operator
