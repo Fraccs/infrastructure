@@ -10,18 +10,18 @@ spec:
     automated:
       prune: true
   sources:
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-01/workloads/kube-prometheus-stack
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      ref: values
     - repoURL: https://prometheus-community.github.io/helm-charts/
       chart: kube-prometheus-stack
       targetRevision: 70.4.2
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/kube-prometheus-stack/values.yml
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      ref: values
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      path: kubernetes/k3s-01/workloads/kube-prometheus-stack
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

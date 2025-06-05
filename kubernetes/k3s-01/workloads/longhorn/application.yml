@@ -10,18 +10,18 @@ spec:
     automated:
       prune: true
   sources:
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-01/workloads/longhorn
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      ref: values
     - repoURL: https://charts.longhorn.io/
       chart: longhorn
       targetRevision: v1.8.1
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/longhorn/values.yml
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      ref: values
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      path: kubernetes/k3s-01/workloads/longhorn
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
