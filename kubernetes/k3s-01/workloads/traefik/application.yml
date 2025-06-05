@@ -10,18 +10,18 @@ spec:
     automated:
       prune: true
   sources:
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-01/workloads/traefik
+    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+      targetRevision: HEAD
+      ref: values
     - repoURL: https://traefik.github.io/charts
       chart: traefik
       targetRevision: v34.4.1
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/traefik/values.yml
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      ref: values
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
-      targetRevision: HEAD
-      path: kubernetes/k3s-01/workloads/traefik
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
