@@ -15,7 +15,7 @@ data:
         ":semanticCommitScopeDisabled"
       ],
       "argocd": {
-        "fileMatch": ["kubernetes/.+\\application.yml$"]
+        "fileMatch": ["kubernetes/.+\\.yml$"]
       },
       "kubernetes": {
         "fileMatch": ["kubernetes/.+\\.yml$"]
