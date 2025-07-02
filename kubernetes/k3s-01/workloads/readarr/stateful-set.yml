@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: readarr
-          image: docker.io/linuxserver/readarr:0.4.17-nightly@sha256:00d9a098bcaefd64d85a6af84fe7a47d72cab8b6bb43729e0cf6e6f9f830f824
+          image: docker.io/linuxserver/readarr:0.4.19-nightly@sha256:4f291128d1a5538be73c2a30473d7cdd0820e223dc8b8533b0cbc5659000dcbe
           volumeMounts:
             - name: readarr-config
               mountPath: /config
