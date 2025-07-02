@@ -18,7 +18,7 @@ spec:
       ref: values
     - repoURL: https://charts.jetstack.io/
       chart: cert-manager
-      targetRevision: v1.17.2
+      targetRevision: v1.18.2
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/cert-manager/values.yml
