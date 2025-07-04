@@ -505,7 +505,7 @@ kubeStateMetrics:
 kube-state-metrics:
   image:
     registry: docker.io
-    repository: bitname/kube-state-metrics
+    repository: bitnami/kube-state-metrics
   namespaceOverride: ""
   rbac:
     create: true
