@@ -503,6 +503,9 @@ kubeProxy:
 kubeStateMetrics:
   enabled: true
 kube-state-metrics:
+  image:
+    registry: docker.io
+    repository: bitname/kube-state-metrics
   namespaceOverride: ""
   rbac:
     create: true
