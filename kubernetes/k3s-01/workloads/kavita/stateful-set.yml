@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kavita
-          image: docker.io/jvmilazz0/kavita:0.8.6@sha256:8e697d42cbf7f59edd617308d3c5d09dae01516fb0b5a54b430ba9ab032c35ee
+          image: docker.io/jvmilazz0/kavita:0.8.7@sha256:b9c671586db2a6a688da3cb4b45f1319cca33b01e6e760c8bf3c19d60101bdf2
           volumeMounts:
             - name: kavita-books
               mountPath: /books
