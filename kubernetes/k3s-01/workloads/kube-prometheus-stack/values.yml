@@ -503,10 +503,6 @@ kubeProxy:
 kubeStateMetrics:
   enabled: true
 kube-state-metrics:
-  image:
-    registry: docker.io
-    repository: bitnami/kube-state-metrics
-    tag: {{ .Charts.kube-state-metrics.appVersion }}
   namespaceOverride: ""
   rbac:
     create: true
