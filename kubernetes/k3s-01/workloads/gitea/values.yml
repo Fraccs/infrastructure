@@ -39,17 +39,6 @@ persistence:
 
 actions:
   enabled: true
-  statefulset:
-    actRunner:
-      repository: docker.io/gitea/act_runner
-      tag: 0.2.11@sha256:c57233403eff970945cfb8b13f0e622d2124f4dbc623af3e2c74f061d05e8f60
-    dind:
-      repository: docker
-      tag: 28.0.1-dind@sha256:0336b60f3134d98d26a069856780f9e58dbc3219cde49ca85be14c8e3c3446e2
-  init:
-    image:
-      repository: docker.io/library/busybox
-      tag: 1.37.0@sha256:498a000f370d8c37927118ed80afe8adc38d1edcbfc071627d17b25c88efcab0
   provisioning:
     enabled: true
 
