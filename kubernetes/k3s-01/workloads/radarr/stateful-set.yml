@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: radarr
-          image: docker.io/linuxserver/radarr:5.26.2@sha256:07a474b61394553e047ad43a1a78c1047fc99be0144c509dd91e3877f402ebcb
+          image: docker.io/linuxserver/radarr:5.27.5@sha256:3ebb31bce86870dbcc15a5db3fba8864e302310cb2adb70476b0b64c1b3dc6dc
           volumeMounts:
             - name: radarr-config
               mountPath: /config
