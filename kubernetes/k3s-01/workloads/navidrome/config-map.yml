@@ -5,6 +5,7 @@ metadata:
   name: navidrome
   namespace: navidrome
 data:
+  ND_AUTOIMPORTPLAYLISTS: "false"
   ND_PROMETHEUS_ENABLED: "true"
   ND_PROMETHEUS_METRICSPATH: "/metrics"
   ND_SCANSCHEDULE: "@daily"
