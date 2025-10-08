@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: lidarr
-          image: docker.io/linuxserver/lidarr:2.13.3@sha256:186bc4d3f22bd6a71c235c1c7f57f90a8473f766278d9c929398fb5ce90eae7e
+          image: docker.io/linuxserver/lidarr:2.14.5@sha256:5661b79d7245ec0c196a5a35ac13be44c6d76563d9e5bf855b3ffa3b91160999
           volumeMounts:
             - name: lidarr-config
               mountPath: /config
