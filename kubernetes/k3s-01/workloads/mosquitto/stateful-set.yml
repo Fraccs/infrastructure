@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mosquitto
-          image: docker.io/library/eclipse-mosquitto:2.0.22@sha256:75042dd2dd262dff9eb29c47da26d8ee57211a7bc6fc51bae55badc5fc9f6724
+          image: docker.io/library/eclipse-mosquitto:2.0.22@sha256:fd9982f5ed92a6c2a90805601d2275f8fbd7f2d47c4cb3836f7db0bdc7a91bec
           ports:
             - name: mqtt
               containerPort: 1883
