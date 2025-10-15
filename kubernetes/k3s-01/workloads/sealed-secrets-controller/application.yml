@@ -10,10 +10,10 @@ spec:
     automated:
       prune: true
   sources:
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+    - repoURL: https://gitea.47fc5c.com/fraccs/infrastructure.git
       targetRevision: HEAD
       path: kubernetes/k3s-01/workloads/sealed-secrets-controller
-    - repoURL: https://gitea.47fc5c.com/fraccs/homelab.git
+    - repoURL: https://gitea.47fc5c.com/fraccs/infrastructure.git
       targetRevision: HEAD
       ref: values
     - repoURL: https://bitnami-labs.github.io/sealed-secrets/
