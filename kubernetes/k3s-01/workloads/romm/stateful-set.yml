@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: romm
-          image: docker.io/rommapp/romm:3.10.3@sha256:f28660570b57a7032bc752724bebbc86828916211356b1d6110e03b139b807cf
+          image: docker.io/rommapp/romm:4.3.2@sha256:1895c339b3c7ca62d52f809f5e4c747d78fc8291ea5ee88b3b57df84acf33449
           startupProbe:
             httpGet:
               path: /api/heartbeat
