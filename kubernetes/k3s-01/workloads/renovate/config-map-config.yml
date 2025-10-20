@@ -23,5 +23,9 @@ data:
       "major": {
         "dependencyDashboardApproval": true
       },
+      "packageRules": [{
+        "matchUpdateTypes": ["digest"],
+        "enabled": false
+      }],
       "repositories": ["fraccs/homelab"]
     }
