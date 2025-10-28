@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: pihole
-          image: docker.io/pihole/pihole:2025.10.1@sha256:4fe41ce4957b4b2e8ca8cc6edb2fd8594b7cc462f361f93993190dbf5c099664
+          image: docker.io/pihole/pihole:2025.10.3@sha256:7f2dff3f60615e1b9982824cab30e10d399bd1178691e13a96359ea50323db69
           # startupProbe:
           #   httpGet:
           #     path: /admin/api.php?status
