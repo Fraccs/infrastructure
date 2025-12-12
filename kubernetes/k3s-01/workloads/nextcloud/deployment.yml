@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: nextcloud
-          image: docker.io/library/nextcloud:32.0.1@sha256:42a36b4711191273a9cf8cebfd35602909eb1bee461b7076d4d5a57f7ec2b81e
+          image: docker.io/library/nextcloud:32.0.3@sha256:54993ed39dc77f7a6ade142b1625972cb7a9393074325373402d47231314afbb
           ports:
             - name: web
               containerPort: 80
