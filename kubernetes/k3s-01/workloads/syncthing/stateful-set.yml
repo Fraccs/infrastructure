@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: syncthing
-          image: docker.io/syncthing/syncthing:2.0.10@sha256:3faeb52baa7de3fbe7007cecc6829a4bc71cc6ac62d3967459a8228979c38943
+          image: docker.io/syncthing/syncthing:2.0.13@sha256:6245d798ef695715eaa08f728ff3df91182570adfe77d0fe6d952b126e7601c1
           volumeMounts:
             - name: syncthing-config
               mountPath: /var/syncthing
