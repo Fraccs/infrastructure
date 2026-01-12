@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: qbittorrent
-          image: docker.io/linuxserver/qbittorrent:5.1.4@sha256:95114034a7f74672b76f795f6938921b0ca795f85b59b48691035dc66714f34c
+          image: docker.io/linuxserver/qbittorrent:20.04.1@sha256:fc98c8af048936d0070dc5e5992feab08664f8a61a860d91be02f782f8721485
           startupProbe:
             httpGet:
               path: /
