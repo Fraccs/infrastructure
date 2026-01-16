@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: docker.io/library/postgres:14.15@sha256:b96696e3d156db074695b757668b71b72c9f7c0afb595d72688c0c3b5118f744
+          image: docker.io/library/postgres:14.20@sha256:d508bf6220b5c7b7cd9c735d6abd5ea2e6e4e45882a29ed704f625aba32bd935
           ports:
             - name: postgres
               containerPort: 5432
