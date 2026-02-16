@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v2.5.3@sha256:ccc2f7e7a64f71d8e56f2a7bf6112c9fd8075a854e4ec6d7c8c97049e15a9cfb
+          image: ghcr.io/immich-app/immich-server:v2.5.6@sha256:aa163d2e1cc2b16a9515dd1fef901e6f5231befad7024f093d7be1f2da14341a
           volumeMounts:
             - name: immich-server-data
               mountPath: /usr/src/app/upload
