@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: mealie
-          image: ghcr.io/mealie-recipes/mealie:v3.1.1@sha256:c15f70d7f301145ffa49c988db33071a4585fabf214c2da08bc2cd62737043c8
+          image: ghcr.io/mealie-recipes/mealie:v3.11.0@sha256:d99fc2844c04288526d6cbecc9ac1b6c32d8ea6054236d56857107bbaf70ea5c
           volumeMounts:
             - name: mealie-data
               mountPath: /app/data
