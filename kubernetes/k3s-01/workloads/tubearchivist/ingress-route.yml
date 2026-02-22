@@ -1,0 +1,27 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tubearchivist
+  namespace: tubearchivist
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`tubearchivist.47fc5c.com`)
+      kind: Rule
+      middlewares:
+        - namespace: tubearchivist
+          name: tubearchivist-ipallowlist
+      services:
+        - name: tubearchivist
+          kind: Service
+          port: 8000
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
+  tls:
+    secretName: tubearchivist-certificate

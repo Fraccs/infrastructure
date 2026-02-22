@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tubearchivist
+  namespace: tubearchivist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tubearchivist
+  template:
+    metadata:
+      labels:
+        app: tubearchivist
+    spec:
+      containers:
+        - name: tubearchivist
+          image: docker.io/bbilly1/tubearchivist:v0.5.8@sha256:83ccd1e372a654654e8cb3c0278256b6889653a4cf239c052bb532401c79daeb
+          envFrom:
+            - configMapRef:
+                name: tubearchivist
+            - secretRef:
+                name: tubearchivist

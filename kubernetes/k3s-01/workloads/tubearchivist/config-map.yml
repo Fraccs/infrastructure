@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tubearchivist
+  namespace: tubearchivist
+data:
+  ELASTIC_USER: "elastic"
+  ES_DISABLE_VERIFY_SSL: "true"
+  ES_URL: "https://elasticsearch-es-internal-http.elastic.svc.k3s-01.47fc5c.com:9200"
+  TA_HOST: "https://tubearchivist.47fc5c.com"
+  TA_USERNAME: "fraccs"
+  TZ: "Europe/Rome"

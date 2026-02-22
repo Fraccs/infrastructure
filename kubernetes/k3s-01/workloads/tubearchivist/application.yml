@@ -1,0 +1,20 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tubearchiver
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    repoURL: https://gitea.47fc5c.com/fraccs/infrastructure.git
+    targetRevision: HEAD
+    path: kubernetes/k3s-01/workloads/tubearchiver
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tubearchiver
