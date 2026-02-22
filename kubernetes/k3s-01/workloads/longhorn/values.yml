@@ -20,9 +20,9 @@ defaultBackupStore:
 
 defaultSettings:
   defaultDataPath: /mnt/longhorn
-  storageOverProvisioningPercentage: 100
-  storageMinimalAvailablePercentage: 25
-  storageReservedPercentageForDefaultDisk: 0
+  storageOverProvisioningPercentage: "100"
+  storageMinimalAvailablePercentage: "25"
+  storageReservedPercentageForDefaultDisk: "0"
   upgradeChecker: false
   defaultReplicaCount: 3
   allowCollectingLonghornUsageMetrics: false
