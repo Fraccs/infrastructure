@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mealie
+  namespace: mealie
+data:
+  ALLOW_SIGNUP: "false"
+  BASE_URL: "https://mealie.47fc5c.com"
+  DB_ENGINE: "postgres"
+  LOG_LEVEL: "debug"
+  POSTGRES_DB: "mealie"
+  POSTGRES_PORT: "5432"
+  POSTGRES_SERVER: "postgres.postgres.svc.k3s-01.47fc5c.com"
+  TZ: "Europe/Rome"

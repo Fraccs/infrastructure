@@ -1,0 +1,27 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mealie
+  namespace: mealie
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`mealie.47fc5c.com`)
+      kind: Rule
+      middlewares:
+        - namespace: mealie
+          name: mealie-ipallowlist
+      services:
+        - name: mealie
+          kind: Service
+          port: 9000
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
+  tls:
+    secretName: mealie-certificate

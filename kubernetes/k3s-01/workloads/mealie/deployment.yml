@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mealie
+  namespace: mealie
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: mealie
+  template:
+    metadata:
+      labels:
+        app: mealie
+    spec:
+      containers:
+        - name: mealie
+          image: ghcr.io/mealie-recipes/mealie:v3.1.1@sha256:c15f70d7f301145ffa49c988db33071a4585fabf214c2da08bc2cd62737043c8
+          volumeMounts:
+            - name: mealie-data
+              mountPath: /app/data
+          envFrom:
+            - configMapRef:
+                name: mealie
+            - secretRef:
+                name: mealie
+      volumes:
+        - name: mealie-data
+          persistentVolumeClaim:
+            claimName: mealie-data
