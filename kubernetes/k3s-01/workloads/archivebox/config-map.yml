@@ -1,0 +1,13 @@
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: archivebox
+  namespace: archivebox
+data:
+  ALLOWED_HOSTS: "archivebox.47fc5c.com"
+  CSRF_TRUSTED_ORIGINS: "https://archivebox.47fc5c.com"
+  PUBLIC_INDEX: "False"
+  PUBLIC_SNAPSHOTS: "False"
+  PUBLIC_ADD_VIEW: "False"

@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: archivebox
+  namespace: archivebox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: archivebox
+  template:
+    metadata:
+      labels:
+        app: archivebox
+    spec:
+      containers:
+        - name: archivebox
+          image: docker.io/archivebox/archivebox:0.7.3@sha256:fdf2936192aa1e909b0c3f286f60174efa24078555be4b6b90a07f2cef1d4909
+          volumeMounts:
+            - name: archivebox-data
+              mountPath: /data
+          envFrom:
+            - configMapRef:
+                name: archivebox
+      volumes:
+        - name: archivebox-data
+          persistentVolumeClaim:
+            claimName: archivebox-data
