@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tubearchiver
+  name: tubearchivist
   namespace: argocd
 spec:
   project: default
@@ -12,9 +12,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    repoURL: https://gitea.47fc5c.com/fraccs/infrastructure.git
+    repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
     targetRevision: HEAD
-    path: kubernetes/k3s-01/workloads/tubearchiver
+    path: kubernetes/k3s-01/workloads/tubearchivist
   destination:
     server: https://kubernetes.default.svc
-    namespace: tubearchiver
+    namespace: tubearchivist
