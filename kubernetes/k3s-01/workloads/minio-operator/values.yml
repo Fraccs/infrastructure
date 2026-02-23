@@ -1,6 +1,6 @@
 ---
 operator:
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: quay.io/minio/operator
     pullPolicy: IfNotPresent

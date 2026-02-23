@@ -5,7 +5,7 @@ metadata:
   name: homepage
   namespace: homepage
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:

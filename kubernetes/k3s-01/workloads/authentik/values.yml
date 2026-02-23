@@ -58,7 +58,7 @@ authentik:
 
 server:
   name: server
-  replicas: 2
+  replicas: 1
   autoscaling:
     enabled: false
   pdb:
@@ -166,7 +166,7 @@ server:
     sessionAffinityConfig: {}
   metrics:
     # -- deploy metrics service
-    enabled: false
+    enabled: true
     service:
       # -- metrics service type
       type: ClusterIP
@@ -182,7 +182,7 @@ server:
       portName: metrics
     serviceMonitor:
       # -- enable a prometheus ServiceMonitor
-      enabled: false
+      enabled: true
       # -- Prometheus ServiceMonitor interval
       interval: 30s
       # -- Prometheus ServiceMonitor scrape timeout
@@ -193,16 +193,17 @@ server:
       metricRelabelings: []
       # -- Prometheus ServiceMonitor selector
       selector: {}
-        # prometheus: kube-prometheus
+        # prometheus: kube-prometheus-stack
 
       # -- Prometheus ServiceMonitor scheme
       scheme: ""
       # -- Prometheus ServiceMonitor tlsConfig
       tlsConfig: {}
       # -- Prometheus ServiceMonitor namespace
-      namespace: ""
+      namespace: "monitoring"
       # -- Prometheus ServiceMonitor labels
-      labels: {}
+      labels:
+        release: kube-prometheus-stack
       # -- Prometheus ServiceMonitor annotations
       annotations: {}
 
@@ -211,7 +212,7 @@ server:
 
 worker:
   name: worker
-  replicas: 2
+  replicas: 1
   deploymentStrategy:
     type: RollingUpdate
     rollingUpdate:
@@ -324,10 +325,10 @@ prometheus:
   rules:
     enabled: true
     # -- PrometheusRule namespace
-    namespace: ""
+    namespace: "monitoring"
     # -- PrometheusRule selector
-    selector: {}
-      # prometheus: kube-prometheus
+    selector:
+      prometheus: kube-prometheus-stack
 
     # -- PrometheusRule labels
     labels: {}
