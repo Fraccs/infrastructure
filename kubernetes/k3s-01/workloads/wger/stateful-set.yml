@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wger
+  namespace: wger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wger
+  template:
+    metadata:
+      labels:
+        app: wger
+    spec:
+      containers:
+        - name: wger
+          image: docker.io/wger/server:2.4-dev@sha256:f56acbe3138b66939a5e9217a48fddae8f2cab9e5929adb6fc3dc39166883bec
+          volumeMounts:
+            - name: wger-media
+              mountPath: /home/wger/media/
+            - name: wger-static
+              mountPath: /home/wger/static/
+          envFrom:
+            - configMapRef:
+                name: wger
+            - secretRef:
+                name: wger
+      volumes:
+        - name: wger-media
+          persistentVolumeClaim:
+            claimName: wger-media
+        - name: wger-static
+          persistentVolumeClaim:
+            claimName: wger-static
