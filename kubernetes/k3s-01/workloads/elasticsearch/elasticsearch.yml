@@ -5,6 +5,7 @@ metadata:
   name: elasticsearch
   namespace: elastic
 spec:
+  version: 9.3.0
   nodeSets:
   - name: default
     count: 1
