@@ -20,10 +20,15 @@ data:
         "kubernetes"
       ],
       "argocd": {
-        "managerFilePatterns": ["/kubernetes/.+\\.yml$/"]
+        "managerFilePatterns": ["/kubernetes/.+application\\.yml$/"]
       },
       "kubernetes": {
-        "managerFilePatterns": ["/kubernetes/.+\\.yml$/"]
+        "managerFilePatterns": [
+          "/kubernetes/.+cron-job\\.yml$/",
+          "/kubernetes/.+daemon-set\\.yml$/",
+          "/kubernetes/.+deployment\\.yml$/",
+          "/kubernetes/.+stateful-set\\.yml$/"
+        ]
       },
       "major": {
         "dependencyDashboardApproval": true
