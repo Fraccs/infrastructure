@@ -15,10 +15,10 @@ data:
         ":semanticCommitScopeDisabled"
       ],
       "argocd": {
-        "fileMatch": ["kubernetes/.+\\.yml$"]
+        "fileMatch": ["/kubernetes/.+\\.yml$"]
       },
       "kubernetes": {
-        "fileMatch": ["kubernetes/.+\\.yml$"]
+        "fileMatch": ["/kubernetes/.+\\.yml$"]
       },
       "major": {
         "dependencyDashboardApproval": true
