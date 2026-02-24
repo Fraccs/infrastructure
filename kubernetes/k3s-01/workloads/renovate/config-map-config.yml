@@ -14,11 +14,16 @@ data:
         ":semanticCommitTypeAll(bump)",
         ":semanticCommitScopeDisabled"
       ],
+      "enabledManagers": [
+        "argocd",
+        "helm-values",
+        "kubernetes"
+      ],
       "argocd": {
-        "managerFilePatterns": ["kubernetes/.+\\.yml$"]
+        "managerFilePatterns": ["/kubernetes/.+\\.yml$/"]
       },
       "kubernetes": {
-        "managerFilePatterns": ["kubernetes/.+\\.yml$"]
+        "managerFilePatterns": ["/kubernetes/.+\\.yml$/"]
       },
       "major": {
         "dependencyDashboardApproval": true
