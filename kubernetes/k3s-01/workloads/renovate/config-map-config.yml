@@ -27,5 +27,5 @@ data:
         "matchUpdateTypes": ["digest"],
         "enabled": false
       }],
-      "repositories": ["fraccs/homelab"]
+      "repositories": ["fraccs/infrastructure"]
     }
