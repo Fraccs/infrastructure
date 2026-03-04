@@ -16,7 +16,7 @@ clusterDomain: k3s-01.47fc5c.com
 
 image:
   registry: "docker.io"
-  repository: gitea
+  repository: gitea/gitea
   pullPolicy: IfNotPresent
   rootless: true
 
