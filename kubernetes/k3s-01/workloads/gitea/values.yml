@@ -1,29 +1,24 @@
 ---
-namespace: gitea
-
 global:
-  imageRegistry: docker.io
+  imageRegistry: "docker.io"
 
-image:
-  repository: gitea/gitea
-
-gitea:
-  additionalConfigSources:
-    - configMap:
-        name: gitea
-    - secret:
-        secretName: gitea-config
-  admin:
-    existingSecret: gitea-admin
-  metrics:
-    enabled: true
+namespace: "gitea"
 
 replicaCount: 1
 
 strategy:
+  type: "RollingUpdate"
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 0
+
+clusterDomain: k3s-01.47fc5c.com
+
+image:
+  registry: "docker.io"
+  repository: gitea
+  pullPolicy: IfNotPresent
+  rootless: true
 
 persistence:
   enabled: true
@@ -32,18 +27,33 @@ persistence:
   accessModes:
     - ReadWriteMany
 
-# signing:
-#   enabled: true
-#   gpgHome: /data/git/.gnupg
-#   existingSecret: gitea-pgp
+gitea:
+  admin:
+    existingSecret: gitea-admin
+  metrics:
+    enabled: false
+  additionalConfigSources:
+    - configMap:
+        name: gitea
+    - secret:
+        secretName: gitea-config
 
-actions:
-  enabled: true
-  provisioning:
-    enabled: true
+valkey-cluster:
+  enabled: false
+
+valkey:
+  enabled: false
 
 postgresql-ha:
   enabled: false
 
-redis-cluster:
+postgresql:
   enabled: false
+
+# By default, removed or moved settings that still remain in a user defined values.yaml will cause Helm to fail running the install/update.
+checkDeprecation: true
+test:
+  enabled: true
+  image:
+    name: busybox
+    tag: latest
