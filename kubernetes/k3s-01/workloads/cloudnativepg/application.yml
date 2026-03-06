@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg-operator
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  sources:
+    - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-01/workloads/cloudnativepg
+    - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://cloudnative-pg.github.io/charts
+      chart: cloudnative-pg
+      targetRevision: 0.27.1
+      helm:
+        valueFiles:
+          - $values/kubernetes/k3s-01/workloads/cloudnativepg/values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system
