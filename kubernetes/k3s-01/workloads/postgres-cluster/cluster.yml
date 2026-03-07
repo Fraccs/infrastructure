@@ -1,0 +1,21 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-cluster
+  namespace: postgres-cluster
+spec:
+  instances: 3
+  storage:
+    size: 10Gi
+    storageClass: longhorn-crypto-global-single-replica
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+  managed:
+    roles:
+    - name: lidarr
+      login: true
+      passwordSecret:
+        name: lidarr-role
