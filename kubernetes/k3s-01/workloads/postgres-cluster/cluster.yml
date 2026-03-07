@@ -19,3 +19,7 @@ spec:
       login: true
       passwordSecret:
         name: lidarr-role
+    - name: prowlarr
+      login: true
+      passwordSecret:
+        name: prowlarr-role
