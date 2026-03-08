@@ -23,3 +23,7 @@ spec:
       login: true
       passwordSecret:
         name: prowlarr-role
+    - name: radarr
+      login: true
+      passwordSecret:
+        name: radarr-role
