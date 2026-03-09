@@ -31,3 +31,7 @@ spec:
       login: true
       passwordSecret:
         name: readarr-role
+    - name: sonarr
+      login: true
+      passwordSecret:
+        name: sonarr-role
