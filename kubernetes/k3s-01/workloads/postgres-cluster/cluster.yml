@@ -27,3 +27,7 @@ spec:
       login: true
       passwordSecret:
         name: radarr-role
+    - name: readarr
+      login: true
+      passwordSecret:
+        name: readarr-role

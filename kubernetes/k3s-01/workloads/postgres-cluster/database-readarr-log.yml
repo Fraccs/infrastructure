@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: readarr-log
+  namespace: postgres-cluster
+spec:
+  name: readarr-log
+  owner: readarr
+  cluster:
+    name: postgres-cluster
