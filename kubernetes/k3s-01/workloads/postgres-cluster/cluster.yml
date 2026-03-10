@@ -15,6 +15,10 @@ spec:
       number: 1
   managed:
     roles:
+    - name: authentik
+      login: true
+      passwordSecret:
+        name: authentik-role
     - name: lidarr
       login: true
       passwordSecret:
