@@ -58,7 +58,7 @@ authentik:
 
 server:
   name: server
-  replicas: 1
+  replicas: 0
   autoscaling:
     enabled: false
   pdb:
@@ -212,7 +212,7 @@ server:
 
 worker:
   name: worker
-  replicas: 1
+  replicas: 0
   deploymentStrategy:
     type: RollingUpdate
     rollingUpdate:
