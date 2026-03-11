@@ -31,6 +31,10 @@ spec:
       login: true
       passwordSecret:
         name: lidarr-role
+    - name: linkding
+      login: true
+      passwordSecret:
+        name: linkding-role
     - name: prowlarr
       login: true
       passwordSecret:
