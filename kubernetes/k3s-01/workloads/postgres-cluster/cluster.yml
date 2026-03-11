@@ -35,6 +35,10 @@ spec:
       login: true
       passwordSecret:
         name: linkding-role
+    - name: mealie
+      login: true
+      passwordSecret:
+        name: mealie-role
     - name: prowlarr
       login: true
       passwordSecret:
