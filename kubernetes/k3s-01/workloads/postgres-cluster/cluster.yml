@@ -23,6 +23,10 @@ spec:
       login: true
       passwordSecret:
         name: freshrss-role
+    - name: gitea
+      login: true
+      passwordSecret:
+        name: gitea-role
     - name: gotify
       login: true
       passwordSecret:

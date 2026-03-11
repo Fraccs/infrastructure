@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: gitea
+  namespace: postgres-cluster
+spec:
+  name: gitea
+  owner: gitea
+  cluster:
+    name: postgres-cluster
