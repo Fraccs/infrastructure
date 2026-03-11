@@ -23,6 +23,10 @@ spec:
       login: true
       passwordSecret:
         name: freshrss-role
+    - name: gotify
+      login: true
+      passwordSecret:
+        name: gotify-role
     - name: lidarr
       login: true
       passwordSecret:
