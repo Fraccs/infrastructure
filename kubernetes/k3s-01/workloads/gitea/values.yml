@@ -4,7 +4,7 @@ global:
 
 namespace: "gitea"
 
-replicaCount: 0
+replicaCount: 1
 
 strategy:
   type: "RollingUpdate"
