@@ -76,8 +76,7 @@ data:
   DJANGO_DB_ENGINE: "django.db.backends.postgresql"
   DJANGO_DB_DATABASE: "wger"
   DJANGO_DB_USER: "wger"
-  DJANGO_DB_PASSWORD: "wger" # TODO: change ffs
-  DJANGO_DB_HOST: "postgres.postgres.svc.k3s-01.47fc5c.com"
+  DJANGO_DB_HOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
   DJANGO_DB_PORT: "5432"
   DJANGO_PERFORM_MIGRATIONS: "True" # Perform any new database migrations on startup
 
