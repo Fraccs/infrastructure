@@ -1,0 +1,30 @@
+---
+autoDirectNodeRoutes: true
+bgpControlPlane:
+  enabled: false
+bpf:
+  loadBalancer:
+    algorithm: maglev
+    mode: hybrid
+  masquerade: true
+cluster:
+  name: default
+devices: ens18
+hubble:
+  enabled: true
+  peerService:
+    clusterDomain: k3s-01.47fc5c.com
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+ipam:
+  operator:
+    clusterPoolIPv4PodCIDRList: 10.42.0.0/16
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 6444
+kubeProxyReplacement: true
+operator:
+  replicas: 1
+routingMode: native
