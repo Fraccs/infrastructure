@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: wger
+  namespace: postgres-cluster
+spec:
+  name: wger
+  owner: wger
+  cluster:
+    name: postgres-cluster
