@@ -55,6 +55,10 @@ spec:
       login: true
       passwordSecret:
         name: sonarr-role
+    - name: vaultwarden
+      login: true
+      passwordSecret:
+        name: vaultwarden-role
     - name: wger
       login: true
       passwordSecret:
