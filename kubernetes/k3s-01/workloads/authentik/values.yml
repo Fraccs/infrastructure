@@ -49,7 +49,7 @@ authentik:
     # -- Send PII (Personally identifiable information) data to sentry
     send_pii: false
   postgresql:
-    host: "postgres.postgres.svc.k3s-01.47fc5c.com"
+    host: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
     name: "authentik"
     user: "authentik"
     port: 5432
