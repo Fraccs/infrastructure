@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: freshrss
+  namespace: postgres-cluster
+spec:
+  name: freshrss
+  owner: freshrss
+  cluster:
+    name: postgres-cluster
