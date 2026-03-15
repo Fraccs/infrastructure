@@ -52,8 +52,8 @@ spec:
           resources:
             requests:
               storage: 5Gi
-          storageClassName: longhorn
-      volumesPerServer: 2
+          storageClassName: longhorn-crypto-global-single-replica
+      volumesPerServer: 1
   requestAutoCert: false
   users:
     - name: minio-user
