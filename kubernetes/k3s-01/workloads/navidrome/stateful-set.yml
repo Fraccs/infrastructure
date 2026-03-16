@@ -21,17 +21,32 @@ spec:
             httpGet:
               path: /app
               port: 4533
+          resources:
+            requests:
+              cpu: 5m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           volumeMounts:
             - name: navidrome-data
               mountPath: /data
             - name: navidrome-music
               mountPath: /music
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
           envFrom:
             - configMapRef:
                 name: navidrome
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
       volumes:
         - name: navidrome-data
           persistentVolumeClaim:
