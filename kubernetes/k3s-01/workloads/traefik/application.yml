@@ -18,7 +18,7 @@ spec:
       ref: values
     - repoURL: https://traefik.github.io/charts
       chart: traefik
-      targetRevision: 39.0.5
+      targetRevision: 39.0.7
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/traefik/values.yml
