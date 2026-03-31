@@ -17,6 +17,13 @@ spec:
       containers:
         - name: kavita
           image: docker.io/jvmilazz0/kavita:0.8.9@sha256:69e9117b9b681849a6f6d5dc8411bfa6a326ed77f78cc49d9cbce49584ff6c0d
+          resources:
+            requests:
+              cpu: 10m
+              memory: 512Mi
+            limits:
+              cpu: 100m
+              memory: 768Mi
           volumeMounts:
             - name: kavita-books
               mountPath: /books
