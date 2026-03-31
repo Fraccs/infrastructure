@@ -22,6 +22,13 @@ spec:
       containers:
         - name: nextcloud
           image: docker.io/library/nextcloud:33.0.0@sha256:d53f6cb35b0712aa890a5e4a8ca21043d6fcd390f38c55b710816dd7cbc2edc0
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              cpu: 100m
+              memory: 384Mi
           ports:
             - name: web
               containerPort: 80
