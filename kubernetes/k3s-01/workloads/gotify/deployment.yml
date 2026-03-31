@@ -28,6 +28,13 @@ spec:
               port: 80
             failureThreshold: 5
             periodSeconds: 20
+          resources:
+            requests:
+              cpu: 1m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
           ports:
             - containerPort: 80
           volumeMounts:
