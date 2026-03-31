@@ -26,6 +26,13 @@ spec:
             httpGet:
               path: /api/healthcheck
               port: 3000
+          resources:
+            requests:
+              cpu: 1m
+              memory: 96Mi
+            limits:
+              cpu: 15m
+              memory: 160Mi
           ports:
             - name: web
               containerPort: 3000
