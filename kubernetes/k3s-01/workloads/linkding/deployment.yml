@@ -28,6 +28,13 @@ spec:
               port: 9090
             periodSeconds: 30
             failureThreshold: 10
+          resources:
+            requests:
+              cpu: 1m
+              memory: 160Mi
+            limits:
+              cpu: 25m
+              memory: 256Mi
           ports:
            - containerPort: 9090
           volumeMounts:
