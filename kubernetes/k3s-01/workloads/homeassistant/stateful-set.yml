@@ -23,6 +23,13 @@ spec:
               port: 8123
             periodSeconds: 30
             failureThreshold: 10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 512Mi
+            limits:
+              cpu: 100m
+              memory: 1024Mi
           ports:
             - name: web
               containerPort: 8123
