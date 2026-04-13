@@ -17,12 +17,12 @@ spec:
       containers:
         - name: homeassistant
           image: docker.io/linuxserver/homeassistant:2026.4.2@sha256:43bf023238e39a02c06d87c1ebcb93e609686259a790f7d593b03897ade501e5
-          startupProbe:
-            httpGet:
-              path: /manifest.json
-              port: 8123
-            periodSeconds: 30
-            failureThreshold: 10
+          # startupProbe:
+          #   httpGet:
+          #     path: /manifest.json
+          #     port: 8123
+          #   periodSeconds: 30
+          #   failureThreshold: 10
           resources:
             requests:
               cpu: 10m
