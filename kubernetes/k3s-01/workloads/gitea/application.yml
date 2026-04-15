@@ -18,7 +18,7 @@ spec:
       ref: values
     - repoURL: https://dl.gitea.com/charts/
       chart: gitea
-      targetRevision: 12.5.1
+      targetRevision: 12.5.3
       helm:
         valueFiles:
           - $values/kubernetes/k3s-01/workloads/gitea/values.yml
