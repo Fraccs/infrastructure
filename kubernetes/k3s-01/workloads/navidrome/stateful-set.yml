@@ -37,7 +37,7 @@ spec:
               drop:
                 - ALL
           volumeMounts:
-            - name: navidrome-data
+            - name: navidrome-data-encrypted
               mountPath: /data
             - name: navidrome-music
               mountPath: /music
@@ -48,9 +48,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
       volumes:
-        - name: navidrome-data
+        - name: navidrome-data-encrypted
           persistentVolumeClaim:
-            claimName: navidrome-data
+            claimName: navidrome-data-encrypted
         - name: navidrome-music
           persistentVolumeClaim:
             claimName: navidrome-music
