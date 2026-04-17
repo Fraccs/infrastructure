@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migrate-data
+  namespace: navidrome
+spec:
+  containers:
+  - name: migrate
+    image: alpine
+    command: ["sh", "-c", "sleep 3600"]
+    volumeMounts:
+    - name: old
+      mountPath: /old
+    - name: new
+      mountPath: /new
+  volumes:
+  - name: old
+    persistentVolumeClaim:
+      claimName: navidrome-data
+  - name: new
+    persistentVolumeClaim:
+      claimName: navidrome-data-encrypted
