@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hortusfox
+  namespace: hortusfox
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: hortusfox
+  template:
+    metadata:
+      labels:
+        app: hortusfox
+    spec:
+      containers:
+        - name: hortusfox
+          image: ghcr.io/danielbrendel/hortusfox-web:v5.7@sha256:8c286b6656920071c4c10142203566b5305702806117d01a66be6ba66d27a104
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              cpu: 100m
+              memory: 384Mi
+          ports:
+            - name: web
+              containerPort: 80
+          volumeMounts:
+            - name: hortusfox
+              mountPath: /var/www/html/app/logs/
+              subPath: logs/
+            - name: hortusfox
+              mountPath: /var/www/html/app/migrations/
+              subPath: migrations/
+            - name: hortusfox
+              mountPath: /var/www/html/public/backup/
+              subPath: backup/
+            - name: hortusfox
+              mountPath: /var/www/html/public/img/
+              subPath: img/
+            - name: hortusfox
+              mountPath: /var/www/html/public/themes/
+              subPath: themes/
+          envFrom:
+            - configMapRef:
+                name: hortusfox
+            - secretRef:
+                name: hortusfox
+      volumes:
+        - name: hortusfox
+          persistentVolumeClaim:
+            claimName: hortusfox

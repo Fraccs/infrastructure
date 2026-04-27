@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hortusfox
+  namespace: hortusfox
+data:
+  APP_ADMIN_EMAIL: "admin@fraccs.com"
+  APP_TIMEZONE: "Europe/Rome"
+  DB_HOST: "mariadb.mariadb.svc.k3s-01.47fc5c.com"
+  DB_PORT: "3306"
+  DB_DATABASE: "hortusfox"
+  DB_USERNAME: "hortusfox"
+  DB_CHARSET: "utf8mb4"
