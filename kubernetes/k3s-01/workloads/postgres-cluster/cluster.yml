@@ -43,6 +43,10 @@ spec:
       login: true
       passwordSecret:
         name: mealie-role
+    - name: paperless
+      login: true
+      passwordSecret:
+        name: paperless-role
     - name: prowlarr
       login: true
       passwordSecret:
