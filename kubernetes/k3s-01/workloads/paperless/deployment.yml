@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      containers:
+        - name: paperless
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15@sha256:6c86cad803970ea782683a8e80e7403444c5bf3cf70de63b4d3c8e87500db92f
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Gi
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: paperless
+            - secretRef:
+                name: paperless
+          volumeMounts:
+            - name: paperless
+              mountPath: /usr/src/paperless/data
+              subPath: data/
+            - name: paperless
+              mountPath: /usr/src/paperless/media
+              subPath: media/
+            - name: paperless
+              mountPath: /usr/src/paperless/consume
+              subPath: consume/
+      volumes:
+        - name: paperless
+          persistentVolumeClaim:
+            claimName: paperless
