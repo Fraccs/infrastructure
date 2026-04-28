@@ -10,5 +10,6 @@ data:
   PAPERLESS_DBNAME: "paperless"
   PAPERLESS_DBUSER: "paperless"
   PAPERLESS_OCR_LANGUAGE: "eng"
+  PAPERLESS_PORT: "8000"
   PAPERLESS_TIME_ZONE: "Europe/Rome"
   PAPERLESS_URL: "https://paperless.47fc5c.com"
