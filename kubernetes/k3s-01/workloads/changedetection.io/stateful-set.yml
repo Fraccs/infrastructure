@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cdio
-          image: docker.io/linuxserver/changedetection.io:0.55.1@sha256:89c080363ee801afde9098a67e40e5878b20e4e163c59fe262b54b520f38d0ae
+          image: docker.io/linuxserver/changedetection.io:0.55.3@sha256:e87f132d868c4bbfbba2c8dca07e4e5fb7667f13643a7f4814699623a728813a
           resources:
             requests:
               cpu: 10m
