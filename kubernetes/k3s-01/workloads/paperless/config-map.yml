@@ -5,7 +5,7 @@ metadata:
   name: paperless
   namespace: paperless
 data:
-  PAPERLESS_REDIS: "redis://redis.redis.svc.k3s-01.47fc5c.com:6379"
+  PAPERLESS_REDIS: "redis://redis.redis.svc.k3s-01.47fc5c.com:6379/7"
   PAPERLESS_DBENGINE: "postgres"
   PAPERLESS_DBHOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
   PAPERLESS_DBNAME: "paperless"
