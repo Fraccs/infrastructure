@@ -20,6 +20,7 @@ data:
   # docker compose exec web python3 manage.py warmup-exercise-api-cache --force
   MEDIA_URL: "https://wger.47fc5c.com/media/"
   STATIC_URL: "https://wger.47fc5c.com/static/"
+  WGER_PORT: "8000"
 
   # These settings usually don't need changing
 
