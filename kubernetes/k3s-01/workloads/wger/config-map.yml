@@ -32,6 +32,7 @@ data:
   # Users won't be able to contribute to exercises if their account age is
   # lower than this amount in days.
   MIN_ACCOUNT_AGE_TO_TRUST: "14"
+
   # Synchronzing exercises
   # It is recommended to keep the local database synchronized with the wger
   # instance specified in WGER_INSTANCE since there are new added or translations
@@ -41,9 +42,9 @@ data:
   # DOWNLOAD_EXERCISE_IMAGES_ON_STARTUP: True
   # - Sync them in the background with celery. This will setup a job that will run
   #   once a week at a random time (this time is selected once when starting the server)
-  SYNC_EXERCISES_CELERY: "False" # TODO: enable
-  SYNC_EXERCISE_IMAGES_CELERY: "False" # TODO: enable
-  SYNC_EXERCISE_VIDEOS_CELERY: "False" # TODO: enable
+  SYNC_EXERCISES_CELERY: "True"
+  SYNC_EXERCISE_IMAGES_CELERY: "True"
+  SYNC_EXERCISE_VIDEOS_CELERY: "True"
   # - Manually trigger the process as needed:
   #   docker compose exec web python3 manage.py sync-exercises
   #   docker compose exec web python3 manage.py download-exercise-images
@@ -54,7 +55,7 @@ data:
   # basically the same options as for the ingredients:
   # - Sync them in the background with celery. This will setup a job that will run
   #   once a week at a random time (this time is selected once when starting the server)
-  SYNC_INGREDIENTS_CELERY: "False" # TODO: enable
+  SYNC_INGREDIENTS_CELERY: "True"
   # - Manually trigger the process as needed:
   #   docker compose exec web python3 manage.py sync-ingredients
 
@@ -66,12 +67,10 @@ data:
 
   # Whether celery is configured and should be used. Can be left to true with
   # this setup but can be deactivated if you are using the app in some other way
-  USE_CELERY: "False" # TODO: enable
+  USE_CELERY: "True"
 
   # Celery
-  # CELERY_BROKER: "redis://redis.redis.svc.k3s-01.47fc5c.com:6379/5"
-  # CELERY_BACKEND: "redis://redis.redis.svc.k3s-01.47fc5c.com:6379/5"
-  # CELERY_FLOWER_PASSWORD: "adminadmin" # TODO: change ffs
+  # CELERY_FLOWER_PASSWORD: ""
 
   # Database
   DJANGO_DB_ENGINE: "django.db.backends.postgresql"
@@ -105,7 +104,7 @@ data:
   DJANGO_DEBUG: "False"
   WGER_USE_GUNICORN: "True"
   EXERCISE_CACHE_TTL: "18000" # in seconds - 5*60*60, 5 hours
-  SITE_URL: "http://localhost"
+  SITE_URL: "https://wger.47fc5c.com"
 
   # JWT auth
   ACCESS_TOKEN_LIFETIME: "10" # The lifetime duration of the access token, in minutes
