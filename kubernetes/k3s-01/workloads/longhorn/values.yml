@@ -17,6 +17,7 @@ persistence:
 
 defaultBackupStore:
   backupTarget: nfs://nfs.47fc5c.com:/mnt/pool-0/volumes/generic/backups
+  nfsOptions: vers=4.1,noresvport
 
 defaultSettings:
   defaultDataPath: /mnt/longhorn
