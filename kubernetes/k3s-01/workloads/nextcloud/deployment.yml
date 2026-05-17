@@ -24,10 +24,10 @@ spec:
           image: docker.io/library/nextcloud:33.0.3@sha256:76f04e434a82572dbfee7ad6dca313229eade89ee538fccd2bf6396f4440d48b
           resources:
             requests:
-              cpu: 10m
+              cpu: 50m
               memory: 256Mi
             limits:
-              cpu: 100m
+              cpu: 200m
               memory: 384Mi
           ports:
             - name: web
