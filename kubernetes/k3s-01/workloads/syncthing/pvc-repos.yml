@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: syncthing-repos
+  name: syncthing-repos-encrypted
   namespace: syncthing
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: longhorn
+  storageClassName: longhorn-crypto-global
   resources:
     requests:
-      storage: 8Gi
+      storage: 6Gi

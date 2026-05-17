@@ -38,4 +38,4 @@ spec:
             claimName: syncthing-config
         - name: syncthing-repos
           persistentVolumeClaim:
-            claimName: syncthing-repos
+            claimName: syncthing-repos-encrypted

@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb
+  name: mariadb-encrypted
   namespace: mariadb
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: longhorn
+  storageClassName: longhorn-crypto-global
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Gi

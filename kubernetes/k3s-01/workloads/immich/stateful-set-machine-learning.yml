@@ -32,4 +32,4 @@ spec:
       volumes:
         - name: immich-machine-learning-cache
           persistentVolumeClaim:
-            claimName: immich-machine-learning-cache
+            claimName: immich-machine-learning-cache-encrypted

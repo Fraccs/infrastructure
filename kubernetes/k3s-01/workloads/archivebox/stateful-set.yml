@@ -26,4 +26,4 @@ spec:
       volumes:
         - name: archivebox-data
           persistentVolumeClaim:
-            claimName: archivebox-data
+            claimName: archivebox-data-encrypted

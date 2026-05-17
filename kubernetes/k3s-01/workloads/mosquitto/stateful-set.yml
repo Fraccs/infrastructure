@@ -43,7 +43,7 @@ spec:
       volumes:
         - name: mosquitto
           persistentVolumeClaim:
-            claimName: mosquitto
+            claimName: mosquitto-encrypted
         - name: mosquitto-config
           configMap:
             name: mosquitto

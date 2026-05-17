@@ -37,7 +37,7 @@ spec:
       volumes:
         - name: jellyfin-data
           persistentVolumeClaim:
-            claimName: jellyfin-data
+            claimName: jellyfin-data-encrypted
         - name: jellyfin-movies
           persistentVolumeClaim:
             claimName: jellyfin-movies
