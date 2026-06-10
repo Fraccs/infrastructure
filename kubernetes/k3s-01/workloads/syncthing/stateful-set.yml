@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: syncthing
-          image: docker.io/syncthing/syncthing:2.0.16@sha256:4a961394ca471f4e48f31ad2cef50697e502c8799e2e98477a1c3844e0c5bc54
+          image: docker.io/syncthing/syncthing:2.1.1@sha256:775c4aac486263ca8653055bba7d3061799281974b706695e17bc798da3f4e92
           resources:
             requests:
               cpu: 200m
