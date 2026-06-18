@@ -26,7 +26,7 @@ spec:
             httpGet:
               path: /health
               port: 9090
-            periodSeconds: 30
+            periodSeconds: 60
             failureThreshold: 10
           resources:
             requests:
