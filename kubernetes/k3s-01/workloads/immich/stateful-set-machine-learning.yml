@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: immich-machine-learning
-          image: ghcr.io/immich-app/immich-machine-learning:v2.5.6@sha256:eb05df5c977c2620f37e1a3e60962eafe77d8b222a770eda96ae38c5014bf0ba
+          image: ghcr.io/immich-app/immich-machine-learning:v2.7.5@sha256:320a5595b2487652afc999dbd4c7c25dffc749058b76a9347257a52a484d659f
           resources:
             requests:
               cpu: 50m
