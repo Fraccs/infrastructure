@@ -19,10 +19,10 @@ spec:
           image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15@sha256:6c86cad803970ea782683a8e80e7403444c5bf3cf70de63b4d3c8e87500db92f
           resources:
             requests:
-              cpu: 50m
+              cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 500m
               memory: 1Gi
           ports:
             - containerPort: 8000
