@@ -38,10 +38,12 @@ spec:
             - name: paperless
               mountPath: /usr/src/paperless/media
               subPath: media/
-            - name: paperless
+            - name: paperless-consume
               mountPath: /usr/src/paperless/consume
-              subPath: consume/
       volumes:
         - name: paperless
           persistentVolumeClaim:
             claimName: paperless
+        - name: paperless-consume
+          persistentVolumeClaim:
+            claimName: paperless-consume
