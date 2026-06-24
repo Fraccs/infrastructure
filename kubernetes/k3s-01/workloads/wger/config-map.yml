@@ -18,8 +18,8 @@ data:
   # links for some images *might* break (specially in the mobile app). Also note that
   # the API response is cached and contains the host, if you change this setting, just run
   # docker compose exec web python3 manage.py warmup-exercise-api-cache --force
-  MEDIA_URL: "https://wger.47fc5c.com/media/"
-  STATIC_URL: "https://wger.47fc5c.com/static/"
+  MEDIA_URL: "/media/"
+  STATIC_URL: /static/"
   WGER_PORT: "8000"
 
   # These settings usually don't need changing
