@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: wger
-          image: docker.io/wger/server:2.6-dev@sha256:d61c8a5b5821c45203656406acd35ffa9b1a6e5ad5315d775e7fd4d7bc90fd22
+          image: docker.io/wger/server:2.6.0@sha256:e7f58e15d380d8f5edc055c8a1ed11199e7eb5649138670703401b0c9c407c01
           volumeMounts:
             - name: wger-media
               mountPath: /home/wger/media/
