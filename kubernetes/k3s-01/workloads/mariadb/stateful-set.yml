@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mariadb
-          image: docker.io/library/mariadb:11.5.2@sha256:2d50fe0f77dac919396091e527e5e148a9de690e58f32875f113bef6506a17f5
+          image: docker.io/library/mariadb:11.8.8@sha256:efb4959ef2c835cd735dbc388eb9ad6aab0c78dd64febcd51bc17481111890c4
           ports:
             - name: mysql
               containerPort: 3306
