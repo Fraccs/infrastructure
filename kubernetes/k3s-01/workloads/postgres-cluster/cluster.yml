@@ -19,6 +19,10 @@ spec:
       login: true
       passwordSecret:
         name: authentik-role
+    - name: endurain
+      login: true
+      passwordSecret:
+        name: endurain-role
     - name: freshrss
       login: true
       passwordSecret:
