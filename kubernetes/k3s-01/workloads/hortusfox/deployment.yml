@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: hortusfox
-          image: ghcr.io/danielbrendel/hortusfox-web:v5.8@sha256:62fdac133dddda643d4e533de58068dc25eef7bb70f5607a0dd7a16c01049668
+          image: ghcr.io/danielbrendel/hortusfox-web:v5.9@sha256:0941f553d086d66fe6ceb57502917697dff4fcc2b0d6eee7e854e1273b6bf5c2
           resources:
             requests:
               cpu: 10m
