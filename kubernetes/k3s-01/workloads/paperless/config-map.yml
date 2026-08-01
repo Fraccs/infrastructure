@@ -5,7 +5,7 @@ metadata:
   name: paperless
   namespace: paperless
 data:
-  PAPERLESS_DBENGINE: "postgres"
+  PAPERLESS_DBENGINE: "postgresql"
   PAPERLESS_DBHOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
   PAPERLESS_DBNAME: "paperless"
   PAPERLESS_DBUSER: "paperless"
