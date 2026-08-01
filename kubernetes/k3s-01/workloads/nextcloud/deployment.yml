@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: nextcloud
-          image: docker.io/library/nextcloud:33.0.7@sha256:2e0ba719164b092fe0629c6e36d154e39155403afaef895116bcc37e88a52f09
+          image: docker.io/library/nextcloud:34.0.2@sha256:58bc73331d541e0efe46c517ff7539e2e43427342b2a2feeb013b186fb4f3ecd
           resources:
             requests:
               cpu: 100m
