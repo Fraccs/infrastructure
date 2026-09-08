@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: owntracks-recorder
-          image: docker.io/owntracks/recorder:1.0.1@sha256:050c3ac9ed798d4110f12e53851e94f9fa0fcecb16cf4d7457967eac2e498da7
+          image: docker.io/owntracks/recorder:1.0.4@sha256:bb292a481c94ef40bde26f52c8d3868d1395bd2da15bc9405be889e13f686a1b
           resources:
             requests:
               cpu: 100m
