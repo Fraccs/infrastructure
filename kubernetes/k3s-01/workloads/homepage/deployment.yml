@@ -38,6 +38,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: homepage
+            - secretRef:
+                name: homepage
       volumes:
         - name: homepage
           persistentVolumeClaim:
