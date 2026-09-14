@@ -6,3 +6,4 @@ metadata:
   namespace: homepage
 data:
   HOMEPAGE_ALLOWED_HOSTS: "*"
+  HOMEPAGE_OIDC_ISSUER: "https://auth.47fc5c.com/application/o/homepage/"
