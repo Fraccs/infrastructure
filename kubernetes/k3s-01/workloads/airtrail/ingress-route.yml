@@ -1,0 +1,24 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: airtrail
+  namespace: airtrail
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`airtrail.47fc5c.com`)
+      kind: Rule
+      services:
+        - name: airtrail
+          kind: Service
+          port: 3000
+          scheme: http
+          sticky:
+            cookie:
+              httpOnly: true
+              secure: true
+              sameSite: none
+  tls:
+    secretName: airtrail-certificate

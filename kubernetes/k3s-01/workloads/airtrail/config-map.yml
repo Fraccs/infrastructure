@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: airtrail
+  namespace: airtrail
+data:
+  # The single URL used to access AirTrail, e.g. https://example.com
+  ORIGIN: "https://airtrail.47fc5c.com"
+  # Maximum HTTP request body size. Detailed flight tracks are submitted as part of flight forms.
+  BODY_SIZE_LIMIT: "20M"

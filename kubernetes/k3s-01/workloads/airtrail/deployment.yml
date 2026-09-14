@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airtrail
+  namespace: airtrail
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: airtrail
+  template:
+    metadata:
+      labels:
+        app: airtrail
+    spec:
+      containers:
+        - name: airtrail
+          image: docker.io/johly/airtrail:v3.11.1@sha256:9f702b91e0e7874d3c48a245dc10b9d1f726e2c1582d62237905ad905e5c35eb
+          envFrom:
+            - configMapRef:
+                name: airtrail
+            - secretRef:
+                name: airtrail
