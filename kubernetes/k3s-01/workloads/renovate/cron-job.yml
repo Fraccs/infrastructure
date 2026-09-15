@@ -17,7 +17,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: renovate-bot
-              image: docker.io/renovate/renovate:44.90.1@sha256:c1ca370ba2528542021f5b0b2fe4d44d47fa31272d7f874cb81551506c1689d4
+              image: docker.io/renovate/renovate:44.93.5@sha256:a813dd2b59451b4fc6f3d1679dcf92af6a6f045d354301d061d18c177a6f32a2
               envFrom:
                 - configMapRef:
                     name: renovate-env
