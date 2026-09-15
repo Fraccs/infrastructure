@@ -5,6 +5,7 @@ metadata:
   name: mealie
   namespace: mealie
 data:
+  ALLOW_PASSWORD_LOGIN: "false"
   ALLOW_SIGNUP: "false"
   BASE_URL: "https://mealie.47fc5c.com"
   DB_ENGINE: "postgres"
@@ -16,6 +17,7 @@ data:
   OIDC_USER_GROUP: "mealie-users"
   OIDC_ADMIN_GROUP: "mealie-admins"
   OIDC_REMEMBER_ME: "true"
+  OIDC_REQUIRES_EMAIL_VERIFICATION: "false"
   POSTGRES_DB: "mealie"
   POSTGRES_PORT: "5432"
   POSTGRES_SERVER: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
