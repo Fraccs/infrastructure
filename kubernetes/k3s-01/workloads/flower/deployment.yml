@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flower
+  template:
+    metadata:
+      labels:
+        app: flower
+    spec:
+      containers:
+        - name: flower
+          image: docker.io/mher/flower:2.0.1@sha256:51c3c3db5be343e6335e3dbca5348708932bbcca992df6a39f1dad91e3b340df
+          command:
+            - "celery"
+          args:
+            - "flower"
+            - "--port=5555"
+            - "--persistent=True"
+          envFrom:
+            - secretRef:
+                name: flower
+          env:
+            - name: PORT
+              value: "5555"
+            - name: FLOWER_PORT
+              value: "5555"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
+          ports:
+            - name: http
+              containerPort: 5555
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
