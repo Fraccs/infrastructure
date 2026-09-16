@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dawarich-sidekiq
+  namespace: dawarich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dawarich-sidekiq
+  template:
+    metadata:
+      labels:
+        app: dawarich-sidekiq
+    spec:
+      containers:
+        - name: dawarich-sidekiq
+          image: docker.io/freikin/dawarich:1.11.0@sha256:4e3c55c4cd572373624e75c9e02075ff436c83a3ea952595ae0d4ffc4c7ae52b
+          command:
+            - "sidekiq-entrypoint.sh"
+          args:
+            - "sidekiq"
+          volumeMounts:
+            - name: dawarich-data
+              mountPath: /var/app/public
+              subPath: public/
+            - name: dawarich-data
+              mountPath: /var/app/tmp/imports/watched
+              subPath: watched/
+            - name: dawarich-data
+              mountPath: /var/app/storage
+              subPath: storage/
+          envFrom:
+            - configMapRef:
+                name: dawarich-shared
+            - configMapRef:
+                name: dawarich-sidekiq
+            - secretRef:
+                name: dawarich
+      volumes:
+        - name: dawarich-data
+          persistentVolumeClaim:
+            claimName: dawarich-data

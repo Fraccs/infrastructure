@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dawarich-sidekiq
+  namespace: dawarich
+data:
+  PROMETHEUS_EXPORTER_ENABLED: "false"

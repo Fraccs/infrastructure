@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dawarich-shared
+  namespace: dawarich
+data:
+  APPLICATION_HOSTS: "dawarich.47fc5c.com,dawarich.dawarich.svc.k3s-01.47fc5c.com"
+  APPLICATION_PROTOCOL: "http"
+  BACKGROUND_PROCESSING_CONCURRENCY: "10"
+  DATABASE_HOST: "postgis-cluster-rw.postgis-cluster.svc.k3s-01.47fc5c.com"
+  DATABASE_NAME: "dawarich"
+  DATABASE_PORT: "5432"
+  DATABASE_USERNAME: "dawarich"
+  OIDC_ISSUER: "https://auth.47fc5c.com/application/o/dawarich/"
+  OIDC_REDIRECT_URI: "https://dawarich.47fc5c.com/users/auth/openid_connect/callback"
+  ### To run under a non-root user, set PUID/PGID here (do NOT use `user:`).
+  PUID: "1000"
+  PGID: "1000"
+  RAILS_ENV: "production"
+  RAILS_LOG_TO_STDOUT: "true"
+  REDIS_CACHE_DB: "13"
+  REDIS_JOB_QUEUE_DB: "14"
+  REDIS_WS_DB: "15"
+  SELF_HOSTED: "true"
+  # SIDEKIQ_METRICS_URL: ""
+  STORAGE_BACKEND: "local"
+  STORE_GEODATA: "true"
+  TIME_ZONE: "Europe/Rome"
+  # One preloaded Puma worker is plenty for a household instance and
+  # halves idle memory. Raise for busier instances.
+  WEB_CONCURRENCY: "2"
