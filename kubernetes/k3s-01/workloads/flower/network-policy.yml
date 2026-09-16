@@ -20,7 +20,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
-            k8s-app: traefik
+            app.kubernetes.io/name: traefik
       toPorts:
         - ports:
             - port: "5555"
