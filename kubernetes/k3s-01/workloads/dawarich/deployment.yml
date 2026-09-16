@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: dawarich
-          image: docker.io/freikin/dawarich:1.11.0@sha256:4e3c55c4cd572373624e75c9e02075ff436c83a3ea952595ae0d4ffc4c7ae52b
+          image: docker.io/freikin/dawarich:1.14.5@sha256:11826c67e4b1cfc1049033b5b6ad05f5134bcbfb7807045bd39d3376cbc79d89
           command:
             - "web-entrypoint.sh"
           args:
