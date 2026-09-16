@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: flower
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: flower
+  namespaceSelector:
+    matchNames:
+      - monitoring
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scheme: http
