@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`navidrome.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: navidrome
-          name: navidrome-ipallowlist
       services:
         - name: navidrome
           kind: Service
