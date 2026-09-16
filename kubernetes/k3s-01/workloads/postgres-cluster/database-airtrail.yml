@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: airtrail
+  namespace: postgres-cluster
+spec:
+  name: airtrail
+  owner: airtrail
+  cluster:
+    name: postgres-cluster
