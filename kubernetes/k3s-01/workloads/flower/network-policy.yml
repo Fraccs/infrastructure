@@ -7,12 +7,12 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app: flower
+      k8s:app: flower
   ingress:
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: monitoring
-            app.kubernetes.io/name: prometheus
+            k8s:app.kubernetes.io/name: prometheus
       toPorts:
         - ports:
             - port: "5555"
@@ -20,7 +20,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
-            app.kubernetes.io/name: traefik
+            k8s:app.kubernetes.io/name: traefik
       toPorts:
         - ports:
             - port: "5555"
@@ -39,7 +39,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: redis
-            app: redis
+            k8s:app: redis
       toPorts:
         - ports:
             - port: "6379"
