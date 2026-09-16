@@ -10,9 +10,9 @@ spec:
   routes:
     - match: Host(`auth.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: authentik
-          name: authentik-ipallowlist
+      # middlewares:
+      #   - namespace: authentik
+      #     name: authentik-ipallowlist
       services:
         - name: authentik-server
           kind: Service
