@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whisper
+  namespace: voice
+spec:
+  type: ClusterIP
+  selector:
+    app: whisper
+  ports:
+    - name: wyoming
+      port: 10300
+      targetPort: wyoming
+      protocol: TCP

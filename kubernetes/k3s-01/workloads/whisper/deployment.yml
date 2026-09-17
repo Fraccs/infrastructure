@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whisper
+  namespace: voice
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: whisper
+  template:
+    metadata:
+      labels:
+        app: whisper
+    spec:
+      containers:
+        - name: whisper
+          image: docker.io/rhasspy/wyoming-whisper:3.7.0@sha256:ea74afa3e3c347cd031d946b4950b7438ae4bfd07ef96a04ac8a7095f36f4ac6
+          args:
+            - "--model"
+            - "small-int8"
+            - "--language"
+            - "it"
+            - "--uri"
+            - "tcp://0.0.0.0:10300"
+            - "--data-dir"
+            - "/data"
+            - "--download-dir"
+            - "/data"
+          env:
+            - name: HF_HUB_CACHE
+              value: /data/hf-cache
+          ports:
+            - name: wyoming
+              containerPort: 10300
+              protocol: TCP
+          volumeMounts:
+            - name: whisper-data
+              mountPath: /data
+          readinessProbe:
+            tcpSocket:
+              port: wyoming
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: wyoming
+            initialDelaySeconds: 30
+            periodSeconds: 30
+      volumes:
+        - name: whisper-data
+          persistentVolumeClaim:
+            claimName: whisper-data
