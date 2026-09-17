@@ -25,11 +25,6 @@ spec:
           volumeMounts:
             - name: grocy-data
               mountPath: /config
-          envFrom:
-            - configMapRef:
-                name: grocy
-            - secretRef:
-                name: grocy
       volumes:
         - name: grocy-data
           persistentVolumeClaim:
