@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: piper
+  namespace: voice
+spec:
+  type: ClusterIP
+  selector:
+    app: piper
+  ports:
+    - name: wyoming
+      port: 10200
+      targetPort: wyoming
+      protocol: TCP
