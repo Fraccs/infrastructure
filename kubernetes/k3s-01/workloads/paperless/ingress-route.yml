@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`paperless.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: paperless
-          name: paperless-ipallowlist
       services:
         - name: paperless
           kind: Service
