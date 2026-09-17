@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`kavita.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: kavita
-          name: kavita-ipallowlist
       services:
         - name: kavita
           kind: Service
