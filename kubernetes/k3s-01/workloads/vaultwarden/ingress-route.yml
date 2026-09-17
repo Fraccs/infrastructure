@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`vaultwarden.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: vaultwarden
-          name: vaultwarden-ipallowlist
       services:
         - name: vaultwarden
           kind: Service
