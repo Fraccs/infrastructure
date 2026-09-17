@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endurain
+  namespace: endurain
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: endurain
+  template:
+    metadata:
+      labels:
+        app: endurain
+    spec:
+      containers:
+        - name: endurain
+          image: codeberg.org/endurain-project/endurain:v0.19.0@sha256:a43273a30588f344f103e978a2e17aae75de31ffdb21dddd8ac8e71d70a08f3c
+          envFrom:
+            - configMapRef:
+                name: endurain
+            - secretRef:
+                name: endurain

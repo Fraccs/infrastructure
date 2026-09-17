@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: endurain
+  namespace: endurain
+data:
+  ACCESS_TOKEN_EXPIRE_MINUTES: "15"
+  ALGORITHM: "HS256"
+  DB_HOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
+  DB_PORT: "5432"
+  DB_TYPE: "postgres"
+  DB_USER: "endurain"
+  DB_DATABASE: "endurain"
+  ENDURAIN_HOST: "https://endurain.47fc5c.com"
+  BEHIND_PROXY: "true"
+  REFRESH_TOKEN_EXPIRE_DAYS: "7"
+  SSRF_ALLOWED_HOSTS: "auth.47fc5c.com"
+  TZ: "Europe/Rome"
