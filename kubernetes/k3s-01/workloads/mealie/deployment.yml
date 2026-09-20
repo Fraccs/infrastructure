@@ -30,7 +30,7 @@ spec:
               cpu: 200m
               memory: 512Mi
           volumeMounts:
-            - name: mealie-data
+            - name: mealie
               mountPath: /app/data
           envFrom:
             - configMapRef:
@@ -38,6 +38,6 @@ spec:
             - secretRef:
                 name: mealie
       volumes:
-        - name: mealie-data
+        - name: mealie
           persistentVolumeClaim:
-            claimName: mealie-data
+            claimName: mealie
