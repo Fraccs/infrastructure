@@ -20,17 +20,16 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: freshrss-data
+            - name: freshrss
               mountPath: /var/www/FreshRSS/data
-            - name: freshrss-extensions
+              subPath: data/
+            - name: freshrss
               mountPath: /var/www/FreshRSS/extensions
+              subPath: extensions/
           envFrom:
             - configMapRef:
                 name: freshrss
       volumes:
-        - name: freshrss-data
+        - name: freshrss
           persistentVolumeClaim:
-            claimName: freshrss-data
-        - name: freshrss-extensions
-          persistentVolumeClaim:
-            claimName: freshrss-extensions
+            claimName: freshrss
