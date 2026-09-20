@@ -24,10 +24,10 @@ spec:
             periodSeconds: 12
             failureThreshold: 5
           volumeMounts:
-            - name: jellyfin-data
+            - name: jellyfin
               mountPath: /cache
               subPath: cache/
-            - name: jellyfin-data
+            - name: jellyfin
               mountPath: /config
               subPath: config/
             - name: jellyfin-movies
@@ -35,9 +35,9 @@ spec:
             - name: jellyfin-shows
               mountPath: /shows
       volumes:
-        - name: jellyfin-data
+        - name: jellyfin
           persistentVolumeClaim:
-            claimName: jellyfin-data-encrypted
+            claimName: jellyfin
         - name: jellyfin-movies
           persistentVolumeClaim:
             claimName: jellyfin-movies
