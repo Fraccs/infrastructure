@@ -22,13 +22,13 @@ spec:
           args:
             - "sidekiq"
           volumeMounts:
-            - name: dawarich-data
+            - name: dawarich
               mountPath: /var/app/public
               subPath: public/
-            - name: dawarich-data
+            - name: dawarich
               mountPath: /var/app/tmp/imports/watched
               subPath: watched/
-            - name: dawarich-data
+            - name: dawarich
               mountPath: /var/app/storage
               subPath: storage/
           envFrom:
@@ -39,6 +39,6 @@ spec:
             - secretRef:
                 name: dawarich
       volumes:
-        - name: dawarich-data
+        - name: dawarich
           persistentVolumeClaim:
-            claimName: dawarich-data
+            claimName: dawarich
