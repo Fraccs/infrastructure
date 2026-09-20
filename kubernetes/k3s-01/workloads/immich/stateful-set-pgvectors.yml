@@ -27,7 +27,7 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
-            - name: immich-pgvectors-data
+            - name: immich-pgvectors
               mountPath: /var/lib/postgresql/data
           envFrom:
             - configMapRef:
@@ -35,6 +35,6 @@ spec:
             - secretRef:
                 name: immich-pgvectors
       volumes:
-        - name: immich-pgvectors-data
+        - name: immich-pgvectors
           persistentVolumeClaim:
-            claimName: immich-pgvectors-data
+            claimName: immich-pgvectors
