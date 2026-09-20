@@ -38,7 +38,7 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: gotify-data
+            - name: gotify
               mountPath: /app/data
           envFrom:
             - configMapRef:
@@ -46,6 +46,6 @@ spec:
             - secretRef:
                 name: gotify
       volumes:
-        - name: gotify-data
+        - name: gotify
           persistentVolumeClaim:
-            claimName: gotify-data
+            claimName: gotify
