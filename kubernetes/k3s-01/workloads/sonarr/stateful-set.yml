@@ -19,7 +19,7 @@ spec:
         - name: sonarr
           image: docker.io/linuxserver/sonarr:4.0.20@sha256:a5c1a5fecbef946927ab90ad68df319ac5fe644057e5fc18cd993f01ac07b2b2
           volumeMounts:
-            - name: sonarr-config
+            - name: sonarr
               mountPath: /config
             - name: sonarr-downloads
               mountPath: /downloads
@@ -29,9 +29,9 @@ spec:
             - configMapRef:
                 name: sonarr
       volumes:
-        - name: sonarr-config
+        - name: sonarr
           persistentVolumeClaim:
-            claimName: sonarr-config
+            claimName: sonarr
         - name: sonarr-downloads
           persistentVolumeClaim:
             claimName: sonarr-downloads
