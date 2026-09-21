@@ -25,7 +25,7 @@ spec:
             runAsUser: 1000
             runAsGroup: 1000
           volumeMounts:
-            - name: qbittorrent-config
+            - name: qbittorrent
               mountPath: /config
             - name: qbittorrent-downloads
               mountPath: /downloads
@@ -33,9 +33,9 @@ spec:
             - configMapRef:
                 name: qbittorrent
       volumes:
-        - name: qbittorrent-config
+        - name: qbittorrent
           persistentVolumeClaim:
-            claimName: qbittorrent-config
+            claimName: qbittorrent
         - name: qbittorrent-downloads
           persistentVolumeClaim:
             claimName: qbittorrent-downloads
