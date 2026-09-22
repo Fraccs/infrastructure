@@ -27,15 +27,15 @@ spec:
           volumeMounts:
             - name: kavita-books
               mountPath: /books
-            - name: kavita-data
+            - name: kavita
               mountPath: /kavita/config
           envFrom:
             - configMapRef:
                 name: kavita
       volumes:
+        - name: kavita
+          persistentVolumeClaim:
+            claimName: kavita
         - name: kavita-books
           persistentVolumeClaim:
             claimName: kavita-books
-        - name: kavita-data
-          persistentVolumeClaim:
-            claimName: kavita-data
