@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flower
-          image: docker.io/mher/flower:2.1.0@sha256:02c4c468637b9c8df5e5104248fd085a1ac3f15347105784d76155198154a1ad
+          image: docker.io/mher/flower:2.2.0@sha256:29bebd8e7e04371162ab80cb3591e5a72808c71323b88b4ceec20799696b5a9b
           command:
             - "celery"
           args:
