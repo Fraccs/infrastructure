@@ -25,7 +25,7 @@ spec:
               cpu: 500m
               memory: 1024Mi
           volumeMounts:
-            - name: syncthing-config
+            - name: syncthing
               mountPath: /var/syncthing
             - name: syncthing-repos
               mountPath: /repos
@@ -33,9 +33,9 @@ spec:
             - configMapRef:
                 name: syncthing
       volumes:
-        - name: syncthing-config
+        - name: syncthing
           persistentVolumeClaim:
-            claimName: syncthing-config
+            claimName: syncthing
         - name: syncthing-repos
           persistentVolumeClaim:
             claimName: syncthing-repos-encrypted
