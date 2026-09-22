@@ -24,13 +24,13 @@ spec:
             failureThreshold: 5
             periodSeconds: 20
           volumeMounts:
-            - name: romm-data
+            - name: romm
               mountPath: /romm/assets
               subPath: assets/
-            - name: romm-data
+            - name: romm
               mountPath: /romm/config
               subPath: config/
-            - name: romm-data
+            - name: romm
               mountPath: /romm/resources
               subPath: resources/
             - name: romm-roms
@@ -41,9 +41,9 @@ spec:
             - secretRef:
                 name: romm
       volumes:
-        - name: romm-data
+        - name: romm
           persistentVolumeClaim:
-            claimName: romm-data
+            claimName: romm
         - name: romm-roms
           persistentVolumeClaim:
             claimName: romm-roms
