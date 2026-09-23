@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`freshrss.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: freshrss
-          name: freshrss-ipallowlist
       services:
         - name: freshrss
           kind: Service

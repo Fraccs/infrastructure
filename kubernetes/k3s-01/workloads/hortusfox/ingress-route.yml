@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`hortusfox.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: hortusfox
-          name: hortusfox-ipallowlist
       services:
         - name: hortusfox
           kind: Service

@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`tubearchivist.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: tubearchivist
-          name: tubearchivist-ipallowlist
       services:
         - name: tubearchivist
           kind: Service

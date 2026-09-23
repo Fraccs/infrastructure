@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`linkding.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: linkding
-          name: linkding-ipallowlist
       services:
         - name: linkding
           kind: Service

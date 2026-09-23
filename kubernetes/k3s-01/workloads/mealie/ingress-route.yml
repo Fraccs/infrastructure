@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`mealie.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: mealie
-          name: mealie-ipallowlist
       services:
         - name: mealie
           kind: Service

@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`hubble.k3s-01.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: kube-system
-          name: hubble-ipallowlist
       services:
         - name: hubble-ui
           kind: Service

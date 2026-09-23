@@ -10,9 +10,6 @@ spec:
   routes:
     - match: Host(`radarr.47fc5c.com`)
       kind: Rule
-      middlewares:
-        - namespace: torrenting
-          name: radarr-ipallowlist
       services:
         - name: radarr
           kind: Service
