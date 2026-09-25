@@ -8,6 +8,8 @@ data:
   DB_HOST: "mariadb.mariadb.svc.k3s-01.47fc5c.com"
   DB_NAME: "romm"
   DB_PORT: "3306"
+  DISABLE_USERPASS_LOGIN: "true"
+  OIDC_AUTOLOGIN: "true"
   OIDC_ALLOW_REGISTRATION: "false"
   OIDC_CLAIM_ROLES: "groups"
   OIDC_ROLE_ADMIN: "romm-admins"
