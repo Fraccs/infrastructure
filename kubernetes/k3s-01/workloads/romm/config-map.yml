@@ -11,7 +11,7 @@ data:
   OIDC_ENABLED: "true"
   OIDC_PROVIDER: "authentik"
   OIDC_REDIRECT_URI: "https://romm.47fc5c.com/api/oauth/openid"
-  OIDC_SERVER_APPLICATION: "https://auth.47fc5c.com/application/o/romm"
+  OIDC_SERVER_APPLICATION_URL: "https://auth.47fc5c.com/application/o/romm"
   REDIS_HOST: "redis.redis.svc.k3s-01.47fc5c.com"
   REDIS_PORT: "6379"
   REDIS_DB: "2"
