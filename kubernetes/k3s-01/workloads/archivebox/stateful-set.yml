@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: archivebox
-          image: docker.io/archivebox/archivebox:0.9.51@sha256:7fd772baa880b8f2b388aee587d2675cfdba5cc7782b7c37594939697711109e
+          image: docker.io/archivebox/archivebox:0.9.64@sha256:5cc01b315cb11b9f018215e40df5fd498f2b30b6f7304f758cfdab4758d9544b
           volumeMounts:
             - name: archivebox-data
               mountPath: /data
