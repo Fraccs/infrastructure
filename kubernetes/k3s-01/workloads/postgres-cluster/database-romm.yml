@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: romm
+  namespace: postgres-cluster
+spec:
+  name: romm
+  owner: romm
+  cluster:
+    name: postgres-cluster

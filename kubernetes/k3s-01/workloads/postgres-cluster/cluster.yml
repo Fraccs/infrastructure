@@ -30,6 +30,10 @@ spec:
       login: true
       passwordSecret:
         name: endurain-role
+    - name: firefly
+      login: true
+      passwordSecret:
+        name: firefly-role
     - name: freshrss
       login: true
       passwordSecret:
@@ -58,6 +62,10 @@ spec:
       login: true
       passwordSecret:
         name: mealie-role
+    - name: nextcloud
+      login: true
+      passwordSecret:
+        name: nextcloud-role
     - name: paperless
       login: true
       passwordSecret:
@@ -74,6 +82,10 @@ spec:
       login: true
       passwordSecret:
         name: readarr-role
+    - name: romm
+      login: true
+      passwordSecret:
+        name: romm-role
     - name: sonarr
       login: true
       passwordSecret:
