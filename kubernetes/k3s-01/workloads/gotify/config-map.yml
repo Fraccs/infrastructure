@@ -5,6 +5,12 @@ metadata:
   name: gotify
   namespace: gotify
 data:
+  GOTIFY_OIDC_ENABLED: "true"
+  GOTIFY_OIDC_ISSUER: "https://auth.47fc5c.com"
+  GOTIFY_OIDC_REDIRECTURL: "https://gotify.47fc5c.com/auth/oidc/callback"
+  GOTIFY_OIDC_AUTOREGISTER: "false"
+  GOTIFY_OIDC_USERNAMECLAIM: "preferred_username"
+  GOTIFY_OIDC_SCOPES: "openid,profile,email"
   GOTIFY_SERVER_PORT: "80"
   GOTIFY_SERVER_KEEPALIVEPERIODSECONDS: "0"
   GOTIFY_SERVER_STREAM_PINGPERIODSECONDS: "45"
