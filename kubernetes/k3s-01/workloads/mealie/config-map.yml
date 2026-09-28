@@ -11,6 +11,7 @@ data:
   DB_ENGINE: "postgres"
   LOG_LEVEL: "debug"
   OIDC_AUTH_ENABLED: "true"
+  OIDC_AUTO_REDIRECT: "true"
   OIDC_PROVIDER_NAME: "authentik"
   OIDC_CONFIGURATION_URL: "https://auth.47fc5c.com/application/o/mealie/.well-known/openid-configuration"
   OIDC_GROUPS_CLAIM: "entitlements"
