@@ -9,3 +9,5 @@ data:
   HOMEPAGE_AUTH_ENABLED: "true"
   HOMEPAGE_EXTERNAL_URL: "https://dash.47fc5c.com"
   HOMEPAGE_OIDC_ISSUER: "https://auth.47fc5c.com/application/o/homepage/"
+  HOMEPAGE_OIDC_NAME: "Fraccs SSO"
+  HOMEPAGE_OIDC_AUTO_LOGIN: "true"
