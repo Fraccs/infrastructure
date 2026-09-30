@@ -5,6 +5,12 @@ metadata:
   name: airtrail
   namespace: airtrail
 data:
+  OAUTH_AUTO_LOGIN: "true"
+  OAUTH_AUTO_REGISTER: "true"
+  OAUTH_BUTTON_TEXT: "Log in with Fraccs SSO"
+  OAUTH_ENABLED: "true"
+  OAUTH_HIDE_PASSWORD_FORM: "true"
+  OAUTH_ISSUER_URL: "https://auth.47fc5c.com/application/o/airtrail/.well-known/openid-configuration"
   # The single URL used to access AirTrail, e.g. https://example.com
   ORIGIN: "https://airtrail.47fc5c.com"
   # Maximum HTTP request body size. Detailed flight tracks are submitted as part of flight forms.
