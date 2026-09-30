@@ -5,6 +5,8 @@ metadata:
   name: dawarich-shared
   namespace: dawarich
 data:
+  ALLOW_EMAIL_PASSWORD_LOGIN: "false"
+  ALLOW_EMAIL_PASSWORD_REGISTRATION: "false"
   APPLICATION_HOSTS: "dawarich.47fc5c.com,dawarich.dawarich.svc.k3s-01.47fc5c.com"
   APPLICATION_PROTOCOL: "http"
   BACKGROUND_PROCESSING_CONCURRENCY: "10"
@@ -12,7 +14,10 @@ data:
   DATABASE_NAME: "dawarich"
   DATABASE_PORT: "5432"
   DATABASE_USERNAME: "dawarich"
+  OIDC_AUTO_REGISTER: "true"
   OIDC_ISSUER: "https://auth.47fc5c.com/application/o/dawarich/"
+  OIDC_PKCE_ENABLED: "true"
+  OIDC_PROVIDER_NAME: "Fraccs SSO"
   OIDC_REDIRECT_URI: "https://dawarich.47fc5c.com/users/auth/openid_connect/callback"
   ### To run under a non-root user, set PUID/PGID here (do NOT use `user:`).
   PUID: "1000"
