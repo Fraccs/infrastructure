@@ -6,7 +6,7 @@ metadata:
   namespace: immich
 data:
   DB_DATABASE_NAME: "immich"
-  DB_HOSTNAME: "immich-pgvectors.immich.svc.k3s-01.47fc5c.com"
+  DB_HOSTNAME: "immich-postgres-vectorchord.immich.svc.k3s-01.47fc5c.com"
   DB_PORT: "5432"
   DB_USERNAME: "immich"
   IMMICH_TELEMETRY_INCLUDE: "all"

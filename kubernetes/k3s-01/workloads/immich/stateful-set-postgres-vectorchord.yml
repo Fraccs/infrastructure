@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: immich-pgvectors
+  name: immich-postgres-vectorchord
   namespace: immich
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: immich-pgvectors
+      app: immich-postgres-vectorchord
   template:
     metadata:
       labels:
-        app: immich-pgvectors
+        app: immich-postgres-vectorchord
     spec:
       containers:
-        - name: immich-pgvectors
-          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+        - name: immich-postgres-vectorchord
+          image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
           resources:
             requests:
               cpu: 50m
@@ -27,14 +27,14 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
-            - name: immich-pgvectors
+            - name: immich-postgres-vectorchord
               mountPath: /var/lib/postgresql/data
           envFrom:
             - configMapRef:
-                name: immich-pgvectors
+                name: immich-postgres-vectorchord
             - secretRef:
-                name: immich-pgvectors
+                name: immich-postgres-vectorchord
       volumes:
-        - name: immich-pgvectors
+        - name: immich-postgres-vectorchord
           persistentVolumeClaim:
-            claimName: immich-pgvectors
+            claimName: immich-postgres-vectorchord
