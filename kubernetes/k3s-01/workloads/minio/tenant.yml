@@ -55,8 +55,6 @@ spec:
       volumesPerServer: 2
   requestAutoCert: false
   env:
-    - name: MINIO_IDENTITY_OPENID_ENABLE
-      value: "on"
     - name: MINIO_IDENTITY_OPENID_DISPLAY_NAME
       value: "Fraccs SSO"
     - name: MINIO_IDENTITY_OPENID_CONFIG_URL
@@ -66,4 +64,4 @@ spec:
     - name: MINIO_IDENTITY_OPENID_CLAIM_NAME
       value: "policy"
     - name: MINIO_BROWSER_REDIRECT_URL
-      value: "https://ui.minio.47fc5c.com/oauth_callback"
+      value: "https://ui.minio.47fc5c.com"
