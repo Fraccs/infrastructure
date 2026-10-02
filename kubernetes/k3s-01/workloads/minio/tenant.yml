@@ -65,7 +65,7 @@ spec:
       value: "openid,profile,email,minio"
     - name: MINIO_IDENTITY_OPENID_CLAIM_NAME
       value: "policy"
-    - name: MINIO_IDENTITY_OPENID_REDIRECT_URI
+    - name: MINIO_BROWSER_REDIRECT_URL
       value: "https://ui.minio.47fc5c.com/oauth_callback"
     - name: MINIO_IDENTITY_OPENID_CLIENT_ID
       valueFrom:
