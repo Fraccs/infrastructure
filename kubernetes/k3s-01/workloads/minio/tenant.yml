@@ -14,7 +14,6 @@ spec:
   # certConfig: {}
   configuration:
     name: minio-config
-  # env: []
   # externalCaCertSecret: []
   # externalCertSecret: []
   # externalClientCertSecrets: []
@@ -51,9 +50,30 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 5Gi
+              storage: 10Gi
           storageClassName: longhorn-crypto-global-single-replica
       volumesPerServer: 2
   requestAutoCert: false
-  users:
-    - name: minio-user
+  env:
+    - name: MINIO_IDENTITY_OPENID_ENABLE
+      value: "on"
+    - name: MINIO_IDENTITY_OPENID_DISPLAY_NAME
+      value: "Fraccs SSO"
+    - name: MINIO_IDENTITY_OPENID_CONFIG_URL
+      value: "https://auth.47fc5c.com/application/o/minio/.well-known/openid-configuration"
+    - name: MINIO_IDENTITY_OPENID_SCOPES
+      value: "openid,profile,email,minio"
+    - name: MINIO_IDENTITY_OPENID_CLAIM_NAME
+      value: "policy"
+    - name: MINIO_IDENTITY_OPENID_REDIRECT_URI
+      value: "https://ui.minio.47fc5c.com/oauth_callback"
+    - name: MINIO_IDENTITY_OPENID_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: minio-oidc
+          key: MINIO_IDENTITY_OPENID_CLIENT_ID
+    - name: MINIO_IDENTITY_OPENID_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: minio-oidc
+          key: MINIO_IDENTITY_OPENID_CLIENT_SECRET
