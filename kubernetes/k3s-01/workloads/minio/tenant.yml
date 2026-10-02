@@ -67,13 +67,3 @@ spec:
       value: "policy"
     - name: MINIO_BROWSER_REDIRECT_URL
       value: "https://ui.minio.47fc5c.com/oauth_callback"
-    - name: MINIO_IDENTITY_OPENID_CLIENT_ID
-      valueFrom:
-        secretKeyRef:
-          name: minio-oidc
-          key: MINIO_IDENTITY_OPENID_CLIENT_ID
-    - name: MINIO_IDENTITY_OPENID_CLIENT_SECRET
-      valueFrom:
-        secretKeyRef:
-          name: minio-oidc
-          key: MINIO_IDENTITY_OPENID_CLIENT_SECRET
