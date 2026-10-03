@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: homebox
+  namespace: postgres-cluster
+spec:
+  name: homebox
+  owner: homebox
+  cluster:
+    name: postgres-cluster

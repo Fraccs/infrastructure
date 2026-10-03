@@ -50,6 +50,10 @@ spec:
       login: true
       passwordSecret:
         name: grafana-role
+    - name: homebox
+      login: true
+      passwordSecret:
+        name: homebox-role
     - name: lidarr
       login: true
       passwordSecret:
