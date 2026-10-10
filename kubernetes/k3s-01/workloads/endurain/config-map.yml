@@ -7,6 +7,7 @@ metadata:
 data:
   ACCESS_TOKEN_EXPIRE_MINUTES: "15"
   ALGORITHM: "HS256"
+  ALLOWED_REDIRECT_SCHEMES: "nodomain.freeyourgadget.gadgetbridge"
   DB_HOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
   DB_PORT: "5432"
   DB_TYPE: "postgres"
