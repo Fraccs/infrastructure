@@ -13,7 +13,7 @@ data:
   OIDC_AUTH_ENABLED: "true"
   OIDC_AUTO_REDIRECT: "true"
   OIDC_PROVIDER_NAME: "authentik"
-  OIDC_CONFIGURATION_URL: "https://auth.47fc5c.com/application/o/mealie/.well-known/openid-configuration"
+  OIDC_CONFIGURATION_URL: "https://auth.fraccs.com/application/o/mealie/.well-known/openid-configuration"
   OIDC_GROUPS_CLAIM: "entitlements"
   OIDC_USER_GROUP: "mealie-users"
   OIDC_ADMIN_GROUP: "mealie-admins"

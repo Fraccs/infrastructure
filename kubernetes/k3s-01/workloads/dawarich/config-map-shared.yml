@@ -15,7 +15,7 @@ data:
   DATABASE_PORT: "5432"
   DATABASE_USERNAME: "dawarich"
   OIDC_AUTO_REGISTER: "true"
-  OIDC_ISSUER: "https://auth.47fc5c.com/application/o/dawarich/"
+  OIDC_ISSUER: "https://auth.fraccs.com/application/o/dawarich/"
   OIDC_PKCE_ENABLED: "true"
   OIDC_PROVIDER_NAME: "Fraccs SSO"
   OIDC_REDIRECT_URI: "https://dawarich.47fc5c.com/users/auth/openid_connect/callback"
