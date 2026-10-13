@@ -8,11 +8,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`auth.47fc5c.com`)
+    - match: Host(`auth.fraccs.com`)
       kind: Rule
-      # middlewares:
-      #   - namespace: authentik
-      #     name: authentik-ipallowlist
       services:
         - name: authentik-server
           kind: Service
@@ -24,4 +21,4 @@ spec:
               secure: true
               sameSite: none
   tls:
-    secretName: authentik-certificate
+    secretName: authentik-fraccs-com-certificate
