@@ -1,0 +1,28 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cert-manager-acme-letsencrypt-dns01-cloudflare
+spec:
+  acme:
+    email: cloudflare@47fc5c.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: cert-manager-acme-letsencrypt-dns01-cloudflare-key
+    solvers:
+      - selector:
+          dnsZones:
+            - 47fc5c.com
+        dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cert-manager-cloudflare-api-token-47fc5c-com
+              key: api-token
+      - selector:
+          dnsZones:
+            - fraccs.com
+        dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cert-manager-cloudflare-api-token-fraccs-com
+              key: api-token
