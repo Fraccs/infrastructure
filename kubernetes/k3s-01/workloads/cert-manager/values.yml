@@ -72,38 +72,20 @@ livenessProbe:
 enableServiceLinks: false
 
 prometheus:
-  enabled: false
+  enabled: true
   servicemonitor:
-    # Create a ServiceMonitor to add cert-manager to Prometheus.
-    enabled: false
-    # The namespace that the service monitor should live in, defaults
-    # to the cert-manager namespace.
-    # +docs:property
-    # namespace: cert-manager
-    # Specifies the `prometheus` label on the created ServiceMonitor. This is
-    # used when different Prometheus instances have label selectors matching
-    # different ServiceMonitors.
-    prometheusInstance: default
-    # The target port to set on the ServiceMonitor. This must match the port that the
-    # cert-manager controller is listening on for metrics.
-    targetPort: 9402
-    path: /metrics
+    enabled: true
+    namespace: cert-manager
+    # Disable the chart's additional "prometheus: default" label
+    prometheusInstance: ""
+    labels:
+      release: kube-prometheus-stack
     interval: 60s
-    scrapeTimeout: 30s
+    scrapeTimeout: 10s
+    honorLabels: false
+    endpointAdditionalProperties: {}
   podmonitor:
-    # Create a PodMonitor to add cert-manager to Prometheus.
     enabled: false
-    # The namespace that the pod monitor should live in, defaults
-    # to the cert-manager namespace.
-    # +docs:property
-    # namespace: cert-manager
-    # Specifies the `prometheus` label on the created PodMonitor. This is
-    # used when different Prometheus instances have label selectors matching
-    # different PodMonitors.
-    prometheusInstance: default
-    path: /metrics
-    interval: 60s
-    scrapeTimeout: 30s
 
 webhook:
   replicaCount: 1
