@@ -8,6 +8,6 @@ spec:
   secretName: authentik-fraccs-com-certificate
   issuerRef:
     kind: ClusterIssuer
-    name: cert-manager-clusterissuer-acme-letsencrypt-cloudflare
+    name: cert-manager-acme-letsencrypt-dns01-cloudflare
   dnsNames:
     - auth.fraccs.com
