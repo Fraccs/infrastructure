@@ -13,7 +13,7 @@ spec:
       services:
         - name: archivebox
           kind: Service
-          port: 8000
+          port: 5797
           scheme: http
   tls:
     secretName: archivebox-fraccs-com-certificate
