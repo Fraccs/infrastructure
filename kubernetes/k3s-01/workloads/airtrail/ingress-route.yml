@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`airtrail.47fc5c.com`)
+    - match: Host(`airtrail.fraccs.com`)
       kind: Rule
       services:
         - name: airtrail

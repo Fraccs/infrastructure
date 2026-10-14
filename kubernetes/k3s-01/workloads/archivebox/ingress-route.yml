@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`archivebox.47fc5c.com`)
+    - match: Host(`archivebox.fraccs.com`)
       kind: Rule
       services:
         - name: archivebox
