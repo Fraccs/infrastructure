@@ -2,23 +2,18 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: minio-console
+  name: minio
   namespace: minio
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`ui.minio.47fc5c.com`)
+    - match: Host(`minio.fraccs.com`)
       kind: Rule
       services:
         - name: minio-console
           kind: Service
           port: 9090
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: minio-console-certificate
+    secretName: minio-fraccs-com-certificate

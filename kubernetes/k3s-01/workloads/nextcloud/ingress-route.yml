@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`nextcloud.47fc5c.com`)
+    - match: Host(`nextcloud.fraccs.com`)
       kind: Rule
       middlewares:
         - namespace: nextcloud
@@ -18,10 +18,5 @@ spec:
           kind: Service
           port: 80
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: nextcloud-certificate
+    secretName: nextcloud-fraccs-com-certificate

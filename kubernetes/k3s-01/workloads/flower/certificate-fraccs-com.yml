@@ -1,0 +1,18 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: flower-fraccs-com
+  namespace: flower
+spec:
+  secretName: flower-fraccs-com-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-acme-letsencrypt-dns01-cloudflare
+  dnsNames:
+    - flower.fraccs.com
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  renewBeforePercentage: 33

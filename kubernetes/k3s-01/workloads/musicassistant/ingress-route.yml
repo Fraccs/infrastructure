@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`musicassistant.47fc5c.com`)
+    - match: Host(`music.fraccs.com`)
       kind: Rule
       services:
         - name: musicassistant
@@ -16,4 +16,4 @@ spec:
           port: 8095
           scheme: http
   tls:
-    secretName: musicassistant-certificate
+    secretName: musicassistant-fraccs-com-certificate

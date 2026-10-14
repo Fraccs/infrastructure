@@ -1,0 +1,18 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dawarich-fraccs-com
+  namespace: dawarich
+spec:
+  secretName: dawarich-fraccs-com-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-acme-letsencrypt-dns01-cloudflare
+  dnsNames:
+    - dawarich.fraccs.com
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  renewBeforePercentage: 33

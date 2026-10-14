@@ -8,20 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`longhorn.k3s-01.47fc5c.com`)
+    - match: Host(`longhorn.k3s-01.fraccs.com`)
       kind: Rule
-      middlewares:
-        - namespace: longhorn-system
-          name: longhorn-ipallowlist
       services:
         - name: longhorn-frontend
           kind: Service
           port: 80
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: longhorn-certificate
+    secretName: longhorn-fraccs-com-certificate

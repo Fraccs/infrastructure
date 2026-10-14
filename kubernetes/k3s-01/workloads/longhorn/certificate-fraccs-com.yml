@@ -1,0 +1,18 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: longhorn-fraccs-com
+  namespace: longhorn-system
+spec:
+  secretName: longhorn-fraccs-com-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-acme-letsencrypt-dns01-cloudflare
+  dnsNames:
+    - longhorn.k3s-01.fraccs.com
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  renewBeforePercentage: 33

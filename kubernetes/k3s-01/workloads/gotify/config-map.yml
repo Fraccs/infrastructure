@@ -8,7 +8,7 @@ data:
   GOTIFY_OIDC_AUTO_REDIRECT: "true"
   GOTIFY_OIDC_ENABLED: "true"
   GOTIFY_OIDC_ISSUER: "https://auth.fraccs.com/application/o/gotify/"
-  GOTIFY_OIDC_REDIRECTURL: "https://gotify.47fc5c.com/auth/oidc/callback"
+  GOTIFY_OIDC_REDIRECTURL: "https://gotify.fraccs.com/auth/oidc/callback"
   GOTIFY_OIDC_AUTOREGISTER: "true"
   GOTIFY_OIDC_USERNAMECLAIM: "email"
   GOTIFY_OIDC_SCOPES: "openid,profile,email"

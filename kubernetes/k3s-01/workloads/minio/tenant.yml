@@ -58,10 +58,10 @@ spec:
     - name: MINIO_IDENTITY_OPENID_DISPLAY_NAME
       value: "Fraccs SSO"
     - name: MINIO_IDENTITY_OPENID_CONFIG_URL
-      value: "https://auth.47fc5c.com/application/o/minio/.well-known/openid-configuration"
+      value: "https://auth.fraccs.com/application/o/minio/.well-known/openid-configuration"
     - name: MINIO_IDENTITY_OPENID_SCOPES
       value: "openid,profile,email,minio"
     - name: MINIO_IDENTITY_OPENID_CLAIM_NAME
       value: "policy"
     - name: MINIO_BROWSER_REDIRECT_URL
-      value: "https://ui.minio.47fc5c.com"
+      value: "https://minio.fraccs.com"

@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`jellyfin.47fc5c.com`)
+    - match: Host(`jellyfin.fraccs.com`)
       kind: Rule
       services:
         - name: jellyfin
@@ -16,4 +16,4 @@ spec:
           port: 8096
           scheme: http
   tls:
-    secretName: jellyfin-certificate
+    secretName: jellyfin-fraccs-com-certificate

@@ -1,0 +1,18 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-fraccs-com
+  namespace: argocd
+spec:
+  secretName: argocd-fraccs-com-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-acme-letsencrypt-dns01-cloudflare
+  dnsNames:
+    - argocd.k3s-01.fraccs.com
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  renewBeforePercentage: 33

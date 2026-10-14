@@ -8,10 +8,10 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik.k3s-01.47fc5c.com`)
+    - match: Host(`traefik.k3s-01.fraccs.com`)
       kind: Rule
       services:
         - name: api@internal
           kind: TraefikService
   tls:
-    secretName: traefik-certificate
+    secretName: traefik-fraccs-com-certificate

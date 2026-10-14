@@ -7,7 +7,7 @@ metadata:
 data:
   ALLOW_PASSWORD_LOGIN: "false"
   ALLOW_SIGNUP: "false"
-  BASE_URL: "https://mealie.47fc5c.com"
+  BASE_URL: "https://mealie.fraccs.com"
   DB_ENGINE: "postgres"
   LOG_LEVEL: "debug"
   OIDC_AUTH_ENABLED: "true"

@@ -8,17 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`kavita.47fc5c.com`)
+    - match: Host(`kavita.fraccs.com`)
       kind: Rule
       services:
         - name: kavita
           kind: Service
           port: 5000
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: kavita-certificate
+    secretName: kavita-fraccs-com-certificate

@@ -8,17 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.k3s-01.47fc5c.com`)
+    - match: Host(`argocd.k3s-01.fraccs.com`)
       kind: Rule
       services:
         - name: argocd-server
           kind: Service
           port: 80
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: argocd-certificate
+    secretName: argocd-fraccs-com-certificate

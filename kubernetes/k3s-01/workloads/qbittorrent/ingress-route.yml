@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`qbittorrent.47fc5c.com`)
+    - match: Host(`qbittorrent.fraccs.com`)
       kind: Rule
       services:
         - name: qbittorrent
@@ -16,4 +16,4 @@ spec:
           port: 8080
           scheme: http
   tls:
-    secretName: qbittorrent-certificate
+    secretName: qbittorrent-fraccs-com-certificate

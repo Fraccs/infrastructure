@@ -8,17 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`dawarich.47fc5c.com`)
+    - match: Host(`dawarich.fraccs.com`)
       kind: Rule
       services:
         - name: dawarich
           kind: Service
           port: 3000
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: dawarich-certificate
+    secretName: dawarich-fraccs-com-certificate

@@ -15,10 +15,5 @@ spec:
           kind: Service
           port: 3000
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: airtrail-certificate
+    secretName: airtrail-fraccs-com-certificate

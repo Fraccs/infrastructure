@@ -5,4 +5,4 @@ metadata:
   name: vaultwarden
   namespace: vaultwarden
 data:
-  DOMAIN: "https://vaultwarden.47fc5c.com"
+  DOMAIN: "https://vaultwarden.fraccs.com"

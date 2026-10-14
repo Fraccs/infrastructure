@@ -15,10 +15,5 @@ spec:
           kind: Service
           port: 80
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
     secretName: authentik-fraccs-com-certificate

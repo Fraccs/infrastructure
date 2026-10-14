@@ -8,17 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`cdio.47fc5c.com`)
+    - match: Host(`cdio.fraccs.com`)
       kind: Rule
       services:
         - name: cdio
           kind: Service
           port: 5000
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: cdio-certificate
+    secretName: cdio-fraccs-com-certificate

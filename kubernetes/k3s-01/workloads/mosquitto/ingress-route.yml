@@ -13,4 +13,4 @@ spec:
         - name: mosquitto
           port: 1883
   tls:
-    secretName: mosquitto-certificate
+    secretName: mosquitto-fraccs-com-certificate

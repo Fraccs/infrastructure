@@ -8,17 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`lidarr.47fc5c.com`)
+    - match: Host(`lidarr.fraccs.com`)
       kind: Rule
       services:
         - name: lidarr
           kind: Service
           port: 8686
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: lidarr-certificate
+    secretName: lidarr-fraccs-com-certificate

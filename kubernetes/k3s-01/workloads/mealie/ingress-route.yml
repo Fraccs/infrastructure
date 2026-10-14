@@ -8,17 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`mealie.47fc5c.com`)
+    - match: Host(`mealie.fraccs.com`)
       kind: Rule
       services:
         - name: mealie
           kind: Service
           port: 9000
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: mealie-certificate
+    secretName: mealie-fraccs-com-certificate

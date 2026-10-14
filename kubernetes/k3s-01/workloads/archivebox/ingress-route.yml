@@ -15,10 +15,5 @@ spec:
           kind: Service
           port: 8000
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: archivebox-certificate
+    secretName: archivebox-fraccs-com-certificate

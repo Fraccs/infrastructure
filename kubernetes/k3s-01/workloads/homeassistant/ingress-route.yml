@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`homeassistant.47fc5c.com`)
+    - match: Host(`homeassistant.fraccs.com`)
       kind: Rule
       services:
         - name: homeassistant
@@ -16,4 +16,4 @@ spec:
           port: 8123
           scheme: http
   tls:
-    secretName: homeassistant-certificate
+    secretName: homeassistant-fraccs-com-certificate

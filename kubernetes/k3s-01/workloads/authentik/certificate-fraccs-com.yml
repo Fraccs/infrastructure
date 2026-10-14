@@ -11,3 +11,8 @@ spec:
     name: cert-manager-acme-letsencrypt-dns01-cloudflare
   dnsNames:
     - auth.fraccs.com
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  renewBeforePercentage: 33
