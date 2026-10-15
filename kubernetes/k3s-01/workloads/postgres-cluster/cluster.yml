@@ -16,6 +16,7 @@ spec:
     parameters:
       wal_keep_size: "2GB"
       max_slot_wal_keep_size: "6GB"
+      max_connections: "200"
   managed:
     roles:
     - name: airtrail
