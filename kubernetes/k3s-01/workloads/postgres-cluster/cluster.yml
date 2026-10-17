@@ -14,6 +14,7 @@ spec:
       method: any
       number: 1
     parameters:
+      wal_sender_timeout: "30s"
       wal_keep_size: "2GB"
       max_slot_wal_keep_size: "6GB"
       max_connections: "200"
