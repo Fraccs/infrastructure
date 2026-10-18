@@ -1,0 +1,19 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: homebox-ingress-traefik
+  namespace: homebox
+spec:
+  endpointSelector:
+    matchLabels:
+      k8s:app.kubernetes.io/name: homebox
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:app.kubernetes.io/name: traefik
+      toPorts:
+        - ports:
+            - port: "7745"
+              protocol: TCP

@@ -1,0 +1,87 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homebox
+  namespace: homebox
+  labels:
+    app.kubernetes.io/name: homebox
+    app.kubernetes.io/component: application
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: homebox
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: homebox
+        app.kubernetes.io/component: application
+    spec:
+      serviceAccountName: homebox
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: homebox
+          image: ghcr.io/sysadminsmedia/homebox:0.26.1-hardened@sha256:4cb32ffaec3415428eb234ea3dc74c3127968752d1cffb924891d0494f4e7ab0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 7745
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: homebox
+            - secretRef:
+                name: homebox
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+          startupProbe:
+            exec:
+              command:
+                - /app/healthcheck
+            periodSeconds: 2
+            timeoutSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            exec:
+              command:
+                - /app/healthcheck
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command:
+                - /app/healthcheck
+            periodSeconds: 30
+            timeoutSeconds: 2
+            failureThreshold: 3
+          volumeMounts:
+            - name: homebox
+              mountPath: /data
+      volumes:
+        - name: homebox
+          persistentVolumeClaim:
+            claimName: homebox

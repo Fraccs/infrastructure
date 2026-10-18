@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: homebox
+  namespace: homebox
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`homebox.fraccs.com`)
+      services:
+        - name: homebox
+          port: 7745
+  tls:
+    secretName: homebox-fraccs-com-certificate
