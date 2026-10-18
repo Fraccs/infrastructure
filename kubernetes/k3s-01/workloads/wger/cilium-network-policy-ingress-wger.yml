@@ -1,0 +1,28 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-ingress-wger
+  namespace: wger
+spec:
+  description: 'Django web: allow nginx and PowerSync JWKS 8000/TCP; node probes'
+  endpointSelector:
+    matchLabels:
+      app: wger
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app: wger-nginx
+    - matchLabels:
+        app: wger-powersync
+    toPorts:
+    - ports:
+      - port: '8000'
+        protocol: TCP
+  - fromEntities:
+    - host
+    - remote-node
+    toPorts:
+    - ports:
+      - port: '8000'
+        protocol: TCP

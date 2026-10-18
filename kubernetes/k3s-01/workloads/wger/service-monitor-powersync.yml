@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wger-powersync
+  namespace: monitoring
+  labels:
+    app: wger-powersync
+spec:
+  namespaceSelector:
+    matchNames:
+    - wger
+  selector:
+    matchLabels:
+      app: wger-powersync-metrics
+  targetLabels:
+  - application
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+    scrapeTimeout: 10s

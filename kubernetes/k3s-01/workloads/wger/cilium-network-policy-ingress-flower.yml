@@ -1,0 +1,29 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-ingress-wger-flower
+  namespace: monitoring
+spec:
+  description: 'Flower: allow Traefik UI and same-namespace monitoring scrapes on
+    5555/TCP; node probes'
+  endpointSelector:
+    matchLabels:
+      app: wger-flower
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: monitoring
+    toPorts:
+    - ports:
+      - port: '5555'
+        protocol: TCP
+  - fromEntities:
+    - host
+    - remote-node
+    toPorts:
+    - ports:
+      - port: '5555'
+        protocol: TCP

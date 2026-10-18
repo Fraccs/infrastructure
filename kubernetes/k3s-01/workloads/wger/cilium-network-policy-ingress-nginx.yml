@@ -1,0 +1,27 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-ingress-wger-nginx
+  namespace: wger
+spec:
+  description: 'nginx: allow Traefik 80/TCP and kubelet/node probes; preliminary Traefik
+    source is entire kube-system namespace'
+  endpointSelector:
+    matchLabels:
+      app: wger-nginx
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+    toPorts:
+    - ports:
+      - port: '80'
+        protocol: TCP
+  - fromEntities:
+    - host
+    - remote-node
+    toPorts:
+    - ports:
+      - port: '80'
+        protocol: TCP

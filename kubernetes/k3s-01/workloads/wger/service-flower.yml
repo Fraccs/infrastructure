@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wger-flower
+  namespace: monitoring
+  labels:
+    app: wger-flower
+    application: wger
+spec:
+  type: ClusterIP
+  selector:
+    app: wger-flower
+  ports:
+    - name: http
+      port: 5555
+      targetPort: http
+      protocol: TCP

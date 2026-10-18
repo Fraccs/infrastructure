@@ -1,0 +1,18 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wger-fraccs-com
+  namespace: wger
+spec:
+  secretName: wger-fraccs-com-certificate
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-manager-acme-letsencrypt-dns01-cloudflare
+  dnsNames:
+    - wger.fraccs.com
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  renewBeforePercentage: 33

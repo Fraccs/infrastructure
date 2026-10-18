@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wger-flower
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`flower.wger.fraccs.com`)
+      kind: Rule
+      services:
+        - name: wger-flower
+          kind: Service
+          port: 5555
+          scheme: http
+  tls:
+    secretName: wger-flower-fraccs-com-certificate

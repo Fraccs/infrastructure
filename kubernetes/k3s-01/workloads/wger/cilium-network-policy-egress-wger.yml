@@ -1,0 +1,43 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-egress-wger
+  namespace: wger
+spec:
+  description: 'Django: CoreDNS, PostgreSQL, Redis and world HTTP(S) for configured
+    upstream sync'
+  endpointSelector:
+    matchLabels:
+      app: wger
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: '53'
+        protocol: ANY
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: postgres-cluster
+    toPorts:
+    - ports:
+      - port: '5432'
+        protocol: TCP
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: redis
+    toPorts:
+    - ports:
+      - port: '6379'
+        protocol: TCP
+  - toEntities:
+    - world
+    toPorts:
+    - ports:
+      - port: '80'
+        protocol: TCP
+      - port: '443'
+        protocol: TCP

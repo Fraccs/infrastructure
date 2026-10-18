@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wger-nginx
+  namespace: wger
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: wger-nginx
+  template:
+    metadata:
+      labels:
+        app: wger-nginx
+    spec:
+      containers:
+      - name: wger-nginx
+        image: docker.io/library/nginx:1.29.5@sha256:341bf0f3ce6c5277d6002cf6e1fb0319fa4252add24ab6a0e262e0056d313208
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+          readOnly: true
+        - name: wger-media
+          mountPath: /wger/media/
+          readOnly: true
+        - name: wger-static
+          mountPath: /wger/static/
+          readOnly: true
+        readinessProbe:
+          httpGet:
+            path: /api/v2/version/
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: http
+          periodSeconds: 30
+          timeoutSeconds: 5
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - NET_RAW
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: wger-nginx
+      - name: wger-media
+        persistentVolumeClaim:
+          claimName: wger-media
+      - name: wger-static
+        persistentVolumeClaim:
+          claimName: wger-static
+      serviceAccountName: wger-nginx
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault

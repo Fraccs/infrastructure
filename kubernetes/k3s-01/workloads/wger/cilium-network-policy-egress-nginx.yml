@@ -1,0 +1,27 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-egress-wger-nginx
+  namespace: wger
+spec:
+  description: 'nginx: CoreDNS and Django Service 8000/TCP'
+  endpointSelector:
+    matchLabels:
+      app: wger-nginx
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: '53'
+        protocol: ANY
+  - toEndpoints:
+    - matchLabels:
+        app: wger
+    toPorts:
+    - ports:
+      - port: '8000'
+        protocol: TCP

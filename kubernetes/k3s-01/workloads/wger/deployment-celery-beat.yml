@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wger-celery-beat
+  namespace: wger
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: wger-celery-beat
+  template:
+    metadata:
+      labels:
+        app: wger-celery-beat
+    spec:
+      containers:
+      - name: celery-beat
+        image: docker.io/wger/server:2.7.0@sha256:1c5789b93bfe5eed0b7287255782d9177027b255de2b22b59f511a693a48db04
+        command:
+        - /start-beat
+        envFrom:
+        - configMapRef:
+            name: wger
+        - secretRef:
+            name: wger
+        volumeMounts:
+        - name: celery-beat
+          mountPath: /home/wger/beat/
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: celery-beat
+        persistentVolumeClaim:
+          claimName: wger-celery-beat
+      serviceAccountName: wger-celery-beat
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always

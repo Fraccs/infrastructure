@@ -1,0 +1,16 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-ingress-wger-celery-worker
+  namespace: wger
+spec:
+  description: 'Celery worker: no normal pod ingress; allow host/node traffic for
+    initial compatibility'
+  endpointSelector:
+    matchLabels:
+      app: wger-celery-worker
+  ingress:
+  - fromEntities:
+    - host
+    - remote-node

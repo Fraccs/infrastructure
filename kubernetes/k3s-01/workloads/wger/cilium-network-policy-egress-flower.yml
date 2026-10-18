@@ -1,0 +1,28 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-egress-wger-flower
+  namespace: monitoring
+spec:
+  description: 'wger Flower 2.2: CoreDNS and Redis broker database 17 (port 6379);
+    does not require direct connection to wger'
+  endpointSelector:
+    matchLabels:
+      app: wger-flower
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: '53'
+        protocol: ANY
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: redis
+    toPorts:
+    - ports:
+      - port: '6379'
+        protocol: TCP

@@ -8,35 +8,26 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`wger.47fc5c.com`) && (PathPrefix(`/media`) || PathPrefix(`/static`))
+    - match: Host(`wger.fraccs.com`) && (Path(`/ps`) || PathPrefix(`/ps/`))
       kind: Rule
+      priority: 100
       middlewares:
         - namespace: wger
-          name: wger-ipallowlist
+          name: wger-powersync
+      services:
+        - name: wger-powersync
+          kind: Service
+          port: 8080
+          scheme: http
+          responseForwarding:
+            flushInterval: 1ms
+    - match: Host(`wger.fraccs.com`)
+      kind: Rule
+      priority: 1
       services:
         - name: wger-nginx
           kind: Service
           port: 80
           scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
-    - match: Host(`wger.47fc5c.com`)
-      kind: Rule
-      middlewares:
-        - namespace: wger
-          name: wger-ipallowlist
-      services:
-        - name: wger
-          kind: Service
-          port: 8000
-          scheme: http
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
   tls:
-    secretName: wger-certificate
+    secretName: wger-fraccs-com-certificate

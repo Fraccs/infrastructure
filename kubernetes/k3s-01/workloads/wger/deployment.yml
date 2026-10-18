@@ -1,0 +1,82 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wger
+  namespace: wger
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: wger
+  template:
+    metadata:
+      labels:
+        app: wger
+    spec:
+      containers:
+      - name: wger
+        image: docker.io/wger/server:2.7.0@sha256:1c5789b93bfe5eed0b7287255782d9177027b255de2b22b59f511a693a48db04
+        ports:
+        - name: http
+          containerPort: 8000
+        volumeMounts:
+        - name: wger-media
+          mountPath: /home/wger/media/
+        - name: wger-static
+          mountPath: /home/wger/static/
+        envFrom:
+        - configMapRef:
+            name: wger
+        - secretRef:
+            name: wger
+        env:
+        - name: PS_STORAGE_PG_URI
+          valueFrom:
+            secretKeyRef:
+              name: wger-powersync
+              key: PS_STORAGE_PG_URI
+        startupProbe:
+          httpGet:
+            path: /api/v2/version/
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+        readinessProbe:
+          httpGet:
+            path: /api/v2/version/
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /api/v2/version/
+            port: http
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: wger-media
+        persistentVolumeClaim:
+          claimName: wger-media
+      - name: wger-static
+        persistentVolumeClaim:
+          claimName: wger-static
+      terminationGracePeriodSeconds: 60
+      serviceAccountName: wger-web
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000

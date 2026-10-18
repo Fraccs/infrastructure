@@ -1,0 +1,19 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: wger-powersync-replication
+  namespace: postgres-cluster
+spec:
+  cluster:
+    name: postgres-cluster
+  name: powersync_replication
+  login: true
+  replication: true
+  superuser: false
+  createdb: false
+  createrole: false
+  bypassrls: false
+  databaseRoleReclaimPolicy: retain
+  passwordSecret:
+    name: powersync-replication-role

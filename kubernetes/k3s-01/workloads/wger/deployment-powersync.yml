@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wger-powersync
+  namespace: wger
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: wger-powersync
+  template:
+    metadata:
+      labels:
+        app: wger-powersync
+    spec:
+      containers:
+      - name: wger-powersync
+        image: docker.io/journeyapps/powersync-service:1.23.0@sha256:6405a437bf527957c99e670497a537903af8e1469724b70d030a74aaef5241fa
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: metrics
+          containerPort: 9090
+        envFrom:
+        - secretRef:
+            name: wger-powersync
+        env:
+        - name: POWERSYNC_CONFIG_PATH
+          value: /config/powersync.yaml
+        - name: PS_JWKS_URL
+          value: http://wger:8000/api/v2/powersync-keys
+        volumeMounts:
+        - name: powersync-config
+          mountPath: /config
+          readOnly: true
+        readinessProbe:
+          httpGet:
+            path: /probes/liveness
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /probes/liveness
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        args:
+        - start
+        - -r
+        - unified
+      volumes:
+      - name: powersync-config
+        configMap:
+          name: wger-powersync
+      serviceAccountName: wger-powersync
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
