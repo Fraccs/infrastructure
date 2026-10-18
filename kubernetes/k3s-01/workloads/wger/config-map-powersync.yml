@@ -22,7 +22,7 @@ data:
       uri: !env PS_STORAGE_PG_URI
       sslmode: disable
 
-    port: !env PS_PORT
+    port: 8080
 
     sync_rules:
       path: sync_rules.yaml
