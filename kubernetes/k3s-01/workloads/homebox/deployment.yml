@@ -33,7 +33,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: homebox
-          image: ghcr.io/sysadminsmedia/homebox:0.27.0-hardened@sha256:cec746a6f4b1c2c614d3a56efd283a645607849972a61d05959c6baa8538f983
+          image: ghcr.io/sysadminsmedia/homebox:0.27.1-hardened@sha256:a597f090a41ad9819676d748abc5ae079b23553be45b3bc878f718cb5eaaa97e
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
