@@ -14,6 +14,30 @@ spec:
       labels:
         app: freshrss
     spec:
+      initContainers:
+        - name: configure-http-auth
+          image: docker.io/freshrss/freshrss:1.30.1@sha256:48b63b9bc3d042a1301c32971b01af8841c7f059b452589c5bf77f475ba44c61
+          command: ["php", "/var/www/FreshRSS/cli/reconfigure.php", "--auth-type=http_auth"]
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 33
+            runAsGroup: 33
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          volumeMounts:
+            - name: freshrss
+              mountPath: /var/www/FreshRSS/data
+              subPath: data/
       containers:
         - name: freshrss
           image: docker.io/freshrss/freshrss:1.30.1@sha256:48b63b9bc3d042a1301c32971b01af8841c7f059b452589c5bf77f475ba44c61
@@ -28,6 +52,8 @@ spec:
               subPath: extensions/
           envFrom:
             - configMapRef:
+                name: freshrss
+            - secretRef:
                 name: freshrss
       volumes:
         - name: freshrss
