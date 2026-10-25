@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+data:
+  url: https://argocd.k3s-01.fraccs.com
+  admin.enabled: 'true'
+  users.anonymous.enabled: 'false'
+  users.session.duration: 8h
+  oidc.config: |
+    name: Fraccs SSO
+    issuer: https://auth.fraccs.com/application/o/argocd/
+    clientID: Nldal5jENYcZJjTrlfhLtaw0YkxuHp5IpRee3bA7
+    clientSecret: $argocd-oidc:OIDC_CLIENT_SECRET
+    requestedScopes: [openid, profile, email, groups]
+    requestedIDTokenClaims:
+      groups:
+        essential: true
+    enablePKCEAuthentication: true
+    logoutURL: https://auth.fraccs.com/application/o/argocd/end-session/?id_token_hint={{token}}&post_logout_redirect_uri=https%3A%2F%2Fargocd.k3s-01.fraccs.com%2F

@@ -4,15 +4,49 @@ kind: Application
 metadata:
   name: argocd
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
 spec:
   project: default
   syncPolicy:
     automated:
       prune: true
-  source:
-    repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
-    targetRevision: HEAD
-    path: kubernetes/k3s-01/workloads/argocd
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  sources:
+    - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-01/workloads/argocd
+      directory:
+        exclude: values.yml
+    - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      # Adopt the installed chart first; Renovate proposes subsequent upgrades.
+      targetRevision: 9.4.7
+      helm:
+        releaseName: argocd
+        valueFiles:
+          - $values/kubernetes/k3s-01/workloads/argocd/values.yml
+  ignoreDifferences:
+    # These keys are maintained by Argo CD itself, not by the chart.
+    - group: ""
+      kind: Secret
+      name: argocd-secret
+      namespace: argocd
+      jsonPointers:
+        - /data
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

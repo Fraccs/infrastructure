@@ -1,12 +1,15 @@
 ---
 crds:
   install: true # -- Install and upgrade CRDs
-  keep: false # -- Keep CRDs on chart uninstall
+  keep: true # -- Retain API definitions during recovery or ownership changes
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
 
 global:
   domain: argocd.k3s-01.fraccs.com
   image:
     repository: quay.io/argoproj/argocd
+    # Use the pinned chart's appVersion; Renovate updates the chart as one unit.
     imagePullPolicy: IfNotPresent
   tls:
     create: false
@@ -33,6 +36,16 @@ redisSecretInit:
   enabled: false
 
 configs:
+  # Auth and RBAC ConfigMaps are managed by external manifests through Argo CD.
+  cm:
+    create: false
+  rbac:
+    create: false
+  # Preserve the existing emergency password and server-generated signing keys.
+  secret:
+    createSecret: true
+    annotations:
+      argocd.argoproj.io/sync-options: Prune=false,Delete=false
   params:
     server.insecure: true
 

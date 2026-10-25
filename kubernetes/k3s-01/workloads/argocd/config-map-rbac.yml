@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+data:
+  policy.default: role:no-access
+  policy.matchMode: glob
+  scopes: '[groups]'
+  policy.csv: |
+    g, argocd-admins, role:admin
+    g, argocd-readonly, role:readonly
