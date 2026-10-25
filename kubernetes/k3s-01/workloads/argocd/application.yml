@@ -34,7 +34,7 @@ spec:
     - repoURL: https://argoproj.github.io/argo-helm
       chart: argo-cd
       # Adopt the installed chart first; Renovate proposes subsequent upgrades.
-      targetRevision: 9.4.7
+      targetRevision: 9.7.1
       helm:
         releaseName: argocd
         valueFiles:
