@@ -1,0 +1,82 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: firefly
+  namespace: firefly
+spec:
+  schedule: "0 3 * * *"
+  timeZone: Europe/Rome
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 3600
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      # Do not automatically retry financial writes after a partial run.
+      backoffLimit: 0
+      activeDeadlineSeconds: 3600
+      template:
+        metadata:
+          labels:
+            app: firefly-cron
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          enableServiceLinks: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 33
+            runAsGroup: 33
+            fsGroup: 33
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: firefly-cron
+              image: docker.io/fireflyiii/core:version-6.2.9@sha256:b368f3ba77a34314da1e4925a1450f2f9cfaa5a173ef12683af2940223d7a428
+              # Bypass web initialization and migrations; use the existing DB.
+              command: ["/bin/sh", "-ec"]
+              args:
+                - |
+                  mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs storage/app/public storage/upload
+                  exec php artisan firefly-iii:cron --no-interaction
+              workingDir: /var/www/html
+              envFrom:
+                - configMapRef:
+                    name: firefly
+                - secretRef:
+                    name: firefly
+              env:
+                - name: LOG_CHANNEL
+                  value: stdout
+                - name: AUDIT_LOG_CHANNEL
+                  value: audit_stdout
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  cpu: 500m
+                  memory: 768Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: [ALL]
+              volumeMounts:
+                - name: storage
+                  mountPath: /var/www/html/storage
+                - name: bootstrap-cache
+                  mountPath: /var/www/html/bootstrap/cache
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: storage
+              emptyDir:
+                sizeLimit: 256Mi
+            - name: bootstrap-cache
+              emptyDir:
+                sizeLimit: 32Mi
+            - name: tmp
+              emptyDir:
+                sizeLimit: 256Mi
