@@ -1,0 +1,65 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 300
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 3600
+      template:
+        metadata:
+          labels:
+            app: nextcloud-cron
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          enableServiceLinks: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 33
+            runAsGroup: 33
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: nextcloud-cron
+              image: docker.io/library/nextcloud:35.0.1@sha256:276547e033df451770dbf9c0065929e5ea179a613b1884bd3fa807ba1c2703e7
+              # Bypass image initialization; only the web Deployment owns upgrades.
+              command: ["php", "-d", "apc.enable_cli=1", "-f", "/var/www/html/cron.php"]
+              workingDir: /var/www/html
+              envFrom:
+                - configMapRef:
+                    name: nextcloud
+                - secretRef:
+                    name: nextcloud
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  cpu: 500m
+                  memory: 768Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: [ALL]
+              volumeMounts:
+                - name: nextcloud
+                  mountPath: /var/www/html
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: nextcloud
+              persistentVolumeClaim:
+                claimName: nextcloud
+            - name: tmp
+              emptyDir:
+                sizeLimit: 1Gi
