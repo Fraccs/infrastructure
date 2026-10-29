@@ -22,6 +22,7 @@ configMapGenerator:
     files:
       - timers.yml=config/helpers/timers.yml
       - template-sensors.yml=config/helpers/template-sensors.yml
+      - integral-sensors.yml=config/helpers/integral-sensors.yml
   - name: homeassistant-automations
     namespace: homeassistant
     files:

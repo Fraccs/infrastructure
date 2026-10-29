@@ -5,9 +5,10 @@
       device_class: power
       unit_of_measurement: W
       state_class: measurement
+      # Estimated UPS output power: confirmed 520 W rating times load percent.
+      # Load remains nonzero on battery. Status flags do not determine watts.
+      availability: >
+        {{ is_number(states('sensor.nut_01_load'))
+           and 0 <= states('sensor.nut_01_load') | float(0) <= 100 }}
       state: >
-        {% if states('sensor.nut_01_status_data') in ['OL', 'OL CHRG'] %}
-          {{ (states('sensor.nut_01_load') | float(0)) / 100 * 520 }}
-        {% else %}
-          0
-        {% endif %}
+        {{ ((states('sensor.nut_01_load') | float(0)) / 100 * 520) | round(2) }}
