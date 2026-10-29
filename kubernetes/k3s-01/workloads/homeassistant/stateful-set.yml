@@ -36,7 +36,13 @@ spec:
           volumeMounts:
             - name: homeassistant
               mountPath: /config
+            - name: dashboards
+              mountPath: /config/git-dashboards
+              readOnly: true
       volumes:
+        - name: dashboards
+          configMap:
+            name: homeassistant-dashboards
         - name: homeassistant
           persistentVolumeClaim:
             claimName: homeassistant

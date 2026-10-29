@@ -1,0 +1,12 @@
+---
+# Included as the value of `lovelace:` in /config/configuration.yaml.
+# Keep custom-card resources managed by HACS/the UI.
+resource_mode: storage
+dashboards:
+  heating-dashboard:
+    mode: yaml
+    filename: git-dashboards/heating.yml
+    title: Heating
+    icon: mdi:home-thermometer
+    show_in_sidebar: true
+    require_admin: false
