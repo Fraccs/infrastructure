@@ -26,13 +26,10 @@ views:
         entities:
           - entity: sensor.nut_01_battery_charge
           - entity: sensor.nut_01_load
-          - entity: sensor.nut_01_status_data
           - entity: sensor.nut_01_status
           - entity: sensor.nut_01_input_voltage
           - entity: sensor.nut_01_power_usage
-            name: UPS power (W)
-          - entity: sensor.servers_ups_power_usage
-            name: UPS energy (kWh)
+          - entity: sensor.nut_01_energy_usage
         title: Sottoscala (Sala Server)
       - show_current: true
         show_forecast: true

@@ -2,12 +2,6 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
-homeassistant:
-  customize:
-    # Keep the historical entity ID; this integral measures energy, not power.
-    sensor.servers_ups_power_usage:
-      friendly_name: nut-01 energy usage
-
 # Dashboard definitions are managed in Git; resources remain managed by HACS/UI.
 lovelace: !include git-dashboards/lovelace.yml
 

@@ -1,6 +1,6 @@
 ---
 - sensor:
-    - name: nut-01_power_usage
+    - name: nut-01 power usage
       default_entity_id: sensor.nut_01_power_usage
       device_class: power
       unit_of_measurement: W

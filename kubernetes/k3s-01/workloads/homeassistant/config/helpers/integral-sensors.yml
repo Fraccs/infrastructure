@@ -1,8 +1,7 @@
 ---
 - platform: integration
-  # Preserve the legacy entity ID sensor.servers_ups_power_usage and its totals.
-  # configuration.yml overrides the displayed name to identify this as energy.
-  name: Servers UPS power usage
+  name: nut-01 energy usage
+  unique_id: nut_01_energy_usage
   source: sensor.nut_01_power_usage
   unit_prefix: k
   unit_time: h
