@@ -51,11 +51,11 @@ spec:
               subPath: configuration.yml
               readOnly: true
             - name: configuration
-              mountPath: /config/scripts.yml
+              mountPath: /config/scripts.yaml
               subPath: scripts.yml
               readOnly: true
             - name: configuration
-              mountPath: /config/scenes.yml
+              mountPath: /config/scenes.yaml
               subPath: scenes.yml
               readOnly: true
             - name: dashboards
