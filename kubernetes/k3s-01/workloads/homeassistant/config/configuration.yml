@@ -18,6 +18,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 timer: !include git-helpers/timers.yml
+input_number: !include git-helpers/input-numbers.yml
 template: !include git-helpers/template-sensors.yml
 
 sensor: !include git-helpers/integral-sensors.yml

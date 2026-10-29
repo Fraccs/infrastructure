@@ -1,7 +1,70 @@
 ---
-# Nintendo Switch / LineageOS: target 1280x720 landscape; CSS viewport may differ.
-# Requires HACS button-card and kiosk-mode. Match the tablet account DISPLAY name.
-# DEMO ONLY: hard-coded readings; no heating control actions.
+# Nintendo Switch / LineageOS: responsive 1280x720 landscape target.
+# Temperature and relay are demo data. The threshold is a real persisted helper.
+button_card_templates:
+  heating_i18n:
+    variables:
+      i18n: |
+        [[[
+          const language = hass.locale?.language || hass.language || 'en';
+          const italian = language.toLowerCase().split('-')[0] === 'it';
+          return {
+            locale: italian ? 'it-IT' : 'en-GB',
+            title: italian ? 'CASA / RISCALDAMENTO' : 'HOME / HEATING',
+            browse: italian ? 'Apri Home Assistant' : 'Browse Home Assistant',
+            temperature: italian ? 'TEMPERATURA INTERNA' : 'INDOOR TEMPERATURE',
+            threshold: italian ? 'SOGLIA RISCALDAMENTO' : 'HEATING THRESHOLD',
+            saved: italian ? 'Soglia salvata' : 'Threshold saved',
+            unavailable: italian ? 'Soglia non disponibile' : 'Threshold unavailable',
+            requested: italian ? 'RICHIESTA CALORE (DEMO)' : 'HEAT REQUESTED (DEMO)',
+            idle: italian ? 'RISCALDAMENTO INATTIVO (DEMO)' : 'HEATING IDLE (DEMO)',
+            demo: italian ? 'Temperatura e stato dimostrativi' : 'Temperature and status are demo values'
+          };
+        ]]]
+  heating_adjust:
+    template: heating_i18n
+    entity: input_number.heating_threshold
+    show_icon: false
+    name: |
+      [[[
+        const step = new Intl.NumberFormat(variables.i18n.locale, {minimumFractionDigits: 1}).format(0.5);
+        return `${variables.direction < 0 ? '−' : '+'} ${step} °C`;
+      ]]]
+    tap_action: |
+      [[[
+        const value = Number(entity?.state);
+        const down = variables.direction < 0;
+        if (!entity || !Number.isFinite(value) ||
+            (down ? value <= entity.attributes.min : value >= entity.attributes.max)) {
+          return {action: 'none'};
+        }
+        return {
+          action: 'call-service',
+          service: down ? 'input_number.decrement' : 'input_number.increment',
+          service_data: {entity_id: entity.entity_id}
+        };
+      ]]]
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    styles:
+      card:
+        - height: 64px
+        - border-radius: 14px
+        - background: var(--secondary-background-color)
+        - border: 1px solid var(--divider-color)
+        - box-shadow: none
+        - opacity: |
+            [[[
+              const value = Number(entity?.state);
+              return !entity || !Number.isFinite(value) ||
+                (variables.direction < 0 ? value <= entity.attributes.min : value >= entity.attributes.max) ? '0.4' : '1';
+            ]]]
+      name:
+        - font-size: clamp(18px, 2.5vw, 28px)
+        - font-weight: 500
+
 kiosk_mode:
   user_settings:
     - users:
@@ -15,9 +78,10 @@ views:
     type: panel
     cards:
       - type: custom:button-card
+        template: heating_i18n
+        entity: input_number.heating_threshold
         variables:
           demo_temperature: 19.4
-          demo_threshold: 20.0
           demo_relay_on: true
         show_icon: false
         show_name: false
@@ -32,7 +96,6 @@ views:
         styles:
           card:
             - position: relative
-            - width: 100%
             # kiosk-mode supplies zero header height when hiding HA navigation.
             - height: calc(100vh - var(--kiosk-header-height, var(--header-height, 56px)) - var(--safe-area-inset-top, 0px))
             - margin: 0
@@ -42,39 +105,39 @@ views:
             - border: 0
             - border-radius: 0
             - box-shadow: none
-            - overflow: hidden
             - color: var(--primary-text-color)
             - font-family: system-ui, -apple-system, sans-serif
           grid:
-            - grid-template-areas: '"stage"'
-            - grid-template-columns: minmax(0, 1fr)
-            - grid-template-rows: minmax(0, 1fr)
+            - grid-template-areas: '"header header" "temperature setpoint" "footer footer"'
+            - grid-template-columns: minmax(0, 1fr) minmax(240px, .45fr)
+            - grid-template-rows: auto minmax(0, 1fr) auto
             - height: 100%
+            - box-sizing: border-box
+            - padding: clamp(16px, 3vw, 40px)
+            - padding-bottom: max(16px, env(safe-area-inset-bottom, 0px))
+            - gap: 16px
           custom_fields:
-            stage:
-              - height: 100%
+            header:
               - min-width: 0
-              - min-height: 0
+              - text-align: left
+            temperature:
+              - min-width: 0
+            setpoint:
+              - min-width: 0
+              - width: 100%
+            footer:
+              - min-width: 0
               - text-align: left
         extra_styles: |
           :host { width: 100%; max-width: none !important; }
           @supports (height: 100dvh) {
-            #card {
-              height: calc(100dvh - var(--kiosk-header-height, var(--header-height, 56px)) - var(--safe-area-inset-top, 0px));
-            }
-          }
-          .heating-stage {
-            height: 100%; box-sizing: border-box;
-            padding: clamp(16px, 3vw, 40px);
-            padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
-            display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
-            gap: 16px; color: var(--primary-text-color);
+            #card { height: calc(100dvh - var(--kiosk-header-height, var(--header-height, 56px)) - var(--safe-area-inset-top, 0px)); }
           }
           .heating-header, .heating-footer {
             display: flex; align-items: center; justify-content: space-between;
-            gap: 12px; flex-wrap: wrap;
+            gap: 12px; flex-wrap: wrap; white-space: normal;
           }
-          .heating-title { font-size: clamp(12px, 1.5vw, 18px); letter-spacing: .13em; font-weight: 650; }
+          .heating-title { font-size: clamp(12px, 1.5vw, 18px); letter-spacing: .1em; font-weight: 650; }
           .heating-exit {
             display: inline-flex; align-items: center; justify-content: center;
             min-height: 48px; padding: 0 16px; box-sizing: border-box;
@@ -84,63 +147,113 @@ views:
             pointer-events: auto; cursor: pointer;
           }
           .heating-exit:focus-visible { outline: 3px solid var(--primary-color, #03a9f4); outline-offset: 3px; }
-          .heating-readings {
-            display: grid; grid-template-columns: minmax(0, 1fr) minmax(140px, .4fr);
-            align-items: center; gap: clamp(16px, 4vw, 48px); min-height: 0;
-          }
-          .heating-temperature { text-align: center; min-width: 0; }
           .heating-value {
             font-size: clamp(72px, min(18vw, 34vh), 220px);
             line-height: 1.05; letter-spacing: -.065em; font-weight: 300;
             font-variant-numeric: tabular-nums; white-space: nowrap;
           }
           .heating-degree { font-size: .35em; vertical-align: top; line-height: 1.8; letter-spacing: 0; }
-          .heating-label { font-size: clamp(11px, 1.3vw, 16px); letter-spacing: .12em; color: var(--secondary-text-color); }
-          .heating-setpoint-value { font-size: clamp(36px, 6vw, 64px); font-weight: 350; margin: 8px 0; }
-          .heating-footer { font-size: 12px; letter-spacing: .07em; color: var(--secondary-text-color); }
+          .heating-label { font-size: clamp(11px, 1.3vw, 16px); letter-spacing: .1em; color: var(--secondary-text-color); white-space: normal; }
+          .heating-footer { font-size: 12px; color: var(--secondary-text-color); }
           .heating-status { display: inline-flex; align-items: center; gap: 10px; }
-          .heating-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--heating-status-color); }
+          .heating-dot { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: var(--heating-status-color); }
           @media (max-width: 500px) {
-            .heating-readings { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-            .heating-setpoint { text-align: center; }
+            #container {
+              grid-template-areas: "header" "temperature" "setpoint" "footer" !important;
+              grid-template-columns: minmax(0, 1fr) !important;
+              grid-template-rows: auto minmax(0, 1fr) auto auto !important;
+            }
           }
         custom_fields:
-          stage: |
+          header: |
             [[[
-              const reading = value => {
-                if (value === null || value === undefined || value === '') return '—';
-                const number = Number(value);
-                return Number.isFinite(number) ? number.toFixed(1) : '—';
-              };
-              const temp = reading(variables.demo_temperature);
-              const threshold = reading(variables.demo_threshold);
+              const t = variables.i18n;
+              return `<header class="heating-header">
+                <span class="heating-title">${t.title}</span>
+                <a class="heating-exit" href="/overview-dashboard/default_view?disable_km"
+                   onclick="event.stopPropagation()" ontouchend="event.stopPropagation()"
+                   onkeydown="event.stopPropagation()">${t.browse}</a>
+              </header>`;
+            ]]]
+          temperature: |
+            [[[
+              const value = variables.demo_temperature;
+              const number = Number(value);
+              const formatted = value !== null && value !== undefined && value !== '' && Number.isFinite(number)
+                ? new Intl.NumberFormat(variables.i18n.locale, {minimumFractionDigits: 1, maximumFractionDigits: 1}).format(number) : '—';
+              return `<div class="heating-temperature">
+                <div class="heating-value">${formatted}<span class="heating-degree">°C</span></div>
+                <div class="heating-label">${variables.i18n.temperature}</div>
+              </div>`;
+            ]]]
+          setpoint:
+            card:
+              type: custom:button-card
+              template: heating_i18n
+              entity: input_number.heating_threshold
+              show_icon: false
+              show_state: true
+              name: '[[[[ return variables.i18n.threshold; ]]]]'
+              label: '[[[[ return Number.isFinite(Number(entity?.state)) ? variables.i18n.saved : variables.i18n.unavailable; ]]]]'
+              show_label: true
+              state_display: |
+                [[[[
+                  const value = Number(entity?.state);
+                  return Number.isFinite(value) ? new Intl.NumberFormat(variables.i18n.locale,
+                    {minimumFractionDigits: 1, maximumFractionDigits: 1}).format(value) + ' °C' : '—';
+                ]]]]
+              tap_action:
+                action: none
+              hold_action:
+                action: none
+              double_tap_action:
+                action: none
+              styles:
+                card:
+                  - background: transparent
+                  - border: 0
+                  - box-shadow: none
+                  - padding: 0
+                grid:
+                  - grid-template-areas: '"n n" "s s" "l l" "decrease increase"'
+                  - grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+                  - gap: 12px
+                name:
+                  - font-size: clamp(11px, 1.3vw, 16px)
+                  - letter-spacing: .1em
+                  - color: var(--secondary-text-color)
+                  - white-space: normal
+                state:
+                  - font-size: clamp(36px, 6vw, 64px)
+                  - font-weight: 350
+                label:
+                  - font-size: 12px
+                  - color: var(--secondary-text-color)
+                custom_fields:
+                  decrease:
+                    - width: 100%
+                  increase:
+                    - width: 100%
+              custom_fields:
+                decrease:
+                  card:
+                    type: custom:button-card
+                    template: heating_adjust
+                    variables:
+                      direction: -1
+                increase:
+                  card:
+                    type: custom:button-card
+                    template: heating_adjust
+                    variables:
+                      direction: 1
+          footer: |
+            [[[
+              const t = variables.i18n;
               const heating = variables.demo_relay_on === true;
-              const status = heating ? 'HEAT REQUESTED' : 'HEATING IDLE';
-              const statusColor = heating
-                ? 'var(--warning-color, #f0aa52)'
-                : 'var(--secondary-text-color, #a0a8b2)';
-              return `
-                <section class="heating-stage" aria-label="Heating demonstration" style="--heating-status-color:${statusColor}">
-                  <header class="heating-header">
-                    <span class="heating-title">HOME / HEATING</span>
-                    <a class="heating-exit" href="/overview-dashboard/default_view?disable_km"
-                       onclick="event.stopPropagation()" ontouchend="event.stopPropagation()"
-                       onkeydown="event.stopPropagation()">Browse Home Assistant</a>
-                  </header>
-                  <div class="heating-readings">
-                    <div class="heating-temperature">
-                      <div class="heating-value">${temp}<span class="heating-degree">°C</span></div>
-                      <div class="heating-label">INDOOR TEMPERATURE</div>
-                    </div>
-                    <div class="heating-setpoint">
-                      <div class="heating-label">HEATING SETPOINT</div>
-                      <div class="heating-setpoint-value">${threshold}<span class="heating-degree">°C</span></div>
-                      <div class="heating-label">Demo threshold</div>
-                    </div>
-                  </div>
-                  <footer class="heating-footer">
-                    <span class="heating-status"><span class="heating-dot" aria-hidden="true"></span>${status}</span>
-                    <span>DEMO · TEST VALUES · NOT LIVE</span>
-                  </footer>
-                </section>`;
+              const color = heating ? 'var(--warning-color, #f0aa52)' : 'var(--secondary-text-color, #a0a8b2)';
+              return `<footer class="heating-footer" style="--heating-status-color:${color}">
+                <span class="heating-status"><span class="heating-dot" aria-hidden="true"></span>${heating ? t.requested : t.idle}</span>
+                <span>${t.demo}</span>
+              </footer>`;
             ]]]

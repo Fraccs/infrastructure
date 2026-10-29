@@ -1,0 +1,11 @@
+---
+heating_threshold:
+  name: Heating threshold
+  min: 15
+  max: 25
+  step: 0.5
+  unit_of_measurement: °C
+  mode: box
+  icon: mdi:thermometer
+  # No initial: restore the user's last threshold instead of resetting on restart.
+  # A fresh helper starts at the minimum; set the desired threshold after sync.
