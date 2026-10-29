@@ -36,10 +36,19 @@ spec:
           volumeMounts:
             - name: homeassistant
               mountPath: /config
+            # HA requires this runtime filename; the repository uses .yml.
+            # The generated ConfigMap hash rolls the pod when this file changes.
+            - name: configuration
+              mountPath: /config/configuration.yaml
+              subPath: configuration.yml
+              readOnly: true
             - name: dashboards
               mountPath: /config/git-dashboards
               readOnly: true
       volumes:
+        - name: configuration
+          configMap:
+            name: homeassistant-configuration
         - name: dashboards
           configMap:
             name: homeassistant-dashboards

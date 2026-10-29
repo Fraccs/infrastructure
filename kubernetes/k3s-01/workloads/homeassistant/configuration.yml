@@ -1,0 +1,38 @@
+---
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Dashboard definitions are managed in Git; resources remain managed by HACS/UI.
+lovelace: !include git-dashboards/lovelace.yml
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+template:
+  - sensor:
+      - name: nut-01_power_usage
+        device_class: power
+        unit_of_measurement: W
+        state_class: measurement
+        state: >
+          {% if states('sensor.nut-01_status_data') in ['OL', 'OL CHRG'] %}
+            {{ (states('sensor.nut-01_load') | float(0)) / 100 * 520 }}
+          {% else %}
+            0
+          {% endif %}
+
+sensor:
+  - platform: integration
+    name: Servers UPS power usage
+    source: sensor.nut-01_power_usage
+    unit_prefix: k
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 10.0.0.0/8
