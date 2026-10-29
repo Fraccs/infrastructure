@@ -8,6 +8,9 @@ lovelace: !include git-dashboards/lovelace.yml
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
+  # Install kiosk-mode through HACS; register its module for YAML dashboards.
+  extra_module_url:
+    - /hacsfiles/kiosk-mode/kiosk-mode.js
 
 automation: !include git-automations/index.yml
 # Conventional runtime filenames; ConfigMap source files use .yml in Git.

@@ -1,9 +1,12 @@
 ---
-# Nintendo Switch V1 — Home Assistant heating dashboard
-# 1280 x 720 landscape, Frosted Glass theme-compatible
-# Git-managed YAML dashboard, registered by lovelace.yml.
-# Requires HACS custom:button-card
-# DEMO ONLY: hard-coded values; no sensor or Shelly calls.
+# Nintendo Switch / LineageOS: target 1280x720 landscape; CSS viewport may differ.
+# Requires HACS button-card and kiosk-mode. Match the tablet account DISPLAY name.
+# DEMO ONLY: hard-coded readings; no heating control actions.
+kiosk_mode:
+  user_settings:
+    - users:
+        - Heating tablet
+      kiosk: true
 
 views:
   - title: Heating
@@ -12,12 +15,10 @@ views:
     type: panel
     cards:
       - type: custom:button-card
-
         variables:
           demo_temperature: 19.4
           demo_threshold: 20.0
           demo_relay_on: true
-
         show_icon: false
         show_name: false
         show_state: false
@@ -28,28 +29,16 @@ views:
           action: none
         double_tap_action:
           action: none
-
-        # Fix for the unused right-hand ~25%: escape any width limit
-        # imposed by the view or a theme. Anchor the card to the
-        # BROWSER VIEWPORT rather than its Home Assistant parent.
         styles:
           card:
-            - position: fixed
-            - top: 56px
-            - left: 0
-            - right: 0
-            - bottom: 0
-            - width: 100vw
-            - max-width: none
-            - min-width: 100vw
-            - height: calc(100dvh - 56px)
+            - position: relative
+            - width: 100%
+            # kiosk-mode supplies zero header height when hiding HA navigation.
+            - height: calc(100vh - var(--kiosk-header-height, var(--header-height, 56px)) - var(--safe-area-inset-top, 0px))
             - margin: 0
             - padding: 0
             - box-sizing: border-box
             - background: transparent
-            - background-image: none
-            - backdrop-filter: none
-            - -webkit-backdrop-filter: none
             - border: 0
             - border-radius: 0
             - box-shadow: none
@@ -60,62 +49,98 @@ views:
             - grid-template-areas: '"stage"'
             - grid-template-columns: minmax(0, 1fr)
             - grid-template-rows: minmax(0, 1fr)
-            - width: 100%
             - height: 100%
-            - min-width: 0
-            - min-height: 0
           custom_fields:
             stage:
-              - grid-area: stage
-              - width: 100%
               - height: 100%
               - min-width: 0
               - min-height: 0
-              - overflow: hidden
-              - align-self: stretch
-              - justify-self: stretch
               - text-align: left
-
-        # One field controls all positioning, avoiding implicit CSS-grid
-        # columns created by separate custom fields.
+        extra_styles: |
+          :host { width: 100%; max-width: none !important; }
+          @supports (height: 100dvh) {
+            #card {
+              height: calc(100dvh - var(--kiosk-header-height, var(--header-height, 56px)) - var(--safe-area-inset-top, 0px));
+            }
+          }
+          .heating-stage {
+            height: 100%; box-sizing: border-box;
+            padding: clamp(16px, 3vw, 40px);
+            padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+            display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+            gap: 16px; color: var(--primary-text-color);
+          }
+          .heating-header, .heating-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; flex-wrap: wrap;
+          }
+          .heating-title { font-size: clamp(12px, 1.5vw, 18px); letter-spacing: .13em; font-weight: 650; }
+          .heating-exit {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-height: 48px; padding: 0 16px; box-sizing: border-box;
+            border: 1px solid var(--divider-color, #777); border-radius: 12px;
+            color: var(--primary-text-color); text-decoration: none;
+            font-size: 14px; font-weight: 600; touch-action: manipulation;
+            pointer-events: auto; cursor: pointer;
+          }
+          .heating-exit:focus-visible { outline: 3px solid var(--primary-color, #03a9f4); outline-offset: 3px; }
+          .heating-readings {
+            display: grid; grid-template-columns: minmax(0, 1fr) minmax(140px, .4fr);
+            align-items: center; gap: clamp(16px, 4vw, 48px); min-height: 0;
+          }
+          .heating-temperature { text-align: center; min-width: 0; }
+          .heating-value {
+            font-size: clamp(72px, min(18vw, 34vh), 220px);
+            line-height: 1.05; letter-spacing: -.065em; font-weight: 300;
+            font-variant-numeric: tabular-nums; white-space: nowrap;
+          }
+          .heating-degree { font-size: .35em; vertical-align: top; line-height: 1.8; letter-spacing: 0; }
+          .heating-label { font-size: clamp(11px, 1.3vw, 16px); letter-spacing: .12em; color: var(--secondary-text-color); }
+          .heating-setpoint-value { font-size: clamp(36px, 6vw, 64px); font-weight: 350; margin: 8px 0; }
+          .heating-footer { font-size: 12px; letter-spacing: .07em; color: var(--secondary-text-color); }
+          .heating-status { display: inline-flex; align-items: center; gap: 10px; }
+          .heating-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--heating-status-color); }
+          @media (max-width: 500px) {
+            .heating-readings { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+            .heating-setpoint { text-align: center; }
+          }
         custom_fields:
           stage: |
             [[[
-              const temp = Number(variables.demo_temperature).toFixed(1);
-              const threshold = Number(variables.demo_threshold).toFixed(1);
+              const reading = value => {
+                if (value === null || value === undefined || value === '') return '—';
+                const number = Number(value);
+                return Number.isFinite(number) ? number.toFixed(1) : '—';
+              };
+              const temp = reading(variables.demo_temperature);
+              const threshold = reading(variables.demo_threshold);
               const heating = variables.demo_relay_on === true;
-              const status = heating ? 'HEAT REQUESTED · DEMO' : 'HEATING IDLE · DEMO';
+              const status = heating ? 'HEAT REQUESTED' : 'HEATING IDLE';
               const statusColor = heating
                 ? 'var(--warning-color, #f0aa52)'
                 : 'var(--secondary-text-color, #a0a8b2)';
               return `
-                <div style="position:relative;width:100%;height:100%;overflow:hidden;box-sizing:border-box;font-family:inherit;color:var(--primary-text-color);background:transparent;">
-
-                  <div style="position:absolute;top:28px;left:48px;right:48px;display:flex;align-items:center;justify-content:space-between;gap:20px;white-space:nowrap;">
-                    <span style="font-size:17px;font-weight:650;letter-spacing:.17em;">HOME / HEATING</span>
-                    <span style="font-size:13px;font-weight:600;letter-spacing:.13em;color:var(--secondary-text-color);">DEMO MODE</span>
-                  </div>
-
-                  <div style="position:absolute;top:47%;left:48%;transform:translate(-50%,-50%);text-align:center;white-space:nowrap;">
-                    <div style="font-size:clamp(130px,18vw,245px);font-weight:300;letter-spacing:-.075em;line-height:1.06;font-variant-numeric:tabular-nums;">
-                      ${temp}<span style="font-size:.32em;vertical-align:top;line-height:1.8;letter-spacing:0;margin-left:.04em;">°</span>
+                <section class="heating-stage" aria-label="Heating demonstration" style="--heating-status-color:${statusColor}">
+                  <header class="heating-header">
+                    <span class="heating-title">HOME / HEATING</span>
+                    <a class="heating-exit" href="/overview-dashboard/default_view?disable_km"
+                       onclick="event.stopPropagation()" ontouchend="event.stopPropagation()"
+                       onkeydown="event.stopPropagation()">Browse Home Assistant</a>
+                  </header>
+                  <div class="heating-readings">
+                    <div class="heating-temperature">
+                      <div class="heating-value">${temp}<span class="heating-degree">°C</span></div>
+                      <div class="heating-label">INDOOR TEMPERATURE</div>
                     </div>
-                    <div style="margin-top:18px;font-size:16px;letter-spacing:.21em;font-weight:600;color:var(--secondary-text-color);">INDOOR TEMPERATURE</div>
+                    <div class="heating-setpoint">
+                      <div class="heating-label">HEATING SETPOINT</div>
+                      <div class="heating-setpoint-value">${threshold}<span class="heating-degree">°C</span></div>
+                      <div class="heating-label">Demo threshold</div>
+                    </div>
                   </div>
-
-                  <div style="position:absolute;top:50%;right:48px;transform:translateY(-50%);width:176px;white-space:nowrap;text-align:left;background:transparent;border:0;box-shadow:none;">
-                    <div style="font-size:12px;font-weight:650;letter-spacing:.13em;color:var(--secondary-text-color);">THRESHOLD NOW</div>
-                    <div style="margin:8px 0;font-size:58px;line-height:1.2;font-weight:350;letter-spacing:-.055em;">${threshold}<span style="font-size:.5em;vertical-align:top;line-height:1.7;letter-spacing:0;">°</span></div>
-                    <div style="font-size:13px;color:var(--secondary-text-color);">Heating setpoint</div>
-                  </div>
-
-                  <div style="position:absolute;bottom:32px;left:48px;right:48px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:var(--secondary-text-color);font-size:13px;font-weight:650;letter-spacing:.11em;white-space:nowrap;">
-                    <span style="display:flex;align-items:center;gap:12px;">
-                      <span style="display:inline-block;width:11px;height:11px;flex:0 0 11px;border-radius:50%;background:${statusColor};"></span>
-                      ${status}
-                    </span>
-                    <span>TEST VALUES · NOT LIVE</span>
-                  </div>
-
-                </div>`;
+                  <footer class="heating-footer">
+                    <span class="heating-status"><span class="heating-dot" aria-hidden="true"></span>${status}</span>
+                    <span>DEMO · TEST VALUES · NOT LIVE</span>
+                  </footer>
+                </section>`;
             ]]]
