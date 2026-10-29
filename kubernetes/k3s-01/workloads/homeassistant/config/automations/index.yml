@@ -1,0 +1,7 @@
+---
+# One mapping per file; explicit includes also support the .yml extension.
+- !include luce-ingresso-movimento.yml
+- !include luce-ingresso-spegnimento.yml
+- !include sveglia-luci-camera.yml
+- !include luci-francesco-movimento.yml
+- !include luci-francesco-spegnimento.yml

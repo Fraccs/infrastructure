@@ -1,0 +1,105 @@
+---
+id: '1788552723361'
+alias: Luce ingresso - Movimento
+description: Accensione adattiva della luce ingresso con fade-in e timer
+variables:
+  weather_entity: !secret weather_primary_entity
+triggers:
+- trigger: state
+  entity_id: binary_sensor.alarm_panel_ingresso
+  to: 'on'
+conditions:
+- condition: numeric_state
+  entity_id: sun.sun
+  attribute: elevation
+  below: 3
+actions:
+- variables:
+    mese: '{{ now().month }}'
+    notte: '{{ now().hour >= 23 or now().hour < 6 }}'
+    meteo: '{{ states(weather_entity) }}'
+    stagione: |
+      {% if mese in [12, 1, 2] %}
+        inverno
+      {% elif mese in [3, 4, 5] %}
+        primavera
+      {% elif mese in [6, 7, 8] %}
+        estate
+      {% else %}
+        autunno
+      {% endif %}
+- variables:
+    luminosita: |
+      {% if notte %}
+        15
+      {% else %}
+        80
+      {% endif %}
+    temperatura: |
+      {% if notte %}
+        2500
+      {% elif stagione == 'inverno' %}
+        {% if meteo in ['rainy', 'cloudy', 'fog'] %}
+          2800
+        {% else %}
+          3000
+        {% endif %}
+      {% elif stagione == 'primavera' %}
+        {% if meteo in ['rainy', 'cloudy', 'fog'] %}
+          2900
+        {% else %}
+          3200
+        {% endif %}
+      {% elif stagione == 'estate' %}
+        {% if meteo in ['rainy', 'cloudy', 'fog'] %}
+          2900
+        {% elif meteo == 'partlycloudy' %}
+          3100
+        {% else %}
+          3400
+        {% endif %}
+      {% else %}
+        {% if meteo in ['rainy', 'cloudy', 'fog'] %}
+          2800
+        {% else %}
+          3100
+        {% endif %}
+      {% endif %}
+    durata_timer: |
+      {% if notte %}
+        00:00:12
+      {% else %}
+        00:00:12
+      {% endif %}
+- choose:
+  - conditions:
+    - condition: state
+      entity_id: light.tp_l530e_01
+      state: 'on'
+    sequence:
+    - action: timer.start
+      target:
+        entity_id: timer.luce_ingresso
+      data:
+        duration: '{{ durata_timer }}'
+  default:
+  - action: light.turn_on
+    target:
+      entity_id: light.tp_l530e_01
+    data:
+      brightness_pct: 1
+      color_temp_kelvin: '{{ temperatura }}'
+      transition: 10
+  - action: light.turn_on
+    target:
+      entity_id: light.tp_l530e_01
+    data:
+      brightness_pct: '{{ luminosita }}'
+      color_temp_kelvin: '{{ temperatura }}'
+      transition: 3
+  - action: timer.start
+    target:
+      entity_id: timer.luce_ingresso
+    data:
+      duration: '{{ durata_timer }}'
+mode: single

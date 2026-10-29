@@ -1,0 +1,17 @@
+---
+id: '1789001969566'
+alias: Luci Francesco - Spegnimento
+description: Spegnimento della luce ingresso con fade-out di 10 secondi
+triggers:
+- trigger: event
+  event_type: timer.finished
+  event_data:
+    entity_id: timer.luce_francesco
+conditions: []
+actions:
+- action: light.turn_off
+  target:
+    entity_id: light.tp_l900_01
+  data:
+    transition: 10
+mode: restart

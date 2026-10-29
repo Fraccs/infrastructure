@@ -3,6 +3,20 @@
 # Keep custom-card resources managed by HACS/the UI.
 resource_mode: storage
 dashboards:
+  map-dashboard:
+    mode: yaml
+    filename: git-dashboards/map.yml
+    title: Map
+    icon: mdi:map
+    show_in_sidebar: true
+    require_admin: false
+  overview-dashboard:
+    mode: yaml
+    filename: git-dashboards/overview.yml
+    title: Overview
+    icon: mdi:home
+    show_in_sidebar: true
+    require_admin: false
   heating-dashboard:
     mode: yaml
     filename: git-dashboards/heating.yml

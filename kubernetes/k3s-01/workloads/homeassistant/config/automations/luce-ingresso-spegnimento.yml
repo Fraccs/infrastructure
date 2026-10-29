@@ -1,0 +1,16 @@
+---
+id: '1788552836880'
+alias: Luce ingresso - Spegnimento
+description: Spegnimento della luce ingresso con fade-out di 10 secondi
+triggers:
+- trigger: event
+  event_type: timer.finished
+  event_data:
+    entity_id: timer.luce_ingresso
+actions:
+- action: light.turn_off
+  target:
+    entity_id: light.tp_l530e_01
+  data:
+    transition: 10
+mode: restart

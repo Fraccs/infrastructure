@@ -1,0 +1,447 @@
+---
+views:
+  - path: default_view
+    title: Home
+    cards:
+      - clock_size: large
+        show_seconds: false
+        type: clock
+      - show_current: true
+        show_forecast: true
+        type: weather-forecast
+        entity: !secret weather_primary_entity
+        forecast_type: daily
+        forecast_slots: 7
+      - type: entities
+        entities:
+          - light.tp_l900_01
+          - switch.tp_p110_01
+          - sensor.shelly_pmm_01_energy
+          - sensor.shelly_pmm_01_power
+          - sensor.tp_p110_01_current
+          - sensor.tp_p110_01_current_consumption
+          - sensor.tp_p110_01_voltage
+        title: Camera Francesco
+      - type: entities
+        entities:
+          - entity: sensor.nut_01_battery_charge
+          - entity: sensor.nut_01_load
+          - entity: sensor.nut_01_status_data
+          - entity: sensor.nut_01_status
+          - entity: sensor.nut_01_input_voltage
+          - entity: sensor.servers_ups_power_usage
+        title: Sottoscala (Sala Server)
+      - show_current: true
+        show_forecast: true
+        type: weather-forecast
+        entity: !secret weather_secondary_entity
+        forecast_type: daily
+        forecast_slots: 7
+      - title: Energy distribution today
+        type: energy-distribution
+        link_dashboard: true
+      - type: light
+        entity: light.tp_l900_01
+      - type: light
+        entity: light.tp_l530e_01
+      - type: media-control
+        entity: media_player.web_chrome_on_linux
+  - type: sections
+    max_columns: 4
+    title: Test
+    path: test
+    icon: mdi:weather-hazy
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: !secret weather_primary_entity
+            forecast_type: daily
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: tile
+            entity: sensor.sun_next_dawn
+            features_position: bottom
+            vertical: false
+          - type: history-graph
+            entities:
+              - sun.sun
+          - type: markdown
+            content: |
+              ## ☀️ Sole – soglia illuminazione
+          - type: entities
+            entities:
+              - entity: sun.sun
+                name: Stato del sole
+                secondary_info: last-updated
+              - type: attribute
+                entity: sun.sun
+                attribute: elevation
+                name: Elevazione attuale
+                suffix: °
+              - type: attribute
+                entity: sun.sun
+                attribute: azimuth
+                name: Azimuth
+                suffix: °
+          - type: conditional
+            conditions:
+              - entity: sun.sun
+                state_not: unavailable
+            card:
+              type: markdown
+              content: >
+                {% set elevazione = state_attr('sun.sun', 'elevation') |
+                float(0) %}
+
+
+                **Soglia utilizzata dalle luci:** `2°`
+
+
+                {% if elevazione < -4 %}
+
+                🌙 **È sufficientemente buio → automazione luci ATTIVA**
+
+                {% else %}
+
+                ☀️ **C'è ancora abbastanza luce → automazione luci INATTIVA**
+
+                {% endif %}
+
+
+                Elevazione attuale: **{{ elevazione | round(1) }}°**
+    header:
+      card:
+        type: markdown
+        content: |-
+          # Hello {{ user }}
+          Add your text here, template variables are supported ✨
+        text_only: true
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.backup_backup_manager_state
+  - type: sections
+    max_columns: 4
+    icon: mdi:flower
+    path: plants
+    title: Plants
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: plant-status
+            entity: ''
+          - type: history-graph
+            entities:
+              - sun.sun
+  - type: sections
+    max_columns: 4
+    icon: mdi:home-thermometer
+    path: temperature-and-humidity-controls
+    title: Temperature and humidity controls
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: thermostat
+            entity: ''
+          - type: humidifier
+            entity: ''
+            features:
+              - type: humidifier-toggle
+      - type: grid
+        cards:
+          - type: heading
+            heading: Temperature and humidity
+            heading_style: title
+          - type: gauge
+            entity: sensor.dht11_esp32_dht11_temperature
+            needle: true
+            min: 12
+            max: 36
+            segments:
+              - from: 12
+                color: '#db4437'
+              - from: 18
+                color: '#ffa600'
+              - from: 20
+                color: '#43a047'
+              - from: 28
+                color: '#ffa600'
+              - from: 30
+                color: '#db4437'
+          - type: gauge
+            entity: sensor.dht11_esp32_dht11_humidity
+            needle: true
+            segments:
+              - from: 0
+                color: '#db4437'
+              - from: 30
+                color: '#ffa600'
+              - from: 40
+                color: '#43a047'
+              - from: 60
+                color: '#ffa600'
+              - from: 70
+                color: '#db4437'
+      - type: grid
+        cards:
+          - type: heading
+            heading: Power usage
+            heading_style: title
+          - graph: line
+            type: sensor
+            entity: sensor.shelly_pmm_01_power
+            detail: 1
+          - graph: line
+            type: sensor
+            entity: sensor.nutdev1_power_usage
+            detail: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: gauge
+            entity: sensor.dht11_esp32_wifi_signal_strength
+            needle: true
+            min: -90
+            max: -30
+            segments:
+              - from: -90
+                color: '#db4437'
+              - from: -70
+                color: '#ffa600'
+              - from: -50
+                color: '#43a047'
+        column_span: 1
+      - type: grid
+        cards:
+          - type: tile
+            entity: sensor.livingroom_sht30_living_room_humidity
+          - type: tile
+            entity: sensor.livingroom_sht30_living_room_temperature
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: |-
+          # Hello {{ user }}
+          Here you can control the temperature and humidity of your house ✨
+  - type: sections
+    max_columns: 4
+    title: Cameras
+    path: cameras
+    icon: mdi:cctv
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+  - type: sections
+    max_columns: 4
+    title: Family
+    path: family
+    icon: mdi:crowd
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Telefoni
+            heading_style: title
+          - graph: line
+            type: sensor
+            entity: sensor.mb_fr_battery_level
+            detail: 1
+          - graph: line
+            type: sensor
+            entity: sensor.mb_fr_battery_state
+            detail: 1
+          - graph: line
+            type: sensor
+            entity: sensor.mb_pl_battery_level
+            detail: 1
+          - graph: line
+            type: sensor
+            entity: sensor.mb_pl_battery_state
+            detail: 1
+          - graph: line
+            type: sensor
+            entity: sensor.mb_st_battery_level
+            detail: 1
+          - graph: line
+            type: sensor
+            entity: sensor.mb_st_battery_state
+            detail: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: history-graph
+            entities:
+              - entity: person.paolo
+          - type: history-graph
+            entities:
+              - entity: person.santina
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: grid
+            square: true
+            columns: 3
+            cards:
+              - show_state: true
+                show_name: false
+                camera_view: auto
+                fit_mode: cover
+                type: picture-entity
+                entity: person.francesco
+                aspect_ratio: '1'
+                image:
+                  media_content_id: /api/image/serve/184ba7a66919533c2de9a0f9020eb996/512x512
+              - type: picture-entity
+                entity: person.santina
+                aspect_ratio: '1'
+                show_name: false
+                image: /api/image/serve/5f8755ee2138b668b1391f69487e6334/512x512
+              - type: picture-entity
+                entity: person.paolo
+                aspect_ratio: '1'
+                show_name: false
+                image: /api/image/serve/6c007869c983a0997166d4cb808302eb/512x512
+              - type: picture-entity
+                entity: person.greta
+                aspect_ratio: '1'
+                show_name: false
+                image: /api/image/serve/a36081b5fc0d8168702f994d87a36b6b/512x512
+              - type: picture-entity
+                entity: person.eva
+                aspect_ratio: '1'
+                show_name: false
+                image: /api/image/serve/78fd17adea943b5f93079d50b4f27757/512x512
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+    cards: []
+  - type: sections
+    icon: mdi:motion-sensor
+    path: pirs
+    title: PIRs
+    sections:
+      - type: grid
+        cards:
+          - states:
+              - arm_home
+              - arm_away
+            type: alarm-panel
+            entity: alarm_control_panel.alarmo
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: PIRs
+            heading_style: title
+          - type: tile
+            entity: binary_sensor.alarm_panel_ingresso
+            grid_options:
+              columns: 9
+              rows: auto
+          - type: tile
+            entity: binary_sensor.alarm_panel_apertura_pannello
+            grid_options:
+              rows: 1
+              columns: 9
+          - type: tile
+            entity: binary_sensor.alarm_panel_camera_francesco
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_camera_greta
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_camera_matrimoniale
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_ingresso_tamper
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_pannello_tamper
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_porta_sala_server
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_test_sala_1
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_sala_1_tamper
+            vertical: false
+            features_position: bottom
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_sala_2
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_sala_2_tamper
+            grid_options:
+              columns: 9
+              rows: 1
+          - type: tile
+            entity: binary_sensor.alarm_panel_scala
+            grid_options:
+              columns: 9
+              rows: 1
+        column_span: 4
+    max_columns: 4
+    dense_section_placement: false
+    cards: []
+  - type: sections
+    max_columns: 4
+    title: Music
+    path: music
+    icon: mdi:music
+    sections:
+      - type: grid
+        cards:
+          - type: media-control
+            entity: media_player.web_chrome_on_linux
+            grid_options:
+              columns: full
+          - type: tile
+            entity: media_player.web_chrome_on_linux
+            features:
+              - type: media-player-volume-slider
+          - type: tile
+            entity: media_player.web_chrome_on_linux
+            features:
+              - type: media-player-playback
+        column_span: 1

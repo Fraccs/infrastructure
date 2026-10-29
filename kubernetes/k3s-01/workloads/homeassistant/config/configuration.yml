@@ -1,0 +1,23 @@
+---
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Dashboard definitions are managed in Git; resources remain managed by HACS/UI.
+lovelace: !include git-dashboards/lovelace.yml
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include git-automations/index.yml
+script: !include scripts.yml
+scene: !include scenes.yml
+
+timer: !include git-helpers/timers.yml
+template: !include git-helpers/template-sensors.yml
+
+sensor:
+  - platform: integration
+    name: Servers UPS power usage
+    source: sensor.nut_01_power_usage
+    unit_prefix: k

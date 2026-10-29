@@ -11,6 +11,8 @@ spec:
       app: homeassistant
   template:
     metadata:
+      annotations:
+        checksum/location-aliases: 097049204be845d6096115aa016e660d36a5499e9cbe121bc42b51be342ba9ff
       labels:
         app: homeassistant
     spec:
@@ -36,16 +38,46 @@ spec:
           volumeMounts:
             - name: homeassistant
               mountPath: /config
+            # Overlay only this file; the PVC and its other contents stay mounted.
+            # Update checksum/location-aliases when resealing to restart the pod.
+            - name: location-aliases
+              mountPath: /config/secrets.yaml
+              subPath: secrets.yaml
+              readOnly: true
             # HA requires this runtime filename; the repository uses .yml.
             # The generated ConfigMap hash rolls the pod when this file changes.
             - name: configuration
               mountPath: /config/configuration.yaml
               subPath: configuration.yml
               readOnly: true
+            - name: configuration
+              mountPath: /config/scripts.yml
+              subPath: scripts.yml
+              readOnly: true
+            - name: configuration
+              mountPath: /config/scenes.yml
+              subPath: scenes.yml
+              readOnly: true
             - name: dashboards
               mountPath: /config/git-dashboards
               readOnly: true
+            - name: automations
+              mountPath: /config/git-automations
+              readOnly: true
+            - name: helpers
+              mountPath: /config/git-helpers
+              readOnly: true
       volumes:
+        - name: location-aliases
+          secret:
+            secretName: homeassistant-location-aliases
+            defaultMode: 0444
+        - name: helpers
+          configMap:
+            name: homeassistant-helpers
+        - name: automations
+          configMap:
+            name: homeassistant-automations
         - name: configuration
           configMap:
             name: homeassistant-configuration

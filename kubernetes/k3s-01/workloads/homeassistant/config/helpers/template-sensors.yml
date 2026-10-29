@@ -1,0 +1,13 @@
+---
+- sensor:
+    - name: nut-01_power_usage
+      default_entity_id: sensor.nut_01_power_usage
+      device_class: power
+      unit_of_measurement: W
+      state_class: measurement
+      state: >
+        {% if states('sensor.nut_01_status_data') in ['OL', 'OL CHRG'] %}
+          {{ (states('sensor.nut_01_load') | float(0)) / 100 * 520 }}
+        {% else %}
+          0
+        {% endif %}

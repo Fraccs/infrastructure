@@ -1,0 +1,11 @@
+---
+# Default durations match the existing motion automations, which also set them
+# explicitly when starting each timer. Restoration uses HA's default behavior.
+luce_francesco:
+  name: Luce Francesco
+  duration: "00:10:00"
+  restore: false
+luce_ingresso:
+  name: Luce Ingresso
+  duration: "00:00:12"
+  restore: false

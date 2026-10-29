@@ -1,0 +1,30 @@
+---
+id: '1788903869591'
+alias: Sveglia - luci camera
+description: Accende le luci 30 secondi prima della prossima sveglia Android
+triggers:
+- trigger: time_pattern
+  seconds: /1
+conditions:
+- condition: template
+  value_template: |
+    {% set alarm = states('sensor.mb_fr_next_alarm') %} {% if alarm in ['unknown', 'unavailable', 'none'] %}
+      false
+    {% else %}
+      {% set alarm_time = as_datetime(alarm) %}
+      {% if alarm_time is none %}
+        false
+      {% else %}
+        {% set seconds_until = (alarm_time - now()).total_seconds() %}
+        {{ 29 <= seconds_until <= 30 }}
+      {% endif %}
+    {% endif %}
+actions:
+- action: light.turn_on
+  target:
+    entity_id: light.tp_l900_01
+  data: {}
+- action: switch.turn_on
+  target:
+    entity_id: switch.tp_p110_01
+mode: single

@@ -9,13 +9,32 @@ resources:
   - pvc.yml
   - service.yml
   - stateful-set.yml
+  - sealed-secret-location-aliases.yml
 configMapGenerator:
   - name: homeassistant-configuration
     namespace: homeassistant
     files:
-      - configuration.yml
+      - configuration.yml=config/configuration.yml
+      - scripts.yml=config/scripts.yml
+      - scenes.yml=config/scenes.yml
+  - name: homeassistant-helpers
+    namespace: homeassistant
+    files:
+      - timers.yml=config/helpers/timers.yml
+      - template-sensors.yml=config/helpers/template-sensors.yml
+  - name: homeassistant-automations
+    namespace: homeassistant
+    files:
+      - index.yml=config/automations/index.yml
+      - luce-ingresso-movimento.yml=config/automations/luce-ingresso-movimento.yml
+      - luce-ingresso-spegnimento.yml=config/automations/luce-ingresso-spegnimento.yml
+      - sveglia-luci-camera.yml=config/automations/sveglia-luci-camera.yml
+      - luci-francesco-movimento.yml=config/automations/luci-francesco-movimento.yml
+      - luci-francesco-spegnimento.yml=config/automations/luci-francesco-spegnimento.yml
   - name: homeassistant-dashboards
     namespace: homeassistant
     files:
-      - lovelace.yml=dashboards/lovelace.yml
-      - heating.yml=dashboards/heating.yml
+      - lovelace.yml=config/dashboards/lovelace.yml
+      - heating.yml=config/dashboards/heating.yml
+      - map.yml=config/dashboards/map.yml
+      - overview.yml=config/dashboards/overview.yml
