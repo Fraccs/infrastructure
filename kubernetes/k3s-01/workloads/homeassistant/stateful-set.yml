@@ -16,22 +16,45 @@ spec:
       labels:
         app: homeassistant
     spec:
+      # The image allows HA up to 240 seconds to stop services cleanly.
+      terminationGracePeriodSeconds: 300
       containers:
         - name: homeassistant
-          image: docker.io/linuxserver/homeassistant:2026.10.4@sha256:352e928e4db1e4d4946e118b84acdd9a6f95d3e7c206686f8bde0ad609672eba
-          # startupProbe:
-          #   httpGet:
-          #     path: /manifest.json
-          #     port: 8123
-          #   periodSeconds: 30
-          #   failureThreshold: 10
-          # resources:
-          #   requests:
-          #     cpu: 10m
-          #     memory: 512Mi
-          #   limits:
-          #     cpu: 100m
-          #     memory: 1024Mi
+          image: ghcr.io/home-assistant/home-assistant:2026.10.4@sha256:23f4dfbb69ce76315dbc4de7915504f1c2dcecd7ca2648113a493a385972e133
+          env:
+            - name: TZ
+              value: Europe/Rome
+          # Public frontend response checks HTTP/event-loop health, not every
+          # integration. Startup gates readiness and liveness for up to 15 min.
+          startupProbe:
+            httpGet:
+              path: /manifest.json
+              port: web
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 90
+          readinessProbe:
+            httpGet:
+              path: /manifest.json
+              port: web
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          # Tolerate short event-loop stalls without restarting automations.
+          livenessProbe:
+            httpGet:
+              path: /manifest.json
+              port: web
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 100m
+              memory: 768Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
           ports:
             - name: web
               containerPort: 8123
