@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: paperless-flower
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`flower.paperless.fraccs.com`)
+      kind: Rule
+      services:
+        - name: paperless-flower
+          kind: Service
+          port: 5555
+          scheme: http
+  tls:
+    secretName: paperless-flower-fraccs-com-certificate

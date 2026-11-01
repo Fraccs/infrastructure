@@ -1,0 +1,29 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cilium-network-policy-egress-paperless-flower
+  namespace: monitoring
+spec:
+  description: 'Paperless Flower: CoreDNS and Redis broker (port 6379);
+    does not require direct connection to Paperless'
+  endpointSelector:
+    matchLabels:
+      app: paperless-flower
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: '53'
+        protocol: ANY
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: redis
+        k8s:app: redis
+    toPorts:
+    - ports:
+      - port: '6379'
+        protocol: TCP

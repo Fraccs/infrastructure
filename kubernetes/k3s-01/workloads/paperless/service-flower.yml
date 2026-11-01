@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paperless-flower
+  namespace: monitoring
+  labels:
+    app: paperless-flower
+    application: paperless
+spec:
+  type: ClusterIP
+  selector:
+    app: paperless-flower
+  ports:
+    - name: http
+      port: 5555
+      targetPort: http
+      protocol: TCP
