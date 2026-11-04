@@ -24,6 +24,13 @@ spec:
             limits:
               cpu: 1
               memory: 2Gi
+          # resources:
+          #   requests:
+          #     cpu: 200m
+          #     memory: 512Mi
+          #   limits:
+          #     cpu: 1
+          #     memory: 2Gi
           ports:
             - containerPort: 8000
           envFrom:
