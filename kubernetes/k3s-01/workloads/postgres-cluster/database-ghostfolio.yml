@@ -1,0 +1,14 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: ghostfolio
+  namespace: postgres-cluster
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
+    argocd.argoproj.io/sync-wave: '1'
+spec:
+  name: ghostfolio
+  owner: ghostfolio
+  cluster:
+    name: postgres-cluster
