@@ -1,0 +1,100 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghostfolio
+  namespace: ghostfolio
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ghostfolio
+  template:
+    metadata:
+      labels:
+        app: ghostfolio
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: ghostfolio
+        image: docker.io/ghostfolio/ghostfolio:3.97.0@sha256:9fa037cadb80fb9188e671c6af610d8070debd5fd4e2976729c2abbbe408ddd7
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        ports:
+        - name: http
+          containerPort: 3333
+        envFrom:
+        - configMapRef:
+            name: ghostfolio
+        - configMapRef:
+            name: ghostfolio-oidc
+        - secretRef:
+            name: ghostfolio-credentials
+        - secretRef:
+            name: ghostfolio-oidc
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+            ephemeral-storage: 128Mi
+          limits:
+            cpu: '2'
+            memory: 2Gi
+            ephemeral-storage: 1Gi
+        startupProbe:
+          httpGet:
+            path: /api/v1/health/liveness
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 90
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health/liveness
+            port: http
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: db-ca
+          mountPath: /etc/postgresql
+          readOnly: true
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ghostfolio-redis
+              key: REDIS_PASSWORD
+      volumes:
+      - name: tmp
+        emptyDir:
+          sizeLimit: 512Mi
+      - name: db-ca
+        configMap:
+          name: ghostfolio-db-ca

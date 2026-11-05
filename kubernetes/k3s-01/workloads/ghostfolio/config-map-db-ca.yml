@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ghostfolio-db-ca
+  namespace: ghostfolio
+  annotations:
+    argocd.argoproj.io/sync-wave: '-1'
+data:
+  ca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIBrTCCAVKgAwIBAgIQAicqTRj8almEqYg4km2jeTAKBggqhkjOPQQDAjA2MRkw
+    FwYDVQQLExBwb3N0Z3Jlcy1jbHVzdGVyMRkwFwYDVQQDExBwb3N0Z3Jlcy1jbHVz
+    dGVyMB4XDTI2MDkwOTE0NTQxM1oXDTI2MTIwODE0NTQxM1owNjEZMBcGA1UECxMQ
+    cG9zdGdyZXMtY2x1c3RlcjEZMBcGA1UEAxMQcG9zdGdyZXMtY2x1c3RlcjBZMBMG
+    ByqGSM49AgEGCCqGSM49AwEHA0IABDbdoe6B0Ed9e2X17CA2je20cBXupstuDrbe
+    0lJ9gtHNG0Lt3ue5E5RJmvsRJVecb/oebSKzNdbS7gPOp48p92yjQjBAMA4GA1Ud
+    DwEB/wQEAwICBDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSn+aHBO9FjGg3Z
+    gAiJ8tHocw02nzAKBggqhkjOPQQDAgNJADBGAiEApQQT+vpeuCPDAVjMAQwIA21Z
+    gix+JQlbYO7HBN7SVm4CIQCpGYXaV243mZZ3QWyZ69KT5mjULxy65Gon4LXLwD7n
+    YA==
+    -----END CERTIFICATE-----

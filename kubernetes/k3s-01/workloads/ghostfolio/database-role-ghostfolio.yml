@@ -1,0 +1,20 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: ghostfolio
+  namespace: postgres-cluster
+  annotations:
+    argocd.argoproj.io/sync-wave: '-1'
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
+spec:
+  cluster:
+    name: postgres-cluster
+  name: ghostfolio
+  login: true
+  superuser: false
+  createdb: false
+  createrole: false
+  passwordSecret:
+    name: ghostfolio-role
+  databaseRoleReclaimPolicy: retain

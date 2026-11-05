@@ -1,0 +1,27 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ghostfolio-egress-external-https
+  namespace: ghostfolio
+  annotations:
+    argocd.argoproj.io/sync-wave: '-2'
+spec:
+  endpointSelector:
+    matchLabels:
+      app: ghostfolio
+  egress:
+  - toFQDNs:
+    - matchName: auth.fraccs.com
+    - matchName: query1.finance.yahoo.com
+    - matchName: query2.finance.yahoo.com
+    - matchName: fc.yahoo.com
+    - matchName: guce.yahoo.com
+    - matchName: consent.yahoo.com
+    - matchName: api.coingecko.com
+    - matchName: api.openfigi.com
+    - matchName: www.trackinsight.com
+    toPorts:
+    - ports:
+      - port: '443'
+        protocol: TCP

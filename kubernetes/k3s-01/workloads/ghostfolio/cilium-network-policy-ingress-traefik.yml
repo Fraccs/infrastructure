@@ -1,0 +1,21 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ghostfolio-ingress-traefik
+  namespace: ghostfolio
+  annotations:
+    argocd.argoproj.io/sync-wave: '-2'
+spec:
+  endpointSelector:
+    matchLabels:
+      app: ghostfolio
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:app.kubernetes.io/name: traefik
+    toPorts:
+    - ports:
+      - port: '3333'
+        protocol: TCP

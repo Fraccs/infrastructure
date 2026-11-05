@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ghostfolio
+  namespace: ghostfolio
+  labels:
+    observability.kubernetes.io/managed-by: kube-prometheus-stack
+spec:
+  groups:
+  - name: ghostfolio
+    rules:
+    - alert: GhostfolioUnavailable
+      expr: kube_deployment_status_replicas_available{namespace="ghostfolio",deployment="ghostfolio"}
+        < 1
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: Ghostfolio has no available application replica

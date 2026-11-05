@@ -1,0 +1,12 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ghostfolio-headers
+  namespace: ghostfolio
+spec:
+  headers:
+    stsSeconds: 31536000
+    contentTypeNosniff: true
+    frameDeny: true
+    referrerPolicy: no-referrer

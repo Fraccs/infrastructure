@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ghostfolio
+  namespace: ghostfolio
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`ghostfolio.fraccs.com`)
+    kind: Rule
+    middlewares:
+    - name: ghostfolio-bootstrap-access
+    - name: ghostfolio-headers
+    services:
+    - name: ghostfolio
+      port: 3333
+  tls:
+    secretName: ghostfolio-fraccs-com-certificate

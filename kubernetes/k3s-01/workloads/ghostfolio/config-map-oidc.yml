@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ghostfolio-oidc
+  namespace: ghostfolio
+data:
+  ENABLE_FEATURE_AUTH_OIDC: "true"
+  OIDC_CLIENT_ID: "8vbh2jInCmUOGDm392c34FVg1cKA0eRxS78oLsip"
+  OIDC_ISSUER: "https://auth.fraccs.com/application/o/ghostfolio/"
+  OIDC_CALLBACK_URL: "https://ghostfolio.fraccs.com/api/auth/oidc/callback"
+  OIDC_SCOPE: "[\"openid\",\"profile\",\"email\"]"

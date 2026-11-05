@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghostfolio
+  namespace: ghostfolio
+spec:
+  type: ClusterIP
+  selector:
+    app: ghostfolio
+  ports:
+  - name: http
+    port: 3333
+    targetPort: http
