@@ -58,27 +58,27 @@ spec:
         #     cpu: '2'
         #     memory: 2Gi
         #     ephemeral-storage: 1Gi
-        startupProbe:
-          httpGet:
-            path: /api/v1/health/liveness
-            port: http
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 90
-        readinessProbe:
-          httpGet:
-            path: /api/v1/health
-            port: http
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        livenessProbe:
-          httpGet:
-            path: /api/v1/health/liveness
-            port: http
-          periodSeconds: 20
-          timeoutSeconds: 5
-          failureThreshold: 3
+        # startupProbe:
+        #   httpGet:
+        #     path: /api/v1/health/liveness
+        #     port: http
+        #   periodSeconds: 10
+        #   timeoutSeconds: 5
+        #   failureThreshold: 90
+        # readinessProbe:
+        #   httpGet:
+        #     path: /api/v1/health
+        #     port: http
+        #   periodSeconds: 10
+        #   timeoutSeconds: 5
+        #   failureThreshold: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /api/v1/health/liveness
+        #     port: http
+        #   periodSeconds: 20
+        #   timeoutSeconds: 5
+        #   failureThreshold: 3
         volumeMounts:
         - name: tmp
           mountPath: /tmp
