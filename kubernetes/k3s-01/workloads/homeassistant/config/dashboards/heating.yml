@@ -93,7 +93,7 @@ views:
           }
           .heating-exit:focus-visible { outline: 3px solid var(--primary-color, #03a9f4); outline-offset: 3px; }
           .heating-value {
-            font-size: clamp(72px, min(18vw, 34vh), 220px);
+            font-size: clamp(80px, min(20vw, 38vh), 250px);
             line-height: 1.05; letter-spacing: -.065em; font-weight: 300;
             font-variant-numeric: tabular-nums; white-space: nowrap;
           }
