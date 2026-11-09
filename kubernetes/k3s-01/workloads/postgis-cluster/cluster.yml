@@ -14,6 +14,13 @@ spec:
     synchronous:
       method: any
       number: 1
+    parameters:
+      min_wal_size: "80MB"
+      max_wal_size: "256MB"
+      checkpoint_timeout: "5min"
+      wal_keep_size: "64MB"
+      max_slot_wal_keep_size: "512MB"
+      wal_compression: "on"
   managed:
     roles:
     - name: dawarich
