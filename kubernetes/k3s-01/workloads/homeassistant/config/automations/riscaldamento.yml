@@ -1,0 +1,74 @@
+---
+id: heating_boiler_stage_1
+alias: Riscaldamento - Termostato 20 °C
+description: Hysteresis with minimum demand/rest times; faults disarm heating.
+initial_state: true
+mode: single
+max_exceeded: silent
+triggers:
+  - trigger: homeassistant
+    event: start
+  - trigger: homeassistant
+    event: shutdown
+    id: shutdown
+  - trigger: state
+    entity_id:
+      - input_boolean.heating_enabled
+      - sensor.sala_da_pranzo_satellite_01_temperatura
+      - switch.cucina_shelly_1_mini_01
+  # Reevaluate timing and freshness even when the temperature is unchanged.
+  - trigger: time_pattern
+    seconds: /15
+actions:
+  - variables:
+      target_c: 20
+      hysteresis_c: 0.3
+      min_on_s: 300
+      min_off_s: 600
+      max_sample_age_s: 300
+      sensor_entity: sensor.sala_da_pranzo_satellite_01_temperatura
+      relay_entity: switch.cucina_shelly_1_mini_01
+  - variables:
+      temperature: "{{ states(sensor_entity) | float(none) }}"
+      sample_valid: >-
+        {%- set s = states[sensor_entity] -%}
+        {{ s is not none and is_number(s.state)
+           and s.attributes.get('unit_of_measurement') == '°C'
+           and not s.attributes.get('restored', false)
+           and 0 <= s.state | float <= 40
+           and 0 <= (now() - s.last_reported).total_seconds() < max_sample_age_s }}
+      relay_state: "{{ states(relay_entity) }}"
+      relay_age_s: >-
+        {%- set s = states[relay_entity] -%}
+        {{ (now() - s.last_changed).total_seconds() if s is not none else 0 }}
+  - choose:
+      # Faults and operator OFF override minimum demand time. Latch OFF so
+      # intermittent sensor recovery cannot repeatedly restart the boiler.
+      - conditions: >-
+          {{ not is_state('input_boolean.heating_enabled', 'on')
+             or not sample_valid or relay_state not in ['on', 'off']
+             or (temperature is not none and temperature >= target_c + 2)
+             or (trigger is defined and trigger.id | default('') == 'shutdown') }}
+        sequence:
+          - action: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.heating_enabled
+          - condition: template
+            value_template: "{{ relay_state != 'off' }}"
+          - action: switch.turn_off
+            target:
+              entity_id: switch.cucina_shelly_1_mini_01
+      - conditions: >-
+          {{ relay_state == 'on' and temperature >= target_c
+             and relay_age_s >= min_on_s }}
+        sequence:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.cucina_shelly_1_mini_01
+      - conditions: >-
+          {{ relay_state == 'off' and temperature < target_c - hysteresis_c
+             and relay_age_s >= min_off_s }}
+        sequence:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.cucina_shelly_1_mini_01

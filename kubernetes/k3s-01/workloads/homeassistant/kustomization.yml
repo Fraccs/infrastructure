@@ -22,12 +22,14 @@ configMapGenerator:
     files:
       - timers.yml=config/helpers/timers.yml
       - input-numbers.yml=config/helpers/input-numbers.yml
+      - input-booleans.yml=config/helpers/input-booleans.yml
       - template-sensors.yml=config/helpers/template-sensors.yml
       - integral-sensors.yml=config/helpers/integral-sensors.yml
   - name: homeassistant-automations
     namespace: homeassistant
     files:
       - index.yml=config/automations/index.yml
+      - riscaldamento.yml=config/automations/riscaldamento.yml
       - luce-ingresso-movimento.yml=config/automations/luce-ingresso-movimento.yml
       - luce-ingresso-spegnimento.yml=config/automations/luce-ingresso-spegnimento.yml
       - sveglia-luci-camera.yml=config/automations/sveglia-luci-camera.yml

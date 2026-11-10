@@ -1,0 +1,6 @@
+---
+heating_enabled:
+  name: Riscaldamento automatico (20 °C)
+  icon: mdi:radiator
+  # Stage 1 requires deliberate re-arming after every HA restart or fault.
+  initial: false

@@ -5,3 +5,4 @@
 - !include sveglia-luci-camera.yml
 - !include luci-francesco-movimento.yml
 - !include luci-francesco-spegnimento.yml
+- !include riscaldamento.yml
