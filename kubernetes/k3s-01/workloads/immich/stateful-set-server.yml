@@ -22,8 +22,8 @@ spec:
               cpu: 50m
               memory: 768Mi
             limits:
-              cpu: 200m
-              memory: 1024Mi
+              cpu: 400m
+              memory: 1536Mi
           volumeMounts:
             - name: immich-server
               mountPath: /usr/src/app/upload
