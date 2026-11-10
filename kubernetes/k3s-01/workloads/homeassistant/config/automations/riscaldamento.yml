@@ -22,7 +22,7 @@ triggers:
 actions:
   - variables:
       target_c: 20
-      hysteresis_c: 0.3
+      hysteresis_c: 0.2
       min_on_s: 300
       min_off_s: 600
       max_sample_age_s: 300
