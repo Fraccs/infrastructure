@@ -12,7 +12,9 @@ button_card_templates:
             locale: italian ? 'it-IT' : 'en-GB',
             title: italian ? 'CASA / RISCALDAMENTO' : 'HOME / HEATING',
             browse: italian ? 'Apri Home Assistant' : 'Browse Home Assistant',
-            temperature: italian ? 'TEMPERATURA INTERNA' : 'INDOOR TEMPERATURE'
+            temperature: italian ? 'TEMPERATURA INTERNA' : 'INDOOR TEMPERATURE',
+            heating: italian ? 'RISCALDAMENTO ATTIVO' : 'HEATING ACTIVE',
+            heatingUnknown: italian ? 'STATO RISCALDAMENTO NON DISPONIBILE' : 'HEATING STATUS UNAVAILABLE'
           };
         ]]]
 
@@ -31,6 +33,9 @@ views:
       - type: custom:button-card
         template: heating_i18n
         entity: sensor.sala_da_pranzo_satellite_01_temperatura
+        triggers_update:
+          - sensor.sala_da_pranzo_satellite_01_temperatura
+          - switch.cucina_shelly_1_mini_01
         show_icon: false
         show_name: false
         show_state: false
@@ -43,6 +48,8 @@ views:
           action: none
         styles:
           card:
+            - --burner-opacity: "[[[ return hass.states?.['switch.cucina_shelly_1_mini_01']?.state === 'on' ? 1 : 0; ]]]"
+            - --burner-motion: "[[[ return hass.states?.['switch.cucina_shelly_1_mini_01']?.state === 'on' ? 'running' : 'paused'; ]]]"
             - position: relative
             # kiosk-mode supplies zero header height when hiding HA navigation.
             - height: calc(100vh - var(--kiosk-header-height, var(--header-height, 56px)) - var(--safe-area-inset-top, 0px))
@@ -65,6 +72,22 @@ views:
             - padding-bottom: max(16px, env(safe-area-inset-bottom, 0px))
             - gap: 16px
           custom_fields:
+            burner:
+              - position: absolute
+              - inset: auto 0 0 0
+              - height: clamp(48px, 14vh, 110px)
+              - pointer-events: none
+              - overflow: hidden
+              - opacity: var(--burner-opacity, 0)
+              - transition: opacity 700ms ease
+            burner_status:
+              - position: absolute
+              - left: 0
+              - right: 0
+              - bottom: calc(clamp(48px, 14vh, 110px) + 12px)
+              - pointer-events: none
+              - white-space: normal
+              - padding: 0 16px
             header:
               - min-width: 0
               - text-align: left
@@ -134,7 +157,62 @@ views:
             font-size: clamp(11px, 1.3vw, 16px); letter-spacing: .1em;
             color: var(--secondary-text-color); white-space: normal;
           }
+          .gas-burner { position: relative; height: 100%; width: 100%; }
+          .gas-glow {
+            position: absolute; inset: 15% 0 0;
+            background: radial-gradient(ellipse at 50% 120%, #008cff70, transparent 72%);
+          }
+          .gas-rail {
+            position: absolute; inset: auto 0 0; height: 7px;
+            background: linear-gradient(0deg, #087adf, #79dfffaa, transparent);
+          }
+          .gas-jets { position: absolute; inset: 0; display: flex; padding: 0 1%; }
+          .gas-jet { position: relative; flex: 1; }
+          .gas-flame {
+            position: absolute; bottom: 3px; left: 50%;
+            width: clamp(6px, 1.8vw, 24px); max-width: 80%; height: var(--jet-height);
+            border-radius: 50% 50% 35% 35% / 90% 90% 20% 20%;
+            background: linear-gradient(0deg, #c5f7ff 0%, #40bfff 20%, #1268f2 65%, #164bea20 100%);
+            transform-origin: 50% 100%;
+            animation: gas-sway var(--jet-duration) ease-in-out var(--jet-delay) infinite alternate;
+            animation-play-state: var(--burner-motion, paused);
+          }
+          .gas-flame::after {
+            content: ''; position: absolute; bottom: 0; left: 28%; width: 44%; height: 48%;
+            border-radius: 50% 50% 25% 25% / 95% 95% 15% 15%;
+            background: linear-gradient(0deg, #efffff, #8aeaff 65%, #37b8ff30);
+          }
+          @keyframes gas-sway {
+            0% { transform: translateX(-50%) scale(.92, .86) rotate(-2deg); opacity: .78; }
+            50% { transform: translateX(-50%) scale(1, 1) rotate(1deg); opacity: 1; }
+            100% { transform: translateX(-50%) scale(.95, .92) rotate(2deg); opacity: .88; }
+          }
+          .burner-status {
+            font-size: clamp(12px, 1.5vw, 18px); font-weight: 650; letter-spacing: .12em;
+            color: #9cddff;
+          }
+          .burner-status-unknown { color: #d9bd87; }
+          @media (prefers-reduced-motion: reduce) {
+            #burner { transition: none !important; }
+            .gas-flame { animation: none; transform: translateX(-50%); opacity: .9; }
+          }
         custom_fields:
+          # Keep flame markup constant across sensor updates so animations do
+          # not restart. CSS state changes fade the same layer in/out.
+          burner: |
+            [[[
+              const jets = Array.from({length: 28}, (_, i) =>
+                `<span class="gas-jet"><span class="gas-flame" style="--jet-height:${62 + (i * 13 % 29)}%;--jet-duration:${2.4 + (i % 7) * .23}s;--jet-delay:-${(i * .37).toFixed(2)}s"></span></span>`
+              ).join('');
+              return `<div class="gas-burner" aria-hidden="true"><div class="gas-glow"></div><div class="gas-jets">${jets}</div><div class="gas-rail"></div></div>`;
+            ]]]
+          burner_status: |
+            [[[
+              const state = hass.states?.['switch.cucina_shelly_1_mini_01']?.state;
+              if (state === 'off') return '';
+              const active = state === 'on';
+              return `<div role="status" class="burner-status${active ? '' : ' burner-status-unknown'}">${active ? variables.i18n.heating : variables.i18n.heatingUnknown}</div>`;
+            ]]]
           header: |
             [[[
               const t = variables.i18n;
