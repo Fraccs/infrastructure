@@ -69,6 +69,12 @@ views:
               - min-width: 0
               - text-align: left
             temperature:
+              # Center the main number independently of the header and unit.
+              - position: absolute
+              - grid-area: auto
+              - left: 50%
+              - top: 50%
+              - transform: translate(-50%, -50%)
               - min-width: 0
               - justify-self: center
               - align-self: center
@@ -92,13 +98,26 @@ views:
             pointer-events: auto; cursor: pointer;
           }
           .heating-exit:focus-visible { outline: 3px solid var(--primary-color, #03a9f4); outline-offset: 3px; }
+          .heating-temperature { position: relative; }
           .heating-value {
+            position: relative; color: #fff;
             font-size: clamp(80px, min(20vw, 38vh), 250px);
             line-height: 1.05; letter-spacing: -.065em; font-weight: 300;
             font-variant-numeric: tabular-nums; white-space: nowrap;
           }
-          .heating-degree { font-size: .35em; vertical-align: top; line-height: 1.8; letter-spacing: 0; }
-          .heating-label { font-size: clamp(11px, 1.3vw, 16px); letter-spacing: .1em; color: var(--secondary-text-color); white-space: normal; }
+          .heating-degree {
+            position: absolute; left: calc(100% + .12em); top: .22em;
+            display: grid; grid-template-columns: auto auto;
+            align-items: start; justify-items: center; row-gap: .12em;
+            font-size: .35em; line-height: 1; letter-spacing: 0;
+          }
+          .heating-hundredths { grid-column: 2; font-size: .85em; opacity: .45; }
+          .heating-label {
+            position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+            width: max-content; max-width: 80vw;
+            font-size: clamp(11px, 1.3vw, 16px); letter-spacing: .1em;
+            color: var(--secondary-text-color); white-space: normal;
+          }
         custom_fields:
           header: |
             [[[
@@ -114,10 +133,19 @@ views:
             [[[
               const value = entity?.state;
               const number = Number(value);
-              const formatted = value !== null && value !== undefined && value !== '' && Number.isFinite(number)
-                ? new Intl.NumberFormat(variables.i18n.locale, {minimumFractionDigits: 1, maximumFractionDigits: 1}).format(number) : '—';
+              const valid = value !== null && value !== undefined && String(value).trim() !== '' && Number.isFinite(number);
+              // Round once to hundredths, then split: avoid inconsistent carry
+              // between the large tenths and small hundredths (19.999 -> 20.00).
+              const parts = valid ? new Intl.NumberFormat(variables.i18n.locale, {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+              }).formatToParts(number) : [];
+              const formatted = valid ? parts.map(part => part.type === 'fraction' ? part.value[0] : part.value).join('') : '—';
+              const hundredths = valid ? parts.find(part => part.type === 'fraction').value[1] : '';
+              const spoken = valid ? parts.map(part => part.value).join('') : '—';
               return `<div class="heating-temperature">
-                <div class="heating-value">${formatted}<span class="heating-degree">°C</span></div>
+                <div class="heating-value" role="img" aria-label="${spoken} °C">
+                  <span class="heating-main" aria-hidden="true">${formatted}</span><span class="heating-degree" aria-hidden="true"><span>°</span><span class="heating-celsius">C</span>${valid ? `<span class="heating-hundredths">${hundredths}</span>` : ''}</span>
+                </div>
                 <div class="heating-label">${variables.i18n.temperature}</div>
               </div>`;
             ]]]
