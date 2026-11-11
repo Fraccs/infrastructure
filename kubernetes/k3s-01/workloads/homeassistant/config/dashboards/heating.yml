@@ -75,6 +75,9 @@ views:
               - left: 50%
               - top: 50%
               - transform: translate(-50%, -50%)
+              # button-card adds .ellipsis (overflow: hidden) to this wrapper.
+              # The unit, hundredths and label extend outside the number box.
+              - overflow: visible
               - min-width: 0
               - justify-self: center
               - align-self: center
@@ -105,13 +108,26 @@ views:
             line-height: 1.05; letter-spacing: -.065em; font-weight: 300;
             font-variant-numeric: tabular-nums; white-space: nowrap;
           }
-          .heating-degree {
-            position: absolute; left: calc(100% + .12em); top: .22em;
-            display: grid; grid-template-columns: auto auto;
-            align-items: start; justify-items: center; row-gap: .12em;
+          .heating-degree, .heating-precision {
+            grid-template-columns: .45em .75em;
+            justify-items: center;
             font-size: .35em; line-height: 1; letter-spacing: 0;
           }
-          .heating-hundredths { grid-column: 2; font-size: .85em; opacity: .45; }
+          .heating-degree {
+            position: absolute; left: calc(100% + .12em); top: .22em;
+            display: grid;
+          }
+          .heating-degree > span:first-child { justify-self: start; }
+          .heating-precision {
+            /* Keep the small digit on the number's text baseline, not its
+               line-box bottom. Zero width preserves main-number centering. */
+            display: inline-grid; vertical-align: baseline; width: 0;
+            position: relative; left: .12em; overflow: visible;
+          }
+          .heating-hundredths {
+            grid-column: 1; justify-self: start;
+            font-size: 1.15em; font-weight: 700; opacity: .45;
+          }
           .heating-label {
             position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
             width: max-content; max-width: 80vw;
@@ -144,7 +160,7 @@ views:
               const spoken = valid ? parts.map(part => part.value).join('') : '—';
               return `<div class="heating-temperature">
                 <div class="heating-value" role="img" aria-label="${spoken} °C">
-                  <span class="heating-main" aria-hidden="true">${formatted}</span><span class="heating-degree" aria-hidden="true"><span>°</span><span class="heating-celsius">C</span>${valid ? `<span class="heating-hundredths">${hundredths}</span>` : ''}</span>
+                  <span class="heating-main" aria-hidden="true">${formatted}</span>${valid ? `<span class="heating-precision" aria-hidden="true"><span class="heating-hundredths">${hundredths}</span></span>` : ''}<span class="heating-degree" aria-hidden="true"><span>°</span><span class="heating-celsius">C</span></span>
                 </div>
                 <div class="heating-label">${variables.i18n.temperature}</div>
               </div>`;
