@@ -1,7 +1,7 @@
 ---
 id: heating_boiler_stage_1
 alias: Riscaldamento - Termostato 20 °C
-description: Hysteresis with minimum demand/rest times; faults disarm heating.
+description: Hysteresis confirmed for 30 seconds with minimum demand/rest times; faults disarm heating.
 initial_state: true
 mode: single
 max_exceeded: silent
@@ -16,6 +16,8 @@ triggers:
       - input_boolean.heating_enabled
       - sensor.sala_da_pranzo_satellite_01_temperatura
       - switch.cucina_shelly_1_mini_01
+      - binary_sensor.heating_cold_confirmed
+      - binary_sensor.heating_warm_confirmed
   # Reevaluate timing and freshness even when the temperature is unchanged.
   - trigger: time_pattern
     seconds: /15
@@ -60,6 +62,7 @@ actions:
               entity_id: switch.cucina_shelly_1_mini_01
       - conditions: >-
           {{ relay_state == 'on' and temperature >= target_c
+             and is_state('binary_sensor.heating_warm_confirmed', 'on')
              and relay_age_s >= min_on_s }}
         sequence:
           - action: switch.turn_off
@@ -67,6 +70,7 @@ actions:
               entity_id: switch.cucina_shelly_1_mini_01
       - conditions: >-
           {{ relay_state == 'off' and temperature < target_c - hysteresis_c
+             and is_state('binary_sensor.heating_cold_confirmed', 'on')
              and relay_age_s >= min_off_s }}
         sequence:
           - action: switch.turn_on

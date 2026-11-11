@@ -12,3 +12,36 @@
            and 0 <= states('sensor.nut_01_load') | float(0) <= 100 }}
       state: >
         {{ ((states('sensor.nut_01_load') | float(0)) / 100 * 520) | round(2) }}
+
+# State-based helpers: delay_on confirms an uninterrupted predicate; there is
+# deliberately no delay_off. Keep thresholds/freshness in sync with riscaldamento.
+# Disabled startup, faults and relay changes clear pending confirmations.
+- binary_sensor:
+    - name: Heating cold confirmed
+      default_entity_id: binary_sensor.heating_cold_confirmed
+      unique_id: heating_cold_confirmed
+      delay_on:
+        seconds: 30
+      state: >-
+        {%- set s = states['sensor.sala_da_pranzo_satellite_01_temperatura'] -%}
+        {{ is_state('input_boolean.heating_enabled', 'on')
+           and is_state('switch.cucina_shelly_1_mini_01', 'off')
+           and s is not none and is_number(s.state)
+           and s.attributes.get('unit_of_measurement') == '°C'
+           and not s.attributes.get('restored', false)
+           and 0 <= s.state | float < 19.9
+           and 0 <= (now() - s.last_reported).total_seconds() < 300 }}
+    - name: Heating warm confirmed
+      default_entity_id: binary_sensor.heating_warm_confirmed
+      unique_id: heating_warm_confirmed
+      delay_on:
+        seconds: 30
+      state: >-
+        {%- set s = states['sensor.sala_da_pranzo_satellite_01_temperatura'] -%}
+        {{ is_state('input_boolean.heating_enabled', 'on')
+           and is_state('switch.cucina_shelly_1_mini_01', 'on')
+           and s is not none and is_number(s.state)
+           and s.attributes.get('unit_of_measurement') == '°C'
+           and not s.attributes.get('restored', false)
+           and 20 <= s.state | float < 22
+           and 0 <= (now() - s.last_reported).total_seconds() < 300 }}
