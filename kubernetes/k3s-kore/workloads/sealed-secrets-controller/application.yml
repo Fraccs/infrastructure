@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sealed-secrets-controller
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+  sources:
+    - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+      targetRevision: HEAD
+      path: kubernetes/k3s-kore/workloads/sealed-secrets-controller
+    - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+      targetRevision: HEAD
+      ref: values
+    - repoURL: https://bitnami.github.io/sealed-secrets/
+      chart: sealed-secrets
+      targetRevision: 2.22.0
+      helm:
+        valueFiles:
+          - $values/kubernetes/k3s-kore/workloads/sealed-secrets-controller/values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
