@@ -4,15 +4,21 @@ kind: Application
 metadata:
   name: kavita
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
 spec:
   project: default
   syncPolicy:
     automated:
+      enabled: false
+      allowEmpty: false
       prune: true
   source:
     repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
     targetRevision: HEAD
     path: kubernetes/k3s-kore/workloads/kavita
+    directory:
+      exclude: 'application*.yml'
   destination:
     server: https://kubernetes.default.svc
     namespace: kavita

@@ -4,10 +4,14 @@ kind: Application
 metadata:
   name: minio-operator
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
 spec:
   project: default
   syncPolicy:
     automated:
+      enabled: false
+      allowEmpty: false
       prune: true
   sources:
     - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git

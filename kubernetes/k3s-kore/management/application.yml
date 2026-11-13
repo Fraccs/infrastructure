@@ -1,0 +1,34 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kore-applications
+  namespace: argocd
+  labels:
+    gitops.fraccs.com/role: root
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
+spec:
+  project: default
+  source:
+    repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+    targetRevision: HEAD
+    path: kubernetes/k3s-kore
+    directory:
+      recurse: true
+      include: '{management/application.yml,workloads/*/application.yml}'
+      # Glob '*' spans '/', so explicitly reject deeper Application paths.
+      # Ordinary workload directories become eligible as soon as published in Git.
+      exclude: '{workloads/*/*/application.yml,workloads/optional/*,workloads/disabled/*}'
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      # Enable in Git after the initial, reviewed adoption sync.
+      enabled: false
+      prune: false
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - ServerSideApply=true

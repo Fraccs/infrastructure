@@ -4,15 +4,21 @@ kind: Application
 metadata:
   name: sealed-secrets-controller
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
 spec:
   project: default
   syncPolicy:
     automated:
+      enabled: false
+      allowEmpty: false
       prune: true
   sources:
     - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
       targetRevision: HEAD
       path: kubernetes/k3s-kore/workloads/sealed-secrets-controller
+      directory:
+        exclude: '{application*.yml,values.yml}'
     - repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
       targetRevision: HEAD
       ref: values
