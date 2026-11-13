@@ -26,7 +26,7 @@ spec:
   syncPolicy:
     automated:
       # Enable in Git after the initial, reviewed adoption sync.
-      enabled: false
+      enabled: true
       prune: false
       selfHeal: true
       allowEmpty: false
