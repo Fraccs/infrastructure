@@ -8,12 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`hubble.k3s-01.fraccs.com`)
+    - match: Host(`hubble.k3s-kore.it-mi-vt.infra.fraccs.com`)
       kind: Rule
       services:
         - name: hubble-ui
           kind: Service
           port: 80
           scheme: http
-  tls:
-    secretName: hubble-fraccs-com-certificate
+  # tls:
+  #   secretName: hubble-fraccs-com-certificate

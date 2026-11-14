@@ -8,12 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.k3s-01.fraccs.com`)
+    - match: Host(`argocd.infra.fraccs.com`)
       kind: Rule
       services:
         - name: argocd-server
           kind: Service
           port: 80
           scheme: http
-  tls:
-    secretName: argocd-fraccs-com-certificate
+  # tls:
+  #   secretName: argocd-fraccs-com-certificate

@@ -8,12 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`longhorn.k3s-01.fraccs.com`)
+    - match: Host(`longhorn.k3s-kore.it-mi-vt.infra.fraccs.com`)
       kind: Rule
       services:
         - name: longhorn-frontend
           kind: Service
           port: 80
           scheme: http
-  tls:
-    secretName: longhorn-fraccs-com-certificate
+  # tls:
+  #   secretName: longhorn-fraccs-com-certificate
