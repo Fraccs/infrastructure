@@ -6,7 +6,7 @@ crds:
     argocd.argoproj.io/sync-options: Prune=false,Delete=false
 
 global:
-  domain: argocd.k3s-01.fraccs.com
+  domain: argocd.infra.fraccs.com
   image:
     repository: quay.io/argoproj/argocd
     # Use the pinned chart's appVersion; Renovate updates the chart as one unit.
