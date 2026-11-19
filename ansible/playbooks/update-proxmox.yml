@@ -1,0 +1,10 @@
+---
+- name: Maintain evacuated Proxmox hosts one at a time
+  hosts: proxmox
+  gather_facts: false
+  become: true
+  serial: 1
+  order: inventory
+  any_errors_fatal: true
+  roles:
+    - host_maintenance

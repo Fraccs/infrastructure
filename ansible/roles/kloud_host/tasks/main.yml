@@ -1,0 +1,216 @@
+---
+- name: Install host, storage, audit, and diagnostic prerequisites
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+    name:
+      - ca-certificates
+      - curl
+      - chrony
+      - nftables
+      - openssh-server
+      - sudo
+      - auditd
+      - audispd-plugins
+      - fail2ban
+      - unattended-upgrades
+      - apt-listchanges
+      - open-iscsi
+      - nfs-common
+      - cryptsetup
+      - e2fsprogs
+      - iproute2
+      - iptables
+      - wireguard-tools
+      - tinyproxy
+      - python3-requests
+      - python3-pyroute2
+      - restic
+      - jq
+    state: present
+- name: Stop distro tinyproxy listener before configuring the isolated instance
+  ansible.builtin.systemd_service:
+    name: tinyproxy
+    enabled: false
+    state: stopped
+- name: Create journald configuration directory
+  ansible.builtin.file:
+    path: /etc/systemd/journald.conf.d
+    state: directory
+    mode: '0755'
+- name: Set the node's short hostname
+  ansible.builtin.hostname:
+    name: "{{ identity.node }}"
+- name: Resolve the node's own identity even during DNS/VPN outages
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: "^{{ network.publicIPv4 | regex_escape }}\\s"
+    line: "{{ network.publicIPv4 }} {{ identity.node }}.k3s-{{ identity.cluster }}.{{ identity.site }}.{{ identity.domain }} {{ identity.node\
+      \ }}"
+- name: Create key-only administration account
+  ansible.builtin.user:
+    name: "{{ kloud_admin_user }}"
+    groups: sudo
+    shell: /bin/bash
+    password_lock: true
+    create_home: true
+- name: Create SSH key directory
+  ansible.builtin.file:
+    path: "/home/{{ kloud_admin_user }}/.ssh"
+    state: directory
+    owner: "{{ kloud_admin_user }}"
+    group: "{{ kloud_admin_user }}"
+    mode: '0700'
+- name: Install approved public keys before changing SSH policy
+  ansible.builtin.copy:
+    content: |
+      {{ kloud_admin_public_keys | join('
+      ') }}
+    dest: "/home/{{ kloud_admin_user }}/.ssh/authorized_keys"
+    owner: "{{ kloud_admin_user }}"
+    group: "{{ kloud_admin_user }}"
+    mode: '0600'
+- name: Allow key-authenticated administration through sudo
+  ansible.builtin.copy:
+    content: |
+      {{ kloud_admin_user }} ALL=(ALL:ALL) NOPASSWD: ALL
+    dest: "/etc/sudoers.d/{{ kloud_admin_user }}"
+    mode: '0440'
+    validate: /usr/sbin/visudo -cf %s
+- name: Install key-only SSH policy
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/00-kloud.conf
+    mode: '0644'
+    content: |
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin prohibit-password
+      PermitEmptyPasswords no
+      X11Forwarding no
+      AllowAgentForwarding no
+      MaxAuthTries 3
+      LoginGraceTime 30
+      ClientAliveInterval 300
+      ClientAliveCountMax 2
+  notify: Validate and reload ssh
+- name: Configure persistent bounded journals
+  ansible.builtin.copy:
+    dest: /etc/systemd/journald.conf.d/kloud.conf
+    mode: '0644'
+    content: |
+      [Journal]
+      Storage=persistent
+      SystemMaxUse=512M
+      RuntimeMaxUse=64M
+      MaxRetentionSec=7day
+      Compress=yes
+  notify: Restart journald
+- name: Install kernel module configuration
+  ansible.builtin.copy:
+    dest: /etc/modules-load.d/kloud.conf
+    mode: '0644'
+    content: |
+      overlay
+      br_netfilter
+      iscsi_tcp
+      dm_crypt
+- name: Load storage and network modules now
+  ansible.builtin.command:
+    argv:
+      - modprobe
+      - "{{ item }}"
+  loop:
+    - overlay
+    - br_netfilter
+    - iscsi_tcp
+    - dm_crypt
+  changed_when: false
+- name: Configure forwarding and retain IPv6 router advertisements when forwarding
+  ansible.builtin.copy:
+    dest: /etc/sysctl.d/90-kloud.conf
+    mode: '0644'
+    content: |
+      net.ipv4.ip_forward = 1
+      net.ipv6.conf.all.forwarding = 1
+      net.ipv6.conf.{{ network.interface }}.accept_ra = 2
+      net.ipv4.conf.all.rp_filter = 0
+      net.ipv4.conf.default.rp_filter = 0
+      net.ipv4.conf.all.accept_redirects = 0
+      net.ipv6.conf.all.accept_redirects = 0
+      net.ipv4.conf.all.send_redirects = 0
+      kernel.kptr_restrict = 2
+      kernel.dmesg_restrict = 1
+      fs.protected_hardlinks = 1
+      fs.protected_symlinks = 1
+      vm.panic_on_oom = 0
+      vm.overcommit_memory = 1
+      kernel.panic = 10
+      kernel.panic_on_oops = 1
+  notify: Apply sysctl
+- name: Disable swap persistently without editing unrelated mounts
+  ansible.builtin.replace:
+    path: /etc/fstab
+    regexp: ^(\s*[^#\s]\S*\s+\S+\s+swap\s+.*)$
+    replace: '# \1'
+  notify: Disable swap
+- name: Configure SSH ban policy for both address families
+  ansible.builtin.copy:
+    dest: /etc/fail2ban/jail.d/kloud.local
+    mode: '0644'
+    content: |
+      [DEFAULT]
+      banaction = nftables-multiport
+      backend = systemd
+      bantime = 1h
+      findtime = 10m
+      maxretry = 5
+      [sshd]
+      enabled = true
+  notify: Restart fail2ban
+- name: Install focused host audit rules
+  ansible.builtin.copy:
+    dest: /etc/audit/rules.d/kloud.rules
+    mode: '0640'
+    content: |
+      -w /etc/ssh/sshd_config.d/ -p wa -k ssh-policy
+      -w /etc/sudoers.d/ -p wa -k sudo-policy
+      -w /etc/passwd -p wa -k accounts
+      -w /etc/shadow -p wa -k accounts
+      -w /etc/systemd/system/ -p wa -k service-policy
+  notify: Load audit rules
+- name: Configure automatic security updates without automatic reboots
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/52kloud-unattended-upgrades
+    mode: '0644'
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+      Unattended-Upgrade::Automatic-Reboot "false";
+      Unattended-Upgrade::Remove-Unused-Dependencies "true";
+- name: Create host observability directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/systemd/journald.conf.d
+    - /var/log/k3s
+    - /var/lib/fluent-bit
+    - /var/lib/node_exporter/textfile_collector
+    - /var/lib/longhorn
+    - /etc/kloud
+- name: Enable essential host services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - chrony
+    - iscsid
+    - auditd
+    - fail2ban
+- name: Apply host handlers before starting k3s
+  ansible.builtin.meta: flush_handlers
+- name: Configure host telemetry and recovery automation
+  ansible.builtin.import_tasks: observability.yml

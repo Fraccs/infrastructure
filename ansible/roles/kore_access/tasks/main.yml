@@ -1,0 +1,108 @@
+---
+- name: Restrict this policy to Kore Debian hosts
+  ansible.builtin.assert:
+    that:
+      - "'k3s_kore' in group_names"
+      - ansible_facts.distribution == 'Debian'
+
+- name: Read password status without reading hashes
+  ansible.builtin.command:
+    argv: [passwd, -S, "{{ item }}"]
+  loop: [root, admin]
+  register: kore_password_status
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Require existing usable passwords or operator-supplied hashes
+  ansible.builtin.assert:
+    that:
+      - >-
+        (kore_root_password_hash is defined and
+         kore_root_password_hash is match('^\$(6|y)\$[^\s]+$')) or
+        (kore_root_password_hash is not defined and
+         kore_password_status.results[0].rc == 0 and
+         kore_password_status.results[0].stdout.split()[1] == 'P')
+      - >-
+        (kore_admin_password_hash is defined and
+         kore_admin_password_hash is match('^\$(6|y)\$[^\s]+$')) or
+        (kore_admin_password_hash is not defined and
+         kore_password_status.results[1].rc == 0 and
+         kore_password_status.results[1].stdout.split()[1] == 'P')
+    fail_msg: Configure unique passwords locally or provide per-host vaulted Linux hashes before bootstrap.
+  no_log: true
+
+- name: Inspect existing admin public keys
+  ansible.builtin.stat:
+    path: /home/admin/.ssh/authorized_keys
+  register: kore_existing_keys
+
+- name: Require approved keys before disabling SSH passwords
+  ansible.builtin.assert:
+    that:
+      - >-
+        kore_admin_public_keys | length > 0 or
+        (kore_existing_keys.stat.isreg | default(false) and
+         kore_existing_keys.stat.size | default(0) > 0)
+    fail_msg: Supply kore_admin_public_keys for a fresh host; existing hosts must already have working admin keys.
+
+- name: Install administration tools
+  ansible.builtin.apt:
+    name: [sudo, openssh-server]
+    state: present
+
+- name: Ensure admin has password-authenticated sudo access
+  ansible.builtin.user:
+    name: admin
+    groups: sudo
+    append: true
+    shell: /bin/bash
+    create_home: true
+    password: "{{ kore_admin_password_hash | default(omit) }}"
+  no_log: true
+
+- name: Manage root recovery password only when supplied
+  ansible.builtin.user:
+    name: root
+    password: "{{ kore_root_password_hash }}"
+  when: kore_root_password_hash is defined
+  no_log: true
+
+- name: Read root expiration fields without exposing the password hash
+  ansible.builtin.shell: "getent shadow root | cut -d: -f5,7,8"
+  register: kore_root_expiration
+  changed_when: false
+  check_mode: false
+
+- name: Keep root console recovery free of password and account expiration
+  ansible.builtin.command:
+    argv: [chage, -M, '-1', -I, '-1', -E, '-1', root]
+  when: kore_root_expiration.stdout | trim != '::'
+
+- name: Create admin SSH directory
+  ansible.builtin.file:
+    path: /home/admin/.ssh
+    state: directory
+    owner: admin
+    mode: '0700'
+
+- name: Add approved public keys without removing existing keys
+  ansible.builtin.lineinfile:
+    path: /home/admin/.ssh/authorized_keys
+    line: "{{ item }}"
+    create: true
+    owner: admin
+    mode: '0600'
+  loop: "{{ kore_admin_public_keys }}"
+
+- name: Explicitly require the admin password for sudo
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/90-kore-admin
+    content: "admin ALL=(ALL:ALL) PASSWD: ALL\n"
+    owner: root
+    group: root
+    mode: '0440'
+    validate: /usr/sbin/visudo -cf %s
+
+- name: Configure and validate SSH with rollback
+  ansible.builtin.include_tasks: ssh.yml

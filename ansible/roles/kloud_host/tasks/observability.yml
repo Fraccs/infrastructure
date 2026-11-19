@@ -1,0 +1,130 @@
+---
+- name: Install read-only host probe
+  ansible.builtin.copy:
+    src: kloud-metrics.py
+    dest: /usr/local/sbin/kloud-metrics
+    mode: '0755'
+- name: Create public PKI monitoring directory
+  ansible.builtin.file:
+    path: /etc/kloud/pki-public
+    state: directory
+    mode: '0755'
+- name: Install host probe service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/kloud-metrics.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Read-only Kloud host and dual-stack checks
+      After=k3s.service
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/local/sbin/kloud-metrics
+      TimeoutStartSec=55
+      NoNewPrivileges=yes
+      ProtectSystem=strict
+      ProtectHome=yes
+      PrivateTmp=yes
+      ReadWritePaths=/var/lib/node_exporter/textfile_collector
+- name: Install host probe timer
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/kloud-metrics.timer
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Collect host probes every minute
+      [Timer]
+      OnBootSec=3min
+      OnUnitActiveSec=1min
+      [Install]
+      WantedBy=timers.target
+- name: Enable the host probe timer
+  ansible.builtin.systemd_service:
+    name: kloud-metrics.timer
+    enabled: true
+    state: started
+    daemon_reload: true
+- name: Inspect disabled node backup units without touching stored backups
+  ansible.builtin.stat:
+    path: "/etc/systemd/system/{{ item }}"
+  loop:
+    - kloud-node-backup.timer
+    - kloud-node-backup.service
+  register: kloud_optional_backup_units
+  when: not (backup.enabled | bool)
+- name: Stop and disable a withdrawn node backup schedule
+  ansible.builtin.systemd_service:
+    name: "{{ item.item }}"
+    enabled: false
+    state: stopped
+  loop: "{{ kloud_optional_backup_units.results | default([]) }}"
+  when:
+    - not (backup.enabled | bool)
+    - item.stat.exists | default(false)
+- name: Require externally managed root-only node backup credentials
+  ansible.builtin.stat:
+    path: /etc/kloud/backup.env
+  register: kloud_node_backup_environment
+  when: backup.enabled | bool
+- name: Check node backup credential permissions without reading credentials
+  ansible.builtin.assert:
+    that:
+      - kloud_node_backup_environment.stat.exists
+      - kloud_node_backup_environment.stat.uid == 0
+      - kloud_node_backup_environment.stat.mode == '0600'
+  when: backup.enabled | bool
+- name: Install node backup file selection
+  ansible.builtin.copy:
+    dest: /etc/kloud/node-backup-paths
+    mode: '0600'
+    content: |
+      /etc/rancher/k3s
+      /var/lib/rancher/k3s/server/token
+      /var/lib/rancher/k3s/server/db/snapshots
+      /var/lib/rancher/k3s/server/tls
+      /var/lib/rancher/k3s/server/cred
+      /etc/wireguard
+  when: backup.enabled | bool
+- name: Install encrypted off-node bootstrap backup service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/kloud-node-backup.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Encrypted off-node Kloud bootstrap and etcd snapshot backup
+      After=k3s.service network-online.target
+      [Service]
+      Type=oneshot
+      EnvironmentFile=/etc/kloud/backup.env
+      Environment=RESTIC_CACHE_DIR=/var/cache/kloud-restic
+      CacheDirectory=kloud-restic
+      ExecStart=/usr/bin/restic backup --files-from /etc/kloud/node-backup-paths --tag node-bootstrap --host kleis
+      NoNewPrivileges=yes
+      ProtectSystem=strict
+      ProtectHome=yes
+      PrivateTmp=yes
+      TimeoutStartSec=1h
+      CPUQuota=50%
+      MemoryMax=256M
+  when: backup.enabled | bool
+- name: Install node backup timer
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/kloud-node-backup.timer
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Ship snapshots after the six-hourly etcd backup
+      [Timer]
+      OnCalendar=*-*-* 00,06,12,18:35:00 UTC
+      Persistent=true
+      RandomizedDelaySec=5min
+      [Install]
+      WantedBy=timers.target
+  when: backup.enabled | bool
+- name: Enable node bootstrap backup timer
+  ansible.builtin.systemd_service:
+    name: kloud-node-backup.timer
+    enabled: true
+    state: started
+    daemon_reload: true
+  when: backup.enabled | bool

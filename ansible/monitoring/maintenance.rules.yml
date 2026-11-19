@@ -1,0 +1,35 @@
+---
+# Standard Prometheus rule groups; import via the controller's existing monitoring
+# deployment. This file does not create or apply Kubernetes resources.
+groups:
+  - name: infrastructure-maintenance
+    rules:
+      - alert: InfrastructureMaintenanceFailed
+        expr: infra_maintenance_last_run_success == 0
+        for: 4h
+        labels:
+          severity: warning
+        annotations:
+          summary: 'Maintenance {{ $labels.maintenance_job }} failed or is stuck'
+          description: Inspect the controller journal, logs and blocked.json before acknowledging recovery.
+      - alert: InfrastructureMaintenanceAuditStale
+        expr: time() - infra_maintenance_last_success_seconds{maintenance_job="audit"} > 30 * 3600
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: No successful host package report in 30 hours
+      - alert: InfrastructureMaintenanceApplyStale
+        expr: time() - infra_maintenance_last_success_seconds{maintenance_job=~"kore|kloud|proxmox"} > 8 * 86400
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: 'No successful {{ $labels.maintenance_job }} maintenance run in eight days'
+      - alert: InfrastructureMaintenanceMetricsMissing
+        expr: absent(infra_maintenance_last_success_seconds{maintenance_job="audit"}) or absent(infra_maintenance_last_success_seconds{maintenance_job="kore"}) or absent(infra_maintenance_last_success_seconds{maintenance_job="kloud"}) or absent(infra_maintenance_last_success_seconds{maintenance_job="proxmox"})
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: The independent maintenance controller metrics are missing

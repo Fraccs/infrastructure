@@ -1,0 +1,166 @@
+---
+- name: Create network and policy directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/nftables.d
+    - /etc/wireguard
+    - /etc/netns/kloud-video
+    - /opt/kloud
+- name: Inspect optional units before withdrawing their firewall policy
+  ansible.builtin.stat:
+    path: "/etc/systemd/system/{{ item }}"
+  loop:
+    - kloud-ipv6-rotator.timer
+    - kloud-ipv6-rotator.service
+    - kloud-video-proxy.service
+    - kloud-video-netns.service
+  register: kloud_optional_video_units
+  when: not (rotator.enabled | bool)
+- name: Stop and disable video services before removing their isolation rules
+  ansible.builtin.systemd_service:
+    name: "{{ item.item }}"
+    enabled: false
+    state: stopped
+  loop: "{{ kloud_optional_video_units.results | default([]) }}"
+  when:
+    - not (rotator.enabled | bool)
+    - item.stat.exists | default(false)
+- name: Detect a previously configured Kore tunnel
+  ansible.builtin.stat:
+    path: /etc/wireguard/wg-kore.conf
+  register: kloud_existing_tunnel
+  when: not (vpn.enabled | bool)
+- name: Stop and disable a withdrawn Kore tunnel
+  ansible.builtin.systemd_service:
+    name: wg-quick@wg-kore
+    enabled: false
+    state: stopped
+  when:
+    - not (vpn.enabled | bool)
+    - kloud_existing_tunnel.stat.exists | default(false)
+- name: Render the host firewall without flushing Cilium or fail2ban tables
+  ansible.builtin.template:
+    src: firewall.nft.j2
+    dest: /etc/nftables.d/kloud.nft
+    mode: '0644'
+    validate: /usr/sbin/nft --check --file %s
+  notify: Apply Kloud firewall
+- name: Install an independent firewall unit
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/kloud-firewall.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Kloud host ingress and isolated video forwarding policy
+      Before=k3s.service
+      After=network-pre.target
+      Wants=network-pre.target
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/usr/sbin/nft --file /etc/nftables.d/kloud.nft
+      ExecReload=/usr/sbin/nft --file /etc/nftables.d/kloud.nft
+      [Install]
+      WantedBy=multi-user.target
+  notify: Reload systemd
+- name: Verify the WireGuard key was installed out of band
+  ansible.builtin.stat:
+    path: /etc/wireguard/kore.key
+  register: kloud_wireguard_key
+  when: vpn.enabled | bool
+- name: Require a private local WireGuard key file without reading its contents
+  ansible.builtin.assert:
+    that:
+      - kloud_wireguard_key.stat.exists
+      - kloud_wireguard_key.stat.mode == '0600'
+      - kloud_wireguard_key.stat.uid == 0
+    fail_msg: Install /etc/wireguard/kore.key as root mode 0600 through your secret-management workflow.
+  when: vpn.enabled | bool
+- name: Render public WireGuard configuration
+  ansible.builtin.template:
+    src: wg-kore.conf.j2
+    dest: /etc/wireguard/wg-kore.conf
+    mode: '0600'
+  when: vpn.enabled | bool
+  notify: Restart WireGuard
+- name: Configure video namespace
+  ansible.builtin.template:
+    src: video-netns.sh.j2
+    dest: /usr/local/sbin/kloud-video-netns
+    mode: '0755'
+  when: rotator.enabled | bool
+  notify: Restart video namespace
+- name: Configure isolated proxy
+  ansible.builtin.template:
+    src: tinyproxy.conf.j2
+    dest: /etc/kloud/video-proxy.conf
+    mode: '0644'
+  when: rotator.enabled | bool
+  notify: Restart video proxy
+- name: Give the video namespace working IPv6 resolvers
+  ansible.builtin.copy:
+    dest: /etc/netns/kloud-video/resolv.conf
+    mode: '0644'
+    content: |
+      nameserver 2a01:4ff:ff00::add:1
+      nameserver 2a01:4ff:ff00::add:2
+  when: rotator.enabled | bool
+- name: Download the inspected rotator source archive
+  ansible.builtin.get_url:
+    url: "{{ kloud_rotator_archive_url }}"
+    checksum: "sha256:{{ kloud_rotator_archive_sha256 }}"
+    dest: /opt/kloud/rotator.tar.gz
+    mode: '0644'
+  when: rotator.enabled | bool
+- name: Extract the pinned rotator
+  ansible.builtin.unarchive:
+    src: /opt/kloud/rotator.tar.gz
+    dest: /opt/kloud
+    remote_src: true
+    creates: "/opt/kloud/smart-ipv6-rotator-{{ kloud_rotator_commit }}"
+  when: rotator.enabled | bool
+- name: Persist only this namespace's rotator state across one-shot executions
+  ansible.builtin.replace:
+    path: "/opt/kloud/smart-ipv6-rotator-{{ kloud_rotator_commit }}/smart_ipv6_rotator/const.py"
+    regexp: ^JSON_CONFIG_FILE = "/tmp/smart-ipv6-rotator.json"$
+    replace: JSON_CONFIG_FILE = "/var/lib/kloud-rotator/state.json"
+  when: rotator.enabled | bool
+- name: Install isolated network units
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: '0644'
+  loop:
+    - kloud-video-netns.service
+    - kloud-video-proxy.service
+    - kloud-ipv6-rotator.service
+    - kloud-ipv6-rotator.timer
+  when: rotator.enabled | bool
+  notify: Reload systemd
+- name: Apply systemd and policy changes
+  ansible.builtin.meta: flush_handlers
+- name: Enable independent host firewall
+  ansible.builtin.systemd_service:
+    name: kloud-firewall
+    enabled: true
+    state: started
+    daemon_reload: true
+- name: Enable the Kore tunnel
+  ansible.builtin.systemd_service:
+    name: wg-quick@wg-kore
+    enabled: true
+    state: started
+  when: vpn.enabled | bool
+- name: Enable the isolated video network, proxy and rotation timer
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - kloud-video-netns
+    - kloud-video-proxy
+    - kloud-ipv6-rotator.timer
+  when: rotator.enabled | bool

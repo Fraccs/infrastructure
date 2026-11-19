@@ -1,0 +1,25 @@
+[Unit]
+Description=Private IPv6-only video egress proxy
+Requires=kloud-video-netns.service
+After=kloud-video-netns.service
+BindsTo=kloud-video-netns.service
+[Service]
+DynamicUser=yes
+RuntimeDirectory=kloud-video-proxy
+NetworkNamespacePath=/run/netns/kloud-video
+BindReadOnlyPaths=/etc/netns/kloud-video/resolv.conf:/etc/resolv.conf
+ExecStart=/usr/bin/tinyproxy -d -c /etc/kloud/video-proxy.conf
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=128M
+CPUQuota=50%
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+---
+- name: Apply reviewed Stalwart policy through its native management API
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Apply the non-secret idempotent policy plan
+      ansible.builtin.command:
+        argv:
+          - stalwart-cli
+          - apply
+          - --file
+          - "{{ playbook_dir }}/../../kubernetes/k3s-kloud/workloads/stalwart/pgp-policy.ndjson"
+      changed_when: true
+      no_log: true

@@ -1,0 +1,12 @@
+---
+infra_cluster: k3s-kloud
+infra_cluster_location: cloud
+maintenance_kind: k3s
+maintenance_group: k3s_kloud
+maintenance_expected_count: 1
+maintenance_debian_major: '13'
+maintenance_debian_codename: trixie
+maintenance_single_node: true
+maintenance_single_node_outage_approved: false
+# Kloud's existing Git-owned configuration uses cluster-init / embedded etcd.
+maintenance_etcd_confirmed: true

@@ -1,0 +1,19 @@
+[Unit]
+Description=Rotate only video-namespace IPv6 routes
+Requires=kloud-video-netns.service
+After=kloud-video-netns.service
+[Service]
+Type=oneshot
+NetworkNamespacePath=/run/netns/kloud-video
+BindReadOnlyPaths=/etc/netns/kloud-video/resolv.conf:/etc/resolv.conf
+StateDirectory=kloud-rotator
+WorkingDirectory=/var/lib/kloud-rotator
+ExecStart=/usr/bin/python3 /opt/kloud/smart-ipv6-rotator-{{ kloud_rotator_commit }}/smart-ipv6-rotator.py run --ipv6range={{ rotator.prefix }} --interface=video0 --gateway=fd42:6b65:7279:ffff::1 --not-preferred
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW
+RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK AF_UNIX
+MemoryMax=128M
+TimeoutStartSec=180

@@ -1,0 +1,6 @@
+---
+# Empty preserves existing authorized_keys. Fresh hosts require approved keys.
+kore_admin_public_keys: []
+# Optional per-host vaulted Linux password hashes:
+# kore_admin_password_hash and kore_root_password_hash.
+# Omitted hashes preserve existing passwords; no credentials are generated.

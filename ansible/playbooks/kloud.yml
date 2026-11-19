@@ -1,0 +1,98 @@
+---
+- name: Provision Kleis without touching any other inventory group
+  hosts: kloud
+  become: true
+  gather_facts: true
+  vars:
+    kloud_repository_root: "{{ playbook_dir }}/../.."
+    kloud_cluster_directory: "{{ kloud_repository_root }}/kubernetes/k3s-kloud"
+    kloud_site_file: "{{ kloud_cluster_directory }}/site.yml"
+    kloud_settings: "{{ (lookup('ansible.builtin.file', kloud_cluster_directory + '/platform.yml') | from_yaml) | combine(lookup('ansible.builtin.file',\
+      \ kloud_site_file) | from_yaml, recursive=True) }}"
+    identity: "{{ kloud_settings.identity }}"
+    network: "{{ kloud_settings.network }}"
+    vpn: "{{ kloud_settings.vpn }}"
+    public: "{{ kloud_settings.public }}"
+    backup: "{{ kloud_settings.backup }}"
+    rotator: "{{ kloud_settings.rotator }}"
+    observability: "{{ kloud_settings.observability }}"
+    versions: "{{ kloud_settings.versions }}"
+    configurationReady: "{{ kloud_settings.configurationReady }}"
+    kloud_admin_user: infra
+    kloud_admin_public_keys: []
+    kloud_bootstrap_bundle: "{{ playbook_dir }}/../artifacts/bootstrap.yml"
+    kloud_bootstrap_fingerprint: "{{ {'pod4': network.podIPv4, 'pod6': network.podIPv6, 'service4': network.serviceIPv4, 'service6': network.serviceIPv6,\
+      \ 'dns': network.dnsIPv4, 'node': identity.node} | to_json | hash('sha256') }}"
+  pre_tasks:
+    - name: Require Debian 13 and explicit reviewed configuration
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.distribution == 'Debian'
+          - ansible_facts.distribution_major_version == '13'
+          - ansible_facts.architecture == 'x86_64'
+          - configurationReady | bool
+          - network.adminCIDRs | length > 0
+          - kloud_admin_public_keys | length > 0
+          - network.publicIPv4 in ansible_facts.all_ipv4_addresses
+          - network.publicIPv6 in ansible_facts.all_ipv6_addresses
+          - network.interface in ansible_facts.interfaces
+        fail_msg: Read the Kloud runbook, fill site.yml and inventory, and add the SSH public keys/admin source CIDRs. Pinned application images
+          currently target amd64. Both declared public addresses must already be assigned on the Hetzner image. No host changes occur before these
+          checks pass.
+    - name: Validate site configuration locally without contacting Kubernetes
+      ansible.builtin.command:
+        argv:
+          - python3
+          - "{{ kloud_cluster_directory }}/validation/validate.py"
+          - --deployment
+      delegate_to: localhost
+      become: false
+      changed_when: false
+      check_mode: false
+    - name: Require a freshly generated Git-owned bootstrap bundle
+      ansible.builtin.stat:
+        path: "{{ kloud_bootstrap_bundle }}"
+      delegate_to: localhost
+      become: false
+      register: kloud_bundle
+    - name: Refuse unrendered bootstrap
+      ansible.builtin.assert:
+        that: kloud_bundle.stat.exists
+        fail_msg: Run the documented local build-bundle command first.
+    - name: Verify the bundle still matches the reviewed Git inputs
+      ansible.builtin.command:
+        argv:
+          - python3
+          - "{{ kloud_cluster_directory }}/validation/build_bundle.py"
+          - --output
+          - "{{ kloud_bootstrap_bundle | dirname }}"
+          - --verify
+      delegate_to: localhost
+      become: false
+      changed_when: false
+      check_mode: false
+    - name: Detect existing Kubernetes data
+      ansible.builtin.stat:
+        path: /var/lib/rancher/k3s/server/db
+      register: kloud_existing_database
+    - name: Detect managed bootstrap fingerprint
+      ansible.builtin.stat:
+        path: /etc/rancher/k3s/kloud-fingerprint
+      register: kloud_fingerprint_file
+    - name: Read existing non-secret bootstrap fingerprint
+      ansible.builtin.slurp:
+        src: /etc/rancher/k3s/kloud-fingerprint
+      register: kloud_existing_fingerprint
+      when: kloud_fingerprint_file.stat.exists
+    - name: Refuse in-place conversion of an existing or differently addressed cluster
+      ansible.builtin.assert:
+        that:
+          - |-
+            not kloud_existing_database.stat.exists or (kloud_fingerprint_file.stat.exists and
+             (kloud_existing_fingerprint.content | b64decode | trim) == kloud_bootstrap_fingerprint)
+        fail_msg: Existing/unmanaged k3s data or changed immutable network configuration. Use a reviewed clean Debian 13 rebuild or a separate
+          migration plan. This playbook never uninstalls k3s or deletes its database.
+  roles:
+    - kloud_host
+    - kloud_connectivity
+    - kloud_k3s

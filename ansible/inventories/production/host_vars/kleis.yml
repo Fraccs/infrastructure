@@ -1,0 +1,6 @@
+---
+infra_node_name: kleis
+infra_provider_server_name: deb-ngb1-1
+# Provider label is not proof of the Kubernetes Node identity.
+# Replace only after verifying the registered name with `kubectl get nodes`.
+maintenance_node_name: TODO-current-kleis-node-name

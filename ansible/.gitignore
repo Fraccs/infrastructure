@@ -1,0 +1,7 @@
+inventories/local/
+artifacts/
+*.retry
+# Local vault unlock material and interrupted encrypted staging directories.
+.vault-pass*
+.vault-password*
+.vault-*/

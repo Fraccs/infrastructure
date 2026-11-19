@@ -1,0 +1,12 @@
+Port {{ network.proxyPort }}
+Listen {{ network.proxyIPv4 }}
+Timeout 60
+MaxClients 64
+LogLevel Notice
+LogFile "/dev/stdout"
+PidFile "/run/kloud-video-proxy/tinyproxy.pid"
+Allow {{ network.podIPv4 }}
+Allow {{ network.publicIPv4 }}
+Allow 10.86.255.1
+DisableViaHeader Yes
+ConnectPort 443

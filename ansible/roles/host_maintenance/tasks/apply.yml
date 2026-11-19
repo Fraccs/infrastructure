@@ -1,0 +1,134 @@
+---
+- name: Require backup and service checks and explicit singleton outage policy
+  ansible.builtin.assert:
+    that:
+      - maintenance_backup_check_argv | length > 0
+      - maintenance_health_check_argv | length > 0
+      - maintenance_kind != 'k3s' or maintenance_etcd_confirmed | bool
+      - not maintenance_single_node | default(false) | bool or maintenance_single_node_outage_approved | default(false) | bool
+
+- name: Check available maintenance time
+  ansible.builtin.import_tasks: window.yml
+
+- name: Check fresh off-host recovery points through the existing backup system
+  ansible.builtin.command:
+    argv: "{{ maintenance_backup_check_argv }}"
+  delegate_to: localhost
+  become: false
+  changed_when: false
+
+- name: Read the effective automatic package policy
+  ansible.builtin.command:
+    argv: [apt-config, dump]
+  register: maintenance_apt_config
+  changed_when: false
+
+- name: Require the scheduled controller to own package installation
+  ansible.builtin.assert:
+    that:
+      - "'APT::Periodic::Unattended-Upgrade \"0\";' in maintenance_apt_config.stdout"
+      - "'Unattended-Upgrade::Automatic-Reboot \"false\";' in maintenance_apt_config.stdout"
+    fail_msg: Configure maintenance-policy.yml after the external controller and alerts are ready.
+
+- name: Refuse to compete with an active unattended upgrade
+  ansible.builtin.command:
+    argv: [systemctl, is-active, apt-daily-upgrade.service]
+  register: maintenance_unattended
+  changed_when: false
+  failed_when: maintenance_unattended.rc not in [3, 4]
+
+- name: Check the entire cluster before touching this member
+  ansible.builtin.import_tasks: health.yml
+
+- name: Take an additional local etcd recovery point
+  ansible.builtin.command:
+    argv: [/usr/local/bin/k3s, etcd-snapshot, save, --name, host-maintenance]
+  when: maintenance_kind == 'k3s'
+  changed_when: true
+
+- name: Bound only this workflow's local snapshot series
+  ansible.builtin.command:
+    argv: [/usr/local/bin/k3s, etcd-snapshot, prune, --name, host-maintenance, --snapshot-retention, "{{ maintenance_snapshot_retention | string }}"]
+  when: maintenance_kind == 'k3s'
+  changed_when: true
+
+- name: Enter maintenance, update, and return this host only after recovery
+  block:
+    - name: Cordon the current Kubernetes node
+      ansible.builtin.command:
+        argv: [/usr/local/bin/k3s, kubectl, cordon, "{{ maintenance_node_name }}"]
+      when: maintenance_kind == 'k3s'
+      changed_when: true
+
+    - name: Drain Kore through the eviction API while honoring PDBs and local data
+      ansible.builtin.command:
+        argv: [/usr/local/bin/k3s, kubectl, drain, "{{ maintenance_node_name }}", --ignore-daemonsets, "--timeout={{ maintenance_drain_timeout }}"]
+      when: maintenance_kind == 'k3s' and not maintenance_single_node | bool
+      changed_when: true
+
+    - name: Ask Proxmox HA to evacuate managed guests
+      ansible.builtin.command:
+        argv: [ha-manager, crm-command, node-maintenance, enable, "{{ maintenance_node_name }}"]
+      when: maintenance_kind == 'proxmox'
+      changed_when: true
+
+    - name: Set maintenance health expectations
+      ansible.builtin.set_fact:
+        maintenance_allowed_cordon: "{{ maintenance_node_name }}"
+        maintenance_recovering: true
+        maintenance_evacuated: "{{ maintenance_kind == 'proxmox' }}"
+
+    - name: Confirm evacuation and quorum before installing packages
+      ansible.builtin.import_tasks: health.yml
+
+    - name: Check time again after evacuation
+      ansible.builtin.import_tasks: window.yml
+
+    - name: Revalidate the package candidates immediately before installation
+      ansible.builtin.import_tasks: plan.yml
+
+    - name: Update within the reviewed Debian and Proxmox release
+      ansible.builtin.include_role:
+        name: system_update
+      vars:
+        system_update_prepared: true
+
+    - name: Reboot once to activate the updated kernel and libraries
+      ansible.builtin.reboot:
+        reboot_timeout: "{{ maintenance_reboot_timeout }}"
+        connect_timeout: 10
+        post_reboot_delay: 30
+        msg: Scheduled infrastructure host maintenance
+
+    - name: Wait for the node and control plane to recover while isolated
+      ansible.builtin.import_tasks: health.yml
+
+    - name: Restore Kubernetes scheduling
+      ansible.builtin.command:
+        argv: [/usr/local/bin/k3s, kubectl, uncordon, "{{ maintenance_node_name }}"]
+      when: maintenance_kind == 'k3s'
+      changed_when: true
+
+    - name: Release Proxmox HA maintenance
+      ansible.builtin.command:
+        argv: [ha-manager, crm-command, node-maintenance, disable, "{{ maintenance_node_name }}"]
+      when: maintenance_kind == 'proxmox'
+      changed_when: true
+
+    - name: Restore full health expectations
+      ansible.builtin.set_fact:
+        maintenance_allowed_cordon: ''
+        maintenance_recovering: false
+        maintenance_evacuated: false
+
+    - name: Wait for workload and Longhorn recovery before the next host
+      ansible.builtin.import_tasks: health.yml
+  rescue:
+    - name: Stop the maintenance run for operator investigation
+      ansible.builtin.fail:
+        msg: >-
+          Maintenance failed on {{ inventory_hostname }}. No automatic rollback or
+          forced drain is attempted. Inspect cordon/HA state, package logs, quorum,
+          storage and backups. The controller's persistent failure latch blocks
+          subsequent apply runs until recovery is acknowledged. Failed task:
+          {{ ansible_failed_task.name }}.

@@ -1,0 +1,11 @@
+---
+infra_domain: infra.fraccs.com
+ansible_user: infra
+ansible_python_interpreter: /usr/bin/python3
+maintenance_inventory_ready: false
+maintenance_enabled: false
+# Existing controller-local, read-only integrations. Commands must exit nonzero
+# on stale/missing backups or unhealthy applications/storage. No secrets in Git.
+maintenance_backup_check_argv: []
+maintenance_health_check_argv: []
+maintenance_window_min_remaining_seconds: 1800

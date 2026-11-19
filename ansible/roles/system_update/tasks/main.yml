@@ -1,0 +1,13 @@
+---
+- name: Require cluster isolation from the maintenance orchestrator
+  ansible.builtin.assert:
+    that:
+      - system_update_prepared | default(false) | bool
+      - maintenance_orchestrated | default(false) | bool
+      - maintenance_action | default('audit') == 'apply'
+      - ansible_play_batch | length == 1
+      - not ansible_check_mode
+    fail_msg: Use the serial maintenance playbooks through run-maintenance.py.
+
+- name: Apply the protected package transaction
+  ansible.builtin.import_tasks: update_packages.yml

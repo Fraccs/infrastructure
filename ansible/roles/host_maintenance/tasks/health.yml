@@ -1,0 +1,26 @@
+---
+- name: Wait for cluster membership, quorum, and storage safety
+  ansible.builtin.command:
+    argv: >-
+      {{ ['/usr/bin/python3', '-c', lookup('ansible.builtin.file', role_path + '/files/probe.py'),
+          maintenance_kind, '--node', maintenance_node_name, '--members', maintenance_members | join(','),
+          '--allowed-cordon', maintenance_allowed_cordon]
+         + (['--recovering'] if maintenance_recovering else [])
+         + (['--evacuated'] if maintenance_evacuated else []) }}
+  register: maintenance_health
+  changed_when: false
+  until: maintenance_health.rc == 0
+  retries: "{{ maintenance_probe_retries }}"
+  delay: "{{ maintenance_probe_delay }}"
+
+- name: Verify site-specific application, guest placement, and storage health
+  ansible.builtin.command:
+    argv: "{{ maintenance_health_check_argv }}"
+  delegate_to: localhost
+  become: false
+  changed_when: false
+  when: not maintenance_recovering and not maintenance_evacuated
+  register: maintenance_site_health
+  until: maintenance_site_health.rc == 0
+  retries: "{{ maintenance_probe_retries }}"
+  delay: "{{ maintenance_probe_delay }}"

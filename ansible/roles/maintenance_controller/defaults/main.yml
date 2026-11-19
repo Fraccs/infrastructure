@@ -1,0 +1,16 @@
+---
+maintenance_controller_ready: false
+maintenance_controller_apply_enabled: false
+maintenance_controller_user: infra-maintenance
+maintenance_controller_state: /var/lib/infra-maintenance
+maintenance_controller_repository: /var/lib/infra-maintenance/repository
+maintenance_controller_repository_url: https://gitea.fraccs.com/fraccs/infrastructure.git
+maintenance_controller_branch: main
+maintenance_controller_metrics: /var/lib/infra-maintenance-metrics
+maintenance_controller_notify_command: []
+maintenance_controller_timezone: Europe/Rome
+# Python weekdays: Monday=0. Separate days prevent guest/hypervisor overlap.
+maintenance_controller_windows:
+  kloud: {weekday: 4, hour: 3, hours: 4, calendar: 'Fri *-*-* 03:00:00'}
+  kore: {weekday: 5, hour: 3, hours: 4, calendar: 'Sat *-*-* 03:00:00'}
+  proxmox: {weekday: 6, hour: 3, hours: 4, calendar: 'Sun *-*-* 03:00:00'}

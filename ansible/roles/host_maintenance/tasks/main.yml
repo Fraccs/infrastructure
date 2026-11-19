@@ -1,0 +1,65 @@
+---
+- name: Reject incomplete identities and unsafe execution before opening SSH
+  ansible.builtin.assert:
+    that:
+      - maintenance_action in ['audit', 'apply']
+      - maintenance_inventory_ready | bool
+      - "'TODO' not in ([infra_node_fqdn, infra_location, maintenance_node_name, maintenance_debian_major, maintenance_debian_codename] | join(' '))"
+      - "'.invalid' not in ansible_host"
+      - infra_location in ['it-mi-vt', 'it-mi-ms', 'it-pc-ar', 'cloud']
+      - groups[maintenance_group] | length == maintenance_expected_count | int
+      - maintenance_action == 'audit' or (maintenance_orchestrated | bool and maintenance_enabled | bool)
+      - maintenance_action == 'audit' or not ansible_check_mode
+    fail_msg: >-
+      Fill the production inventory and current node identities first. Apply must
+      run through run-maintenance.py on the single controller with maintenance_enabled.
+      Use the audit playbook for a report; --check is not a maintenance rehearsal.
+  delegate_to: localhost
+  become: false
+
+- name: Gather host identity
+  ansible.builtin.setup:
+    gather_subset: [min]
+
+- name: Require the reviewed operating system
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.distribution == 'Debian'
+      - ansible_facts.distribution_major_version == maintenance_debian_major | string
+      - maintenance_kind != 'proxmox' or maintenance_pve_major | default('TODO') is match('^[0-9]+$')
+
+- name: Resolve the complete current cluster membership
+  ansible.builtin.set_fact:
+    maintenance_members: "{{ groups[maintenance_group] | map('extract', hostvars, 'maintenance_node_name') | list }}"
+    maintenance_allowed_cordon: ''
+    maintenance_recovering: false
+    maintenance_evacuated: false
+
+- name: Reject ambiguous current node identities
+  ansible.builtin.assert:
+    that:
+      - maintenance_members | unique | length == maintenance_expected_count | int
+      - "'TODO' not in maintenance_members | join(' ')"
+
+- name: Check repositories and package state before refreshing metadata
+  ansible.builtin.import_tasks: plan.yml
+
+- name: Refresh package metadata only
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 0
+    lock_timeout: 120
+  when: not ansible_check_mode
+
+- name: Calculate the fresh package transaction
+  ansible.builtin.import_tasks: plan.yml
+
+- name: Report installed versions, candidates, and pending reboot
+  ansible.builtin.debug:
+    var: maintenance_plan
+
+- name: Run protected maintenance only for a pending transaction or reboot
+  ansible.builtin.include_tasks: apply.yml
+  when:
+    - maintenance_action == 'apply'
+    - maintenance_plan.changes | length > 0 or maintenance_plan.reboot_required or maintenance_force_reboot | bool

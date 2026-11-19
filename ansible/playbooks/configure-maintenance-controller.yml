@@ -1,0 +1,7 @@
+---
+- name: Configure the independent maintenance controller
+  hosts: maintenance_controllers
+  gather_facts: false
+  become: true
+  roles:
+    - maintenance_controller

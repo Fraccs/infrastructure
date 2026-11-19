@@ -1,0 +1,116 @@
+---
+- name: Create k3s configuration and bootstrap directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0700'
+  loop:
+    - /etc/rancher/k3s
+    - /var/lib/rancher/k3s/server/manifests
+    - /var/lib/rancher/k3s/server/static/charts
+- name: Load the reviewed chart artifact lock
+  ansible.builtin.include_vars:
+    file: "{{ kloud_cluster_directory }}/artifacts.lock.json"
+    name: kloud_artifact_lock
+- name: Download the checksum-pinned k3s binary
+  ansible.builtin.get_url:
+    url: "https://github.com/k3s-io/k3s/releases/download/{{ versions.k3s }}/k3s"
+    dest: /usr/local/bin/k3s
+    checksum: sha256:d73847bcd3c5fccef0115b372e2f9a91f3032dc84bbf71518a4617565294d313
+    mode: '0755'
+  notify: Restart k3s
+- name: Download checksum-pinned bootstrap charts for the k3s static server
+  ansible.builtin.get_url:
+    url: "{{ kloud_artifact_lock[item].url }}"
+    checksum: "sha256:{{ kloud_artifact_lock[item].sha256 }}"
+    dest: "/var/lib/rancher/k3s/server/static/charts/{{ item }}-{{ kloud_artifact_lock[item].version }}.tgz"
+    mode: '0600'
+  loop:
+    - cilium
+- name: Install k3s configuration with dual-stack enabled at creation
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/rancher/k3s/config.yaml
+    mode: '0600'
+  notify: Restart k3s
+- name: Install admission policy
+  ansible.builtin.copy:
+    dest: /etc/rancher/k3s/admission.yaml
+    mode: '0600'
+    content: |
+      apiVersion: apiserver.config.k8s.io/v1
+      kind: AdmissionConfiguration
+      plugins:
+        - name: PodSecurity
+          configuration:
+            apiVersion: pod-security.admission.config.k8s.io/v1
+            kind: PodSecurityConfiguration
+            defaults:
+              enforce: restricted
+              enforce-version: v1.36
+              audit: restricted
+              audit-version: v1.36
+              warn: restricted
+              warn-version: v1.36
+            exemptions:
+              namespaces: [kube-system]
+              usernames: []
+              runtimeClasses: []
+  notify: Restart k3s
+- name: Install metadata-only Kubernetes audit policy
+  ansible.builtin.copy:
+    dest: /etc/rancher/k3s/audit.yaml
+    mode: '0600'
+    content: |
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      omitStages: [RequestReceived]
+      rules:
+        - level: None
+          nonResourceURLs: [/healthz*, /readyz*, /livez*]
+        - level: Metadata
+  notify: Restart k3s
+- name: Install k3s systemd unit
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/k3s.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Kloud Kubernetes server
+      Wants=network-online.target
+      After=network-online.target kloud-firewall.service
+      Requires=kloud-firewall.service
+      [Service]
+      Type=notify
+      ExecStart=/usr/local/bin/k3s server
+      KillMode=process
+      Delegate=yes
+      LimitNOFILE=1048576
+      LimitNPROC=infinity
+      LimitCORE=0
+      TasksMax=infinity
+      TimeoutStartSec=0
+      Restart=always
+      RestartSec=5
+      [Install]
+      WantedBy=multi-user.target
+  notify: Restart k3s
+- name: Install only the rendered Git-owned bootstrap bundle
+  ansible.builtin.copy:
+    src: "{{ kloud_bootstrap_bundle }}"
+    dest: /var/lib/rancher/k3s/server/manifests/10-kloud-bootstrap.yml
+    mode: '0600'
+- name: Record immutable bootstrap configuration before the first start
+  ansible.builtin.copy:
+    content: |
+      {{ kloud_bootstrap_fingerprint }}
+    dest: /etc/rancher/k3s/kloud-fingerprint
+    mode: '0600'
+- name: Apply changed bootstrap configuration
+  ansible.builtin.meta: flush_handlers
+- name: Enable the k3s server without fetching its kubeconfig
+  ansible.builtin.systemd_service:
+    name: k3s
+    enabled: true
+    state: started
+    daemon_reload: true

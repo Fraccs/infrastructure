@@ -1,0 +1,21 @@
+---
+- name: Validate fixed Debian suite and simulate a transaction with no removals
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - "{{ lookup('ansible.builtin.file', role_path + '/files/probe.py') }}"
+      - packages
+      - --codename
+      - "{{ maintenance_debian_codename }}"
+      - --debian-major
+      - "{{ maintenance_debian_major | string }}"
+      - --pve-major
+      - "{{ maintenance_pve_major | default('none') | string }}"
+  register: maintenance_package_probe
+  changed_when: false
+  check_mode: false
+
+- name: Record the package plan
+  ansible.builtin.set_fact:
+    maintenance_plan: "{{ maintenance_package_probe.stdout | from_json }}"

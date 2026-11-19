@@ -1,0 +1,53 @@
+# nft's destroy is idempotent; the entire file is committed as one transaction.
+destroy table inet kloud
+table inet kloud {
+  chain input {
+    type filter hook input priority filter; policy accept;
+    iifname "lo" accept
+    ct state established,related accept
+    ct state invalid drop
+    # Hetzner Debian images may use DHCP; preserve bootstrap and lease renewal.
+    iifname "{{ network.interface }}" udp sport 67 udp dport 68 accept
+    iifname "{{ network.interface }}" udp sport 547 udp dport 546 accept
+    # Preserve IPv6 ND, router discovery, and IPv4/IPv6 path-MTU discovery.
+    meta l4proto { icmp, ipv6-icmp } accept
+{% if rotator.enabled %}
+    # Proxy traffic may not initiate connections to host management or local APIs.
+    iifname "veth-video" counter drop
+{% endif %}
+{% for cidr in network.adminCIDRs %}
+    iifname "{{ network.interface }}" {{ 'ip6' if ':' in cidr else 'ip' }} saddr {{ cidr }} tcp dport { 22, 6443 } accept
+{% endfor %}
+{% if vpn.enabled %}
+    iifname "{{ network.interface }}" udp dport {{ vpn.listenPort }} accept
+    iifname "wg-kore" tcp dport { 22, 6443, 8443, 9090, 10901 } accept
+{% endif %}
+{% if public.enabled %}
+    iifname "{{ network.interface }}" tcp dport { 80, 443 } accept
+{% if public.mailEnabled %}
+    iifname "{{ network.interface }}" tcp dport { 25, 465, 587, 993 } accept
+{% endif %}
+{% endif %}
+    iifname "{{ network.interface }}" counter drop
+  }
+{% if rotator.enabled %}
+  chain video {
+    type filter hook forward priority filter; policy accept;
+    iifname "veth-video" ct state established,related accept
+    iifname "veth-video" meta l4proto ipv6-icmp accept
+    # Prevent proxy-mediated access to Pod/Service/VPN/private/link-local targets.
+    iifname "veth-video" ip6 daddr { fc00::/7, fe80::/10, ff00::/8, {{ network.publicIPv6Prefix }} } counter drop
+{% for cidr in vpn.allowedIPs if ':' in cidr %}
+    iifname "veth-video" ip6 daddr {{ cidr }} counter drop
+{% endfor %}
+    iifname "veth-video" ip6 saddr {{ rotator.prefix }} tcp dport { 53, 80, 443 } accept
+    iifname "veth-video" ip6 saddr {{ rotator.prefix }} udp dport 53 accept
+    iifname "veth-video" counter drop
+    oifname "veth-video" ct state established,related accept
+    oifname "veth-video" meta l4proto ipv6-icmp accept
+    oifname "veth-video" ip saddr {{ network.podIPv4 }} tcp dport {{ network.proxyPort }} accept
+    oifname "veth-video" ip saddr { {{ network.publicIPv4 }}, 10.86.255.1 } tcp dport {{ network.proxyPort }} accept
+    oifname "veth-video" counter drop
+  }
+{% endif %}
+}

@@ -1,0 +1,22 @@
+[Unit]
+Description=Infrastructure maintenance (%i)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User={{ maintenance_controller_user }}
+Group={{ maintenance_controller_user }}
+WorkingDirectory={{ maintenance_controller_state }}
+ExecStart=/usr/local/sbin/run-maintenance %i
+# Never kill an in-flight dpkg transaction when the calendar window ends.
+TimeoutStartSec=infinity
+KillMode=control-group
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths={{ maintenance_controller_state }} {{ maintenance_controller_metrics }}
+StandardOutput=journal
+StandardError=journal

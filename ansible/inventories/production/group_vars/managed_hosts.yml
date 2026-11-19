@@ -1,0 +1,7 @@
+---
+# Derive connection names from explicit host and cluster identity variables.
+# Avoid inventory_hostname: delegation can change its meaning.
+infra_cluster_fqdn: "{{ infra_cluster }}.{{ infra_cluster_location }}.{{ infra_domain }}"
+infra_node_fqdn: "{{ infra_node_name }}.{{ infra_cluster_fqdn }}"
+ansible_host: "{{ infra_node_fqdn }}"
+maintenance_cluster_name: "{{ infra_cluster }}"

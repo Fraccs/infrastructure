@@ -1,0 +1,36 @@
+---
+- name: Hand package scheduling to the already commissioned external controller
+  hosts: managed_hosts
+  gather_facts: false
+  become: true
+  serial: 1
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Require an operational scheduler and alert route before takeover
+      ansible.builtin.assert:
+        that:
+          - maintenance_inventory_ready | bool
+          - maintenance_enabled | bool
+          - maintenance_controller_commissioned | default(false) | bool
+        fail_msg: Commission the external controller, daily reports, notification hook, and dead-man alerts first.
+      delegate_to: localhost
+      become: false
+  tasks:
+    - name: Keep package installation and reboots inside the coordinated windows
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/99infra-maintenance
+        mode: '0644'
+        content: |
+          // Owned by Git/Ansible. Daily reports and weekly maintenance run externally.
+          APT::Periodic::Unattended-Upgrade "0";
+          Unattended-Upgrade::Automatic-Reboot "false";
+          Unattended-Upgrade::Remove-Unused-Dependencies "false";
+    - name: Discover automatic update timers
+      ansible.builtin.service_facts:
+    - name: Disable independent installation timer without interrupting an active dpkg
+      ansible.builtin.systemd_service:
+        name: apt-daily-upgrade.timer
+        enabled: false
+        state: stopped
+      # systemd timer units are not returned by service_facts; check the service.
+      when: "'apt-daily-upgrade.service' in ansible_facts.services"

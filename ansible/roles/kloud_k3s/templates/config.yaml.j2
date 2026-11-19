@@ -1,0 +1,54 @@
+node-name: {{ identity.node }}
+node-ip: "{{ network.publicIPv4 }},{{ network.publicIPv6 }}"
+node-external-ip: "{{ network.publicIPv4 }},{{ network.publicIPv6 }}"
+tls-san:
+  - api.k3s-{{ identity.cluster }}.{{ identity.site }}.{{ identity.domain }}
+write-kubeconfig-mode: '0600'
+cluster-init: true
+cluster-domain: cluster.local
+cluster-cidr: "{{ network.podIPv4 }},{{ network.podIPv6 }}"
+service-cidr: "{{ network.serviceIPv4 }},{{ network.serviceIPv6 }}"
+cluster-dns: {{ network.dnsIPv4 }}
+flannel-backend: none
+disable-network-policy: true
+disable-kube-proxy: true
+# Keep k3s's embedded node initialization controller; no Hetzner CCM is needed.
+disable:
+  - traefik
+  - servicelb
+  - local-storage
+  - metrics-server
+secrets-encryption: true
+protect-kernel-defaults: true
+etcd-expose-metrics: true
+etcd-snapshot-schedule-cron: '11 */6 * * *'
+etcd-snapshot-retention: 2
+etcd-snapshot-compress: true
+kube-apiserver-arg:
+  - anonymous-auth=false
+  - audit-policy-file=/etc/rancher/k3s/audit.yaml
+  - audit-log-path=/var/log/k3s/audit.log
+  - audit-log-maxage=7
+  - audit-log-maxbackup=3
+  - audit-log-maxsize=16
+  - admission-control-config-file=/etc/rancher/k3s/admission.yaml
+kube-controller-manager-arg:
+  - bind-address=127.0.0.1
+  - node-cidr-mask-size-ipv4=24
+  - node-cidr-mask-size-ipv6=64
+kube-scheduler-arg:
+  - bind-address=127.0.0.1
+kubelet-arg:
+  - anonymous-auth=false
+  - read-only-port=0
+  - authentication-token-webhook=true
+  - authorization-mode=Webhook
+  - rotate-server-certificates=true
+  - event-qps=10
+  - pod-max-pids=256
+  - max-pods=70
+  - system-reserved=cpu=200m,memory=512Mi,ephemeral-storage=8Gi
+  - kube-reserved=cpu=200m,memory=256Mi,ephemeral-storage=4Gi
+  - eviction-hard=memory.available<256Mi,nodefs.available<15%,imagefs.available<15%
+  - container-log-max-size=16Mi
+  - container-log-max-files=3

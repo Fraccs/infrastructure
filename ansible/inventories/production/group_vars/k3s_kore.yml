@@ -1,0 +1,13 @@
+---
+infra_cluster: k3s-kore
+# Existing SSH account supplied by the operator; authentication stays local.
+ansible_user: admin
+infra_cluster_location: it-mi-vt
+maintenance_kind: k3s
+maintenance_group: k3s_kore
+maintenance_expected_count: 3
+maintenance_debian_major: '12'
+maintenance_debian_codename: bookworm
+maintenance_single_node: false
+# Confirm the existing datastore before enabling (etcd is expected for HA).
+maintenance_etcd_confirmed: false

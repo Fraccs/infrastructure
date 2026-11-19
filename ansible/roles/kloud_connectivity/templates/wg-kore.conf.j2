@@ -1,0 +1,11 @@
+[Interface]
+Address = {{ vpn.ipv4 }}, {{ vpn.ipv6 }}
+ListenPort = {{ vpn.listenPort }}
+# The private key is never rendered by Ansible or stored in this repository.
+PostUp = wg set %i private-key /etc/wireguard/kore.key
+
+[Peer]
+PublicKey = {{ vpn.peerPublicKey }}
+Endpoint = {{ vpn.endpoint }}
+AllowedIPs = {{ vpn.allowedIPs | join(', ') }}
+PersistentKeepalive = 25

@@ -1,0 +1,9 @@
+---
+maintenance_action: audit
+maintenance_orchestrated: false
+maintenance_force_reboot: false
+maintenance_probe_retries: 60
+maintenance_probe_delay: 15
+maintenance_reboot_timeout: 900
+maintenance_drain_timeout: 15m
+maintenance_snapshot_retention: 3

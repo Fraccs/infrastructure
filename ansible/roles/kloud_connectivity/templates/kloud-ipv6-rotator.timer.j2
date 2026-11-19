@@ -1,0 +1,9 @@
+[Unit]
+Description=Rotate video egress at boot and twice daily
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=12h
+RandomizedDelaySec=5min
+Persistent=true
+[Install]
+WantedBy=timers.target

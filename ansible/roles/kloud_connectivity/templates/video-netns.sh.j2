@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+case "${1:-start}" in
+  start)
+    ip netns list | awk '{print $1}' | /usr/bin/grep -qx kloud-video || ip netns add kloud-video
+    if ! ip link show veth-video >/dev/null 2>&1; then
+      ip link add veth-video type veth peer name video0
+      ip link set video0 netns kloud-video
+    fi
+    ip addr replace 10.86.255.1/30 dev veth-video
+    ip -6 addr replace fd42:6b65:7279:ffff::1/64 dev veth-video
+    ip link set veth-video up
+    ip -n kloud-video link set lo up
+    ip -n kloud-video addr replace {{ network.proxyIPv4 }}/30 dev video0
+    ip -n kloud-video -6 addr replace fd42:6b65:7279:ffff::2/64 dev video0
+    ip -n kloud-video -6 addr replace {{ rotator.initialIPv6 }}/128 dev video0
+    ip -n kloud-video link set video0 up
+    ip -n kloud-video route replace {{ network.podIPv4 }} via 10.86.255.1
+    ip -n kloud-video route replace {{ network.publicIPv4 }}/32 via 10.86.255.1
+    ip -n kloud-video -6 route replace default via fd42:6b65:7279:ffff::1 dev video0
+    ip -6 route replace {{ rotator.prefix }} via fd42:6b65:7279:ffff::2 dev veth-video
+    ;;
+  stop)
+    # Deletes only this namespace and its veth; never flush host routes.
+    ip netns delete kloud-video
+    ;;
+  *) exit 2 ;;
+esac

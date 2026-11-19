@@ -1,0 +1,9 @@
+---
+- name: Configure Kore host administration
+  hosts: k3s_kore
+  become: true
+  gather_facts: true
+  serial: 1
+  any_errors_fatal: true
+  roles:
+    - kore_access

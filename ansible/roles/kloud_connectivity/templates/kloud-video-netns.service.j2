@@ -1,0 +1,12 @@
+[Unit]
+Description=Isolated IPv6 video egress namespace
+After=network-online.target kloud-firewall.service
+Wants=network-online.target
+Before=kloud-video-proxy.service kloud-ipv6-rotator.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/kloud-video-netns start
+ExecStop=/usr/local/sbin/kloud-video-netns stop
+[Install]
+WantedBy=multi-user.target

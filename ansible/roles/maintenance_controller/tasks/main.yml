@@ -1,0 +1,130 @@
+---
+- name: Require reviewed controller settings before opening SSH
+  ansible.builtin.assert:
+    that:
+      - maintenance_controller_ready | bool
+      - maintenance_controller_notify_command | length > 0
+      - "'.invalid' not in ansible_host"
+      - inventory_hostname not in groups['managed_hosts'] | default([])
+  delegate_to: localhost
+  become: false
+
+- name: Gather controller operating system facts
+  ansible.builtin.setup:
+    gather_subset: [min]
+
+- name: Require a supported controller operating system
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.distribution == 'Debian'
+      - ansible_facts.distribution_major_version in ['12', '13']
+    fail_msg: Use a dedicated machine outside Proxmox/Kore/Kloud and configure the existing notification integration.
+
+- name: Install controller tools from its existing Debian repositories
+  ansible.builtin.apt:
+    name: [ansible-core, git, python3, python3-yaml]
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Create the controller service account without creating SSH keys
+  ansible.builtin.user:
+    name: "{{ maintenance_controller_user }}"
+    home: "{{ maintenance_controller_state }}"
+    create_home: true
+    system: true
+    shell: /usr/sbin/nologin
+
+- name: Create private controller directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ maintenance_controller_user }}"
+    group: "{{ maintenance_controller_user }}"
+    mode: '0700'
+  loop:
+    - "{{ maintenance_controller_state }}"
+    - "{{ maintenance_controller_state }}/logs"
+    - "{{ maintenance_controller_state }}/tmp"
+
+- name: Create configuration directory
+  ansible.builtin.file:
+    path: /etc/infra-maintenance
+    state: directory
+    mode: '0755'
+
+- name: Create a dedicated node exporter textfile directory
+  ansible.builtin.file:
+    path: "{{ maintenance_controller_metrics }}"
+    state: directory
+    owner: "{{ maintenance_controller_user }}"
+    group: "{{ maintenance_controller_user }}"
+    mode: '0755'
+
+- name: Create metrics files writable by the controller
+  ansible.builtin.copy:
+    dest: "{{ maintenance_controller_metrics }}/infra-maintenance-{{ item }}.prom"
+    content: "infra_maintenance_last_success_seconds{maintenance_job=\"{{ item }}\"} 0\n"
+    force: false
+    owner: "{{ maintenance_controller_user }}"
+    group: "{{ maintenance_controller_user }}"
+    mode: '0644'
+  loop: [audit, kloud, kore, proxmox]
+
+- name: Check out the reviewed branch using existing Git authentication
+  ansible.builtin.git:
+    repo: "{{ maintenance_controller_repository_url }}"
+    dest: "{{ maintenance_controller_repository }}"
+    version: "{{ maintenance_controller_branch }}"
+    force: false
+    update: false
+    accept_hostkey: false
+  become_user: "{{ maintenance_controller_user }}"
+
+- name: Install the scheduler entry point
+  ansible.builtin.copy:
+    src: "{{ role_path }}/../../scripts/run-maintenance.py"
+    dest: /usr/local/sbin/run-maintenance
+    mode: '0755'
+
+- name: Write non-secret controller configuration
+  ansible.builtin.copy:
+    dest: /etc/infra-maintenance/config.json
+    mode: '0644'
+    content: "{{ maintenance_controller_config | to_nice_json }}\n"
+  vars:
+    maintenance_controller_config:
+      repository: "{{ maintenance_controller_repository }}"
+      repository_url: "{{ maintenance_controller_repository_url }}"
+      branch: "{{ maintenance_controller_branch }}"
+      state_directory: "{{ maintenance_controller_state }}"
+      metrics_directory: "{{ maintenance_controller_metrics }}"
+      notify_command: "{{ maintenance_controller_notify_command }}"
+      timezone: "{{ maintenance_controller_timezone }}"
+      windows: "{{ maintenance_controller_windows }}"
+      apply_enabled: "{{ maintenance_controller_apply_enabled | bool }}"
+
+- name: Install the shared service definition
+  ansible.builtin.template:
+    src: infra-maintenance@.service.j2
+    dest: /etc/systemd/system/infra-maintenance@.service
+    mode: '0644'
+  notify: Reload maintenance systemd units
+
+- name: Install daily reporting and separate maintenance windows
+  ansible.builtin.template:
+    src: infra-maintenance.timer.j2
+    dest: "/etc/systemd/system/infra-maintenance-{{ item }}.timer"
+    mode: '0644'
+  loop: [audit, kloud, kore, proxmox]
+  notify: Reload maintenance systemd units
+
+- name: Load the new units before enabling timers
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable daily reporting and only explicitly commissioned apply timers
+  ansible.builtin.systemd_service:
+    name: "infra-maintenance-{{ item }}.timer"
+    enabled: "{{ item == 'audit' or maintenance_controller_apply_enabled | bool }}"
+    state: "{{ 'started' if item == 'audit' or maintenance_controller_apply_enabled | bool else 'stopped' }}"
+  loop: [audit, kloud, kore, proxmox]

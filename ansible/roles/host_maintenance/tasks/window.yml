@@ -1,0 +1,6 @@
+---
+- name: Leave enough of the maintenance window to start this host
+  ansible.builtin.assert:
+    that:
+      - (maintenance_window_deadline_epoch | default(0) | int) - (now(utc=true).timestamp() | int) > maintenance_window_min_remaining_seconds | int
+    fail_msg: Maintenance window is closing; do not start another host. Finish recovery of any host already modified.

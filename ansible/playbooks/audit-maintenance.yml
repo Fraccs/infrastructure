@@ -1,0 +1,11 @@
+---
+- name: Report installed and candidate host packages without upgrading
+  hosts: managed_hosts
+  gather_facts: false
+  become: true
+  serial: 1
+  any_errors_fatal: true
+  vars:
+    maintenance_action: audit
+  roles:
+    - host_maintenance

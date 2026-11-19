@@ -1,0 +1,16 @@
+---
+- name: Apply full-upgrade without removals, downgrades, or changed held packages
+  ansible.builtin.apt:
+    upgrade: dist
+    force_apt_get: true
+    fail_on_autoremove: true
+    allow_downgrade: false
+    allow_change_held_packages: false
+    autoremove: false
+    update_cache: false
+    lock_timeout: 120
+    dpkg_options: force-confdef,force-confold
+  environment:
+    NEEDRESTART_MODE: l
+    DEBIAN_FRONTEND: noninteractive
+  register: maintenance_package_result

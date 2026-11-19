@@ -1,0 +1,10 @@
+---
+- name: Maintain Kore Debian 12 hosts one at a time
+  hosts: k3s_kore
+  gather_facts: false
+  become: true
+  serial: 1
+  order: inventory
+  any_errors_fatal: true
+  roles:
+    - host_maintenance

@@ -1,0 +1,77 @@
+---
+- name: Create SSH configuration directory
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    mode: '0755'
+
+- name: Inspect previous Kore SSH policy
+  ansible.builtin.stat:
+    path: /etc/ssh/sshd_config.d/00-kore-access.conf
+  register: kore_previous_ssh
+
+- name: Preserve previous policy for rollback
+  ansible.builtin.slurp:
+    src: /etc/ssh/sshd_config.d/00-kore-access.conf
+  when: kore_previous_ssh.stat.exists
+  register: kore_previous_ssh_content
+
+- name: Apply SSH policy only if the complete configuration validates
+  block:
+    - name: Install Kore SSH policy
+      ansible.builtin.copy:
+        src: 00-kore-access.conf
+        dest: /etc/ssh/sshd_config.d/00-kore-access.conf
+        owner: root
+        group: root
+        mode: '0644'
+      register: kore_ssh_policy
+
+    - name: Validate complete SSH configuration
+      ansible.builtin.command: /usr/sbin/sshd -t
+      changed_when: false
+      when: not ansible_check_mode
+
+    - name: Read effective global SSH policy
+      ansible.builtin.command: /usr/sbin/sshd -T
+      register: kore_effective_ssh
+      changed_when: false
+      when: not ansible_check_mode
+
+    - name: Reject conflicting global SSH settings before reload
+      ansible.builtin.assert:
+        that:
+          - item in kore_effective_ssh.stdout_lines
+      loop:
+        - permitrootlogin no
+        - pubkeyauthentication yes
+        - passwordauthentication no
+        - kbdinteractiveauthentication no
+        - permitemptypasswords no
+      when: not ansible_check_mode
+
+    - name: Reload validated SSH policy
+      ansible.builtin.systemd_service:
+        name: ssh
+        state: reloaded
+      when: kore_ssh_policy.changed and not ansible_check_mode
+
+  rescue:
+    - name: Restore previous policy
+      ansible.builtin.copy:
+        content: "{{ kore_previous_ssh_content.content | b64decode }}"
+        dest: /etc/ssh/sshd_config.d/00-kore-access.conf
+        owner: root
+        group: root
+        mode: '0644'
+      when: kore_previous_ssh.stat.exists
+
+    - name: Remove newly introduced policy
+      ansible.builtin.file:
+        path: /etc/ssh/sshd_config.d/00-kore-access.conf
+        state: absent
+      when: not kore_previous_ssh.stat.exists
+
+    - name: Stop after restoring the previous policy
+      ansible.builtin.fail:
+        msg: SSH policy validation or reload failed; the previous file was restored. Inspect SSH before retrying.

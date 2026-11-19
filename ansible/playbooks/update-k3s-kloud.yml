@@ -1,0 +1,9 @@
+---
+- name: Maintain Kleis Debian 13 in its outage window
+  hosts: k3s_kloud
+  gather_facts: false
+  become: true
+  serial: 1
+  any_errors_fatal: true
+  roles:
+    - host_maintenance

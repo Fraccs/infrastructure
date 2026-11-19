@@ -1,0 +1,12 @@
+---
+infra_cluster: proxmox-hydra
+# Current runtime cluster identity confirmed by the operator.
+maintenance_cluster_name: proxmox-hydra
+infra_cluster_location: it-mi-vt
+maintenance_kind: proxmox
+maintenance_group: proxmox_hydra
+maintenance_expected_count: 3
+# Fill from pveversion and /etc/os-release; do not infer the PVE major from k3s.
+maintenance_pve_major: TODO
+maintenance_debian_major: TODO
+maintenance_debian_codename: TODO
