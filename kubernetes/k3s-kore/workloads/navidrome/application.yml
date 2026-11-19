@@ -17,7 +17,7 @@ spec:
       - CreateNamespace=true
       - ServerSideApply=true
   source:
-    repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+    repoURL: http://gitea-http.gitea.svc.k3s-kore.it-mi-vt.infra.fraccs.com:3000/fraccs/infrastructure.git
     targetRevision: HEAD
     path: kubernetes/k3s-kore/workloads/navidrome
     directory:

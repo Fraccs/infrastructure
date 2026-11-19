@@ -8,6 +8,7 @@ data:
   OAUTH_AUTO_LOGIN: "true"
   OAUTH_AUTO_REGISTER: "true"
   OAUTH_BUTTON_TEXT: "Log in with Fraccs SSO"
+  OAUTH_CLIENT_ID: "MHjcDeJjiM1tV93D5a2SVeGLaFP2FwiazLhqKEQa"
   OAUTH_ENABLED: "true"
   OAUTH_HIDE_PASSWORD_FORM: "true"
   OAUTH_ISSUER_URL: "https://auth.fraccs.com/application/o/airtrail/.well-known/openid-configuration"

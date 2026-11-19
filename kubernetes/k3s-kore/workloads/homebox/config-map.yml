@@ -25,7 +25,7 @@ data:
   HBOX_OIDC_VERIFY_EMAIL: "true"
 
   HBOX_DATABASE_DRIVER: "postgres"
-  HBOX_DATABASE_HOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
+  HBOX_DATABASE_HOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   HBOX_DATABASE_PORT: "5432"
   HBOX_DATABASE_DATABASE: "homebox"
   HBOX_DATABASE_USERNAME: "homebox"

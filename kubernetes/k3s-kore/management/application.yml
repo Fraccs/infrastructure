@@ -11,7 +11,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: http://gitea-http.gitea.svc.k3s-01.47fc5c.com:3000/fraccs/infrastructure.git
+    repoURL: http://gitea-http.gitea.svc.k3s-kore.it-mi-vt.infra.fraccs.com:3000/fraccs/infrastructure.git
     targetRevision: HEAD
     path: kubernetes/k3s-kore
     directory:
@@ -19,7 +19,8 @@ spec:
       include: '{management/application.yml,workloads/*/application.yml}'
       # Glob '*' spans '/', so explicitly reject deeper Application paths.
       # Ordinary workload directories become eligible as soon as published in Git.
-      exclude: '{workloads/*/*/application.yml,workloads/optional/*,workloads/disabled/*}'
+      # kube-vip is Ansible-managed; Pi-hole is inactive. Their manifests are historical.
+      exclude: '{workloads/*/*/application.yml,workloads/optional/*,workloads/disabled/*,workloads/kube-vip/*,workloads/pihole/*}'
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

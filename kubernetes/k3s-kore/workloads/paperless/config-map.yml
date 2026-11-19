@@ -12,7 +12,7 @@ data:
   PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
   PAPERLESS_REDIRECT_LOGIN_TO_SSO: "true"
   PAPERLESS_DBENGINE: "postgresql"
-  PAPERLESS_DBHOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-01.47fc5c.com"
+  PAPERLESS_DBHOST: "postgres-cluster-rw.postgres-cluster.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   PAPERLESS_DBNAME: "paperless"
   PAPERLESS_DBUSER: "paperless"
   PAPERLESS_OCR_LANGUAGE: "eng"

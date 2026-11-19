@@ -13,7 +13,7 @@ devices: ens18
 hubble:
   enabled: true
   peerService:
-    clusterDomain: k3s-01.47fc5c.com
+    clusterDomain: k3s-kore.it-mi-vt.infra.fraccs.com
   relay:
     enabled: true
   ui:

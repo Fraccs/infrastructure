@@ -6,7 +6,7 @@ operator:
     pullPolicy: IfNotPresent
   env:
     - name: CLUSTER_DOMAIN
-      value: "k3s-01.47fc5c.com"
+      value: "k3s-kore.it-mi-vt.infra.fraccs.com"
     - name: OPERATOR_STS_ENABLED
       value: "on"
     - name: WATCHED_NAMESPACE

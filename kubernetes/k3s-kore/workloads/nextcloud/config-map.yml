@@ -6,7 +6,7 @@ metadata:
   namespace: nextcloud
 data:
   MYSQL_DATABASE: "nextcloud"
-  MYSQL_HOST: "mariadb.mariadb.svc.k3s-01.47fc5c.com"
+  MYSQL_HOST: "mariadb.mariadb.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   MYSQL_PORT: "3306"
   NEXTCLOUD_TRUSTED_DOMAINS: "nextcloud.fraccs.com"
   OVERWRITEHOST: "nextcloud.fraccs.com"

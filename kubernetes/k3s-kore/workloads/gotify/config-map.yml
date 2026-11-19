@@ -6,6 +6,7 @@ metadata:
   namespace: gotify
 data:
   GOTIFY_OIDC_AUTO_REDIRECT: "true"
+  GOTIFY_OIDC_CLIENTID: "oHpIrQQLAH9iX5jDyeb0IUgZtYTqucbon6Xk9oCg"
   GOTIFY_OIDC_ENABLED: "true"
   GOTIFY_OIDC_ISSUER: "https://auth.fraccs.com/application/o/gotify/"
   GOTIFY_OIDC_REDIRECTURL: "https://gotify.fraccs.com/auth/oidc/callback"

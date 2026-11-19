@@ -7,7 +7,7 @@ metadata:
 data:
   APP_ADMIN_EMAIL: "admin@fraccs.com"
   APP_TIMEZONE: "Europe/Rome"
-  DB_HOST: "mariadb.mariadb.svc.k3s-01.47fc5c.com"
+  DB_HOST: "mariadb.mariadb.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   DB_PORT: "3306"
   DB_DATABASE: "hortusfox"
   DB_USERNAME: "hortusfox"

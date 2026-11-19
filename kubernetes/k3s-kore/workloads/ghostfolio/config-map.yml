@@ -10,7 +10,7 @@ data:
   PORT: "3333"
   ROOT_URL: "https://ghostfolio.fraccs.com"
   TRUST_PROXY: "1"
-  REDIS_HOST: "redis.redis.svc.k3s-01.47fc5c.com"
+  REDIS_HOST: "redis.redis.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   REDIS_PORT: "6379"
   REDIS_DB: "18"
   ENABLE_FEATURE_AUTH_TOKEN: "true"

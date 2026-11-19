@@ -28,7 +28,7 @@ redis:
   enabled: false
 
 externalRedis:
-  host: "redis.redis.svc.k3s-01.47fc5c.com"
+  host: "redis.redis.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   port: 6379
   existingSecret: argocd-redis
 

@@ -5,13 +5,14 @@ metadata:
   name: romm
   namespace: romm
 data:
-  DB_HOST: "mariadb.mariadb.svc.k3s-01.47fc5c.com"
+  DB_HOST: "mariadb.mariadb.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   DB_NAME: "romm"
   DB_PORT: "3306"
   DISABLE_USERPASS_LOGIN: "true"
   OIDC_AUTOLOGIN: "true"
   OIDC_ALLOW_REGISTRATION: "false"
   OIDC_CLAIM_ROLES: "groups"
+  OIDC_CLIENT_ID: "bwCmzoMUWWpX3PhZYY9LvgmUVjF49GFcctIeM9Ax"
   OIDC_ROLE_ADMIN: "romm-admins"
   OIDC_ROLE_VIEWER: "romm-users"
   OIDC_ENABLED: "true"
@@ -20,7 +21,7 @@ data:
   OIDC_RP_INITIATED_LOGOUT: "true"
   OIDC_END_SESSION_ENDPOINT: "https://auth.fraccs.com/application/o/romm/end-session/"
   OIDC_SERVER_APPLICATION_URL: "https://auth.fraccs.com/application/o/romm"
-  REDIS_HOST: "redis.redis.svc.k3s-01.47fc5c.com"
+  REDIS_HOST: "redis.redis.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
   REDIS_PORT: "6379"
   REDIS_DB: "2"
   ROMM_BASE_URL: "https://romm.fraccs.com"
