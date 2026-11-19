@@ -8,4 +8,5 @@ data:
   server: |
     DOMAIN=gitea.fraccs.com
     ROOT_URL=https://gitea.fraccs.com
+    LOCAL_ROOT_URL=http://127.0.0.1:3000/
     SSH_DOMAIN=gitea.fraccs.com
