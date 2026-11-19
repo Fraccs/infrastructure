@@ -7,6 +7,8 @@ crds:
 
 global:
   domain: argocd.infra.fraccs.com
+  networkPolicy:
+    create: false
   image:
     repository: quay.io/argoproj/argocd
     # Use the pinned chart's appVersion; Renovate updates the chart as one unit.
