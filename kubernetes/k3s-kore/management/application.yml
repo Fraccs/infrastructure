@@ -26,10 +26,19 @@ spec:
     namespace: argocd
   syncPolicy:
     automated:
-      # Enable in Git after the initial, reviewed adoption sync.
       enabled: true
+      allowEmpty: false
       prune: false
       selfHeal: true
-      allowEmpty: false
     syncOptions:
+      - CreateNamespace=true
       - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
+      - FailOnSharedResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

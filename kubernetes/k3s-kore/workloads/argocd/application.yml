@@ -10,14 +10,20 @@ spec:
   project: default
   syncPolicy:
     automated:
-      enabled: false
+      enabled: true
       allowEmpty: false
       prune: true
       selfHeal: true
+    managedNamespaceMetadata:
+      labels: {}
+      annotations:
+        argocd.argoproj.io/sync-options: Prune=false,Delete=false
     syncOptions:
+      - CreateNamespace=true
       - ServerSideApply=true
       - PruneLast=true
       - RespectIgnoreDifferences=true
+      - FailOnSharedResource=true
     retry:
       limit: 5
       backoff:

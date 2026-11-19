@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - certificate-fraccs-com.yml
   - ingress-route.yml
-  - namespace.yml
   - pvc.yml
   - service.yml
   - stateful-set.yml

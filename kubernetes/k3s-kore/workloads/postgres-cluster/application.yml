@@ -10,11 +10,26 @@ spec:
   project: default
   syncPolicy:
     automated:
+      # WIP: keep manual until the pending changes are reviewed.
       enabled: false
       allowEmpty: false
       prune: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels: {}
+      annotations: {}
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
+      - FailOnSharedResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
   source:
     repoURL: http://gitea-http.gitea.svc.k3s-kore.it-mi-vt.infra.fraccs.com:3000/fraccs/infrastructure.git
     targetRevision: HEAD
