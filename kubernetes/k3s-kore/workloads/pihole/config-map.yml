@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: pihole
-  namespace: pihole
-data:
-  FTLCONF_dns_upstreams: "10.10.10.10;10.10.10.11;10.10.10.12"
-  TZ: "Europe/Rome"

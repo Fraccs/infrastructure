@@ -14,9 +14,7 @@ spec:
       allowEmpty: false
       prune: true
       selfHeal: true
-    managedNamespaceMetadata:
-      labels: {}
-      annotations: {}
+    managedNamespaceMetadata: {}
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

@@ -10,14 +10,11 @@ spec:
   project: default
   syncPolicy:
     automated:
-      # WIP: keep manual until the pending changes are reviewed.
-      enabled: false
+      enabled: true
       allowEmpty: false
       prune: true
       selfHeal: true
-    managedNamespaceMetadata:
-      labels: {}
-      annotations: {}
+    managedNamespaceMetadata: {}
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

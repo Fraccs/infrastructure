@@ -15,7 +15,6 @@ spec:
       prune: true
       selfHeal: true
     managedNamespaceMetadata:
-      labels: {}
       annotations:
         argocd.argoproj.io/sync-options: Prune=false,Delete=false
     syncOptions:
