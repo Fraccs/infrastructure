@@ -5,6 +5,9 @@ metadata:
   name: gitea
   namespace: gitea
 data:
+  actions: |
+    ENABLED=true
+    DEFAULT_ACTIONS_URL=github
   server: |
     DOMAIN=gitea.fraccs.com
     ROOT_URL=https://gitea.fraccs.com
