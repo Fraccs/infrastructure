@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitea-actions
+  namespace: gitea-actions
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: gitea-actions
+  ports:
+    - name: metrics
+      port: 9101
+      targetPort: metrics

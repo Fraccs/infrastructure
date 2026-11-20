@@ -1,0 +1,82 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitea-actions
+  namespace: gitea-actions
+data:
+  config.yaml: |
+    log:
+      level: info
+    runner:
+      file: /data/.runner
+      capacity: 1
+      timeout: 1h
+      shutdown_timeout: 1h
+      insecure: false
+      envs:
+        HOME: /tmp/home
+        TEXMFVAR: /tmp/texmf-var
+        TEXMFCONFIG: /tmp/texmf-config
+      labels:
+        - "kore-linux:kubernetes://docker.io/library/node:24.11.1-bookworm@sha256:9a2ed90cd91b1f3412affe080b62e69b057ba8661d9844e143a6bbd76a23260f"
+    # No inbound cache service. Add a separately secured cache if workflows need it.
+    cache:
+      enabled: false
+    kubernetes:
+      namespace: gitea-actions
+      transfer:
+        mode: api
+      pod_template:
+        spec:
+          serviceAccountName: default
+          automountServiceAccountToken: false
+          enableServiceLinks: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: job
+              securityContext:
+                allowPrivilegeEscalation: false
+                privileged: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: [ALL]
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                  ephemeral-storage: 1Gi
+                limits:
+                  cpu: "2"
+                  memory: 2Gi
+                  ephemeral-storage: 8Gi
+              volumeMounts:
+                - name: tmp
+                  mountPath: /tmp
+            - name: $services
+              securityContext:
+                allowPrivilegeEscalation: false
+                privileged: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: [ALL]
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: "1"
+                  memory: 512Mi
+          volumes:
+            - name: tmp
+              emptyDir:
+                sizeLimit: 2Gi
+    metrics:
+      enabled: true
+      addr: ":9101"

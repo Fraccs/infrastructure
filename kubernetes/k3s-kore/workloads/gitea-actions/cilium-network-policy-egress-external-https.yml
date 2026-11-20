@@ -1,0 +1,17 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: gitea-actions-egress-external-https
+  namespace: gitea-actions
+# Public HTTPS for workflow dependencies; private LAN and cluster endpoints
+# are not granted access by the world entity.
+spec:
+  endpointSelector: {}
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: '443'
+              protocol: TCP

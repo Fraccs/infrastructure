@@ -1,0 +1,16 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: gitea-actions-egress-gitea
+  namespace: gitea-actions
+# The canonical Gitea URL may resolve to an internal load balancer address.
+spec:
+  endpointSelector: {}
+  egress:
+    - toFQDNs:
+        - matchName: gitea.fraccs.com
+      toPorts:
+        - ports:
+            - port: '443'
+              protocol: TCP

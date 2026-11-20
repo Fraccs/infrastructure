@@ -1,0 +1,114 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gitea-actions
+  namespace: gitea-actions
+spec:
+  serviceName: gitea-actions
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitea-actions
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gitea-actions
+      annotations:
+        gitops.fraccs.com/config-revision: actions-v1
+    spec:
+      serviceAccountName: gitea-actions
+      # Only this controller pod needs Kubernetes API access; job pods do not.
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 3630
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: runner
+          image: docker.io/gitea/runner:6.0.1@sha256:102bbed0b454b92725845b7abeebd0a6f31d10a91a869fb5207871b0eb7d4778
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CONFIG_FILE
+              value: /etc/gitea-actions/config.yaml
+            - name: HOME
+              value: /data
+            - name: GITEA_INSTANCE_URL
+              value: https://gitea.fraccs.com
+            - name: GITEA_RUNNER_NAME
+              value: k3s-kore
+            - name: GITEA_RUNNER_REGISTRATION_TOKEN_FILE
+              value: /run/secrets/runner/token
+          ports:
+            - name: metrics
+              containerPort: 9101
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+              ephemeral-storage: 128Mi
+            limits:
+              cpu: "1"
+              memory: 256Mi
+              ephemeral-storage: 1Gi
+          # Readiness includes Gitea polling failures; liveness does not restart
+          # healthy runners simply because Gitea is temporarily unavailable.
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: metrics
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 30
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 10
+            failureThreshold: 60
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /etc/gitea-actions
+              readOnly: true
+            - name: registration
+              mountPath: /run/secrets/runner
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: config
+          configMap:
+            name: gitea-actions
+        - name: registration
+          secret:
+            secretName: gitea-actions-registration
+            defaultMode: 0440
+        - name: tmp
+          emptyDir:
+            sizeLimit: 512Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        storageClassName: longhorn-crypto-global
+        resources:
+          requests:
+            storage: 1Gi
