@@ -38,7 +38,7 @@ spec:
       ref: values
     - repoURL: https://charts.longhorn.io/
       chart: longhorn
-      targetRevision: 1.11.3
+      targetRevision: 1.12.2
       helm:
         valueFiles:
           - $values/kubernetes/k3s-kore/workloads/longhorn/values.yml
