@@ -1,6 +1,6 @@
 ---
 persistence:
-  defaultClass: true
+  defaultClass: false # longhorn-crypto-global is the cluster default.
   defaultFsType: ext4
   defaultClassReplicaCount: 3
   reclaimPolicy: Retain
@@ -27,6 +27,11 @@ defaultSettings:
   upgradeChecker: false
   defaultReplicaCount: 3
   allowCollectingLonghornUsageMetrics: false
+
+networkPolicies:
+  # Kore manages network policies with Cilium.
+  enabled: false
+  restrictInternalTraffic: false
 
 httproute:
   enabled: false
