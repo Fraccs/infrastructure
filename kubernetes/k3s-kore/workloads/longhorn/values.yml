@@ -26,7 +26,7 @@ defaultSettings:
   storageReservedPercentageForDefaultDisk: "0"
   upgradeChecker: false
   defaultReplicaCount: 3
-  concurrentAutomaticEngineUpgradePerNodeLimit: "1"
+  concurrentAutomaticEngineUpgradePerNodeLimit: "0"
   allowCollectingLonghornUsageMetrics: false
 
 networkPolicies:
