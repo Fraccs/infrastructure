@@ -16,7 +16,7 @@ persistence:
   backupTargetName: default
 
 defaultBackupStore:
-  backupTarget: nfs://nfs.47fc5c.com:/mnt/pool-0/volumes/generic/backups
+  backupTarget: nfs://nfs.infra.fraccs.com:/mnt/pool-0/volumes/generic/backups
   nfsOptions: vers=4.1,noresvport
 
 defaultSettings:
@@ -26,7 +26,7 @@ defaultSettings:
   storageReservedPercentageForDefaultDisk: "0"
   upgradeChecker: false
   defaultReplicaCount: 3
-  concurrentAutomaticEngineUpgradePerNodeLimit: "0"
+  concurrentAutomaticEngineUpgradePerNodeLimit: "1"
   allowCollectingLonghornUsageMetrics: false
 
 networkPolicies:
