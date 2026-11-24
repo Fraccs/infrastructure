@@ -1,0 +1,56 @@
+---
+fullWidth: true
+useEqualHeights: true
+layout:
+  Utilities:
+    tab: Apps
+    style: row
+    columns: 3
+  Media:
+    tab: Apps
+    style: row
+    columns: 3
+  Other:
+    tab: Apps
+    style: row
+    columns: 4
+  Infrastructure:
+    tab: Infrastructure
+    style: row
+    columns: 3
+  Kubernetes:
+    tab: Infrastructure
+    style: row
+    columns: 3
+  Observability:
+    tab: Infrastructure
+    style: row
+    columns: 4
+  Storage:
+    tab: Infrastructure
+    style: row
+    columns: 3
+  GitOps:
+    tab: Infrastructure
+    style: row
+    columns: 2
+  IaC:
+    tab: Infrastructure
+    style: row
+    columns: 2
+  Authentication:
+    tab: Accounts
+    style: row
+    columns: 2
+  Cloud:
+    tab: Accounts
+    style: row
+    columns: 2
+  Email:
+    tab: Accounts
+    style: row
+    columns: 3
+  Forges:
+    tab: Accounts
+    style: row
+    columns: 4

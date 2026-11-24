@@ -31,8 +31,6 @@ spec:
     repoURL: http://gitea-http.gitea.svc.k3s-kore.it-mi-vt.infra.fraccs.com:3000/fraccs/infrastructure.git
     targetRevision: HEAD
     path: kubernetes/k3s-kore/workloads/homepage
-    directory:
-      exclude: 'application*.yml'
   destination:
     server: https://kubernetes.default.svc
     namespace: homepage

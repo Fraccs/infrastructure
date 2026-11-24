@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - certificate-fraccs-com.yml
+  - config-map.yml
+  - deployment.yml
+  - ingress-route.yml
+  - pvc.yml
+  - sealed-secret.yml
+  - sealed-secret-links.yml
+  - service.yml
+configMapGenerator:
+  - name: homepage-files
+    namespace: homepage
+    files:
+      - services.yaml=config/services.yaml
+      - settings.yaml=config/settings.yaml
+      - bookmarks.yaml=config/bookmarks.yaml
+      - widgets.yaml=config/widgets.yaml
+      - docker.yaml=config/docker.yaml
+      - kubernetes.yaml=config/kubernetes.yaml
+      - proxmox.yaml=config/proxmox.yaml
+      - custom.css=config/custom.css
+      - custom.js=config/custom.js

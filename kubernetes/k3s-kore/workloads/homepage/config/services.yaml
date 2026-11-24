@@ -1,0 +1,339 @@
+- Authentication:
+    - Authentik:
+        href: '{{HOMEPAGE_VAR_AUTHENTIK_URL}}'
+        description: Identity Provider and SSO
+        icon: authentik
+    - Vaultwarden:
+        href: '{{HOMEPAGE_VAR_VAULTWARDEN_URL}}'
+        description: Self-hosted password manager
+        icon: vaultwarden
+
+- Cloud:
+    - Cloudflare:
+        href: https://dash.cloudflare.com
+        description: DNS registrar
+        icon: cloudflare
+    - Hetzner:
+        href: https://console.hetzner.com
+        description: Hetzner Cloud
+        icon: hetzner
+
+- Email:
+    - Gmail:
+        href: https://gmail.com
+        description: Google email service
+        icon: gmail
+    - Proton:
+        href: https://mail.proton.me
+        description: Proton email service
+        icon: proton-mail
+    - Outlook:
+        href: https://outlook.office.com
+        description: Unimi email service
+        icon: microsoft-outlook
+
+- Forges:
+    - Github:
+        href: https://github.com
+        icon: github
+        description: Microsoft's closed-source forge
+    - Gitea:
+        href: '{{HOMEPAGE_VAR_GITEA_URL}}'
+        icon: gitea
+        description: My self-hosted instance
+    - Gitlab:
+        href: https://gitlab.com
+        icon: gitlab
+        description: Public Gitlab instance
+    - Codeberg:
+        href: https://codeberg.org
+        icon: codeberg
+        description: Forge managed by a German non-profit
+
+- Other:
+    - Anki:
+        href: '{{HOMEPAGE_VAR_ANKI_URL}}'
+        description: Powerful, intelligent smartcards
+        icon: https://apps.ankiweb.net/logo.svg
+    - Romm:
+        href: '{{HOMEPAGE_VAR_ROMM_URL}}'
+        description: ROMs manager
+        icon: romm
+    - Mealie:
+        href: '{{HOMEPAGE_VAR_MEALIE_URL}}'
+        description: Meals and recipes manager
+        icon: mealie
+    - Wger:
+        href: '{{HOMEPAGE_VAR_WGER_URL}}'
+        description: Workout Manager
+        icon: wger
+    - Frigate:
+        href: '{{HOMEPAGE_VAR_FRIGATE_URL}}'
+        description: NVR with object detection
+        icon: frigate
+    - Endurain:
+        href: '{{HOMEPAGE_VAR_ENDURAIN_URL}}'
+        description: Workouts and sports tracking platform
+        icon: endurain
+    - Musicassistant:
+        href: '{{HOMEPAGE_VAR_MUSICASSISTANT_URL}}'
+        description: Music platform that integrates natively with HA
+        icon: music-assistant
+
+- GitOps:
+    - Argo CD:
+        href: '{{HOMEPAGE_VAR_ARGO_CD_URL}}'
+        description: CI/CD for Kubernetes
+        icon: argo-cd
+    - Renovate:
+        description: Automated version updates
+        icon: https://avatars.githubusercontent.com/u/38656520?s=200&v=4
+
+- IaC:
+    - Ansible:
+        description: Declarative automation
+        icon: ansible
+    - Terraform:
+        description: Infrastructure as code
+        icon: terraform
+
+- Infrastructure:
+    - modem-manic:
+        href: '{{HOMEPAGE_VAR_MODEM_MANIC_URL}}'
+        description: TIM router in bridge mode
+        icon: tux
+    - pfsense-funnel:
+        href: '{{HOMEPAGE_VAR_PFSENSE_FUNNEL_URL}}'
+        description: Router & firewall
+        icon: pfsense
+    - proxmox-hydra:
+        href: '{{HOMEPAGE_VAR_PROXMOX_HYDRA_URL}}'
+        description: PVE cluster
+        icon: proxmox
+    - BIND9:
+        description: Authoritative/recursive nameserver
+        icon: https://ipj.dreamhosters.com/wp-content/uploads/2014/12/ISC-logo-900-rgb.png
+    - Pihole:
+        href: '{{HOMEPAGE_VAR_PIHOLE_URL}}'
+        description: Self-hosted DNS sinkhole
+        icon: pi-hole
+    - Mosquitto:
+        description: MQTT broker
+        icon: https://github.com/user-attachments/assets/1005eb95-8bdc-4349-bf45-0f6aed252473
+    - sw-sailer:
+        href: '{{HOMEPAGE_VAR_SW_SAILER_URL}}'
+        description: TP-Link TL-SG108PE
+        icon: tp-link
+    - ap-astral:
+        href: '{{HOMEPAGE_VAR_AP_ASTRAL_URL}}'
+        description: TP-Link EAP610
+        icon: tp-link
+    - re-refractor:
+        href: '{{HOMEPAGE_VAR_RE_REFRACTOR_URL}}'
+        description: TP-Link RE650
+        icon: tp-link
+    - Suricata:
+        description: Suricata IDS/IPS on pfSense
+        icon: https://github.com/user-attachments/assets/dcc5211f-bc12-40d2-94f6-4238c7aa989a
+    - ntop (pfsense-funnel):
+        href: '{{HOMEPAGE_VAR_NTOP_PFSENSE_FUNNEL_URL}}'
+        description: Network traffic monitoring and analysis
+        icon: ntopng
+    - HAProxy:
+        description: HAProxy on pfSense
+        icon: haproxy
+    - Wireguard:
+        description: Wireguard VPN on pfSense
+        icon: wireguard
+    - Network UPS Tools:
+        href: '{{HOMEPAGE_VAR_NETWORK_UPS_TOOLS_URL}}'
+        description: UPS monitoring
+        icon: nut
+    - Netboot.xyz:
+        description: Network booting
+        icon: netboot
+
+- Kubernetes:
+    - Kubernetes cluster:
+        description: k3s-kore
+        icon: kubernetes
+    - Certmanager:
+        description: TLS certificates for kubernetes
+        icon: cert-manager
+    - KubeVIP:
+        description: Virtual IP for HA kubernetes
+        icon: https://avatars.githubusercontent.com/u/82575756?s=200&v=4
+    - Cilium:
+        href: '{{HOMEPAGE_VAR_CILIUM_URL}}'
+        description: Kubernetes CNI
+        icon: cilium
+    - Traefik:
+        href: '{{HOMEPAGE_VAR_TRAEFIK_URL}}'
+        description: Ingress controller for k3s-01
+        icon: traefik
+        id: traefik
+
+- Media:
+    - Immich:
+        href: '{{HOMEPAGE_VAR_IMMICH_URL}}'
+        description: Self-hosted gallery management
+        icon: immich
+    - Jellyfin:
+        href: '{{HOMEPAGE_VAR_JELLYFIN_URL}}'
+        description: Self-hosted media server
+        icon: jellyfin
+    - Navidrome:
+        href: '{{HOMEPAGE_VAR_NAVIDROME_URL}}'
+        description: Self-hosted subsonic player
+        icon: navidrome
+    - Lidarr:
+        href: '{{HOMEPAGE_VAR_LIDARR_URL}}'
+        description: Music collection manager
+        icon: lidarr
+    - Prowlarr:
+        href: '{{HOMEPAGE_VAR_PROWLARR_URL}}'
+        description: Torrent indexers manager
+        icon: prowlarr
+    - qBittorrent:
+        href: '{{HOMEPAGE_VAR_QBITTORRENT_URL}}'
+        description: Bittorrent peer
+        icon: qbittorrent
+    - Radarr:
+        href: '{{HOMEPAGE_VAR_RADARR_URL}}'
+        description: Movies collection manager
+        icon: radarr
+    - Readarr:
+        href: '{{HOMEPAGE_VAR_READARR_URL}}'
+        description: E-books collection manager
+        icon: readarr
+    - Sonarr:
+        href: '{{HOMEPAGE_VAR_SONARR_URL}}'
+        description: TV series collection manager
+        icon: sonarr
+
+- Observability:
+    - Grafana:
+        href: '{{HOMEPAGE_VAR_GRAFANA_URL}}'
+        description: Homelab monitoring
+        icon: grafana
+    - Prometheus:
+        href: '{{HOMEPAGE_VAR_PROMETHEUS_URL}}'
+        description: Prometheus dashboard
+        icon: prometheus
+    - Alertmanager:
+        href: '{{HOMEPAGE_VAR_ALERTMANAGER_URL}}'
+        description: Prometheus alerts
+        icon: '{{HOMEPAGE_VAR_ALERTMANAGER_ICON_URL}}'
+    - Loki:
+        description: DB for logs
+        icon: loki
+    - FluentBit:
+        description: Process and output logs
+        icon: https://github.com/user-attachments/assets/4d208d1a-ef78-4406-9565-6eb73055ea26
+    - Flower (paperless):
+        description: Celery observability
+        href: '{{HOMEPAGE_VAR_FLOWER_PAPERLESS_URL}}'
+        icon: '{{HOMEPAGE_VAR_FLOWER_PAPERLESS_ICON_URL}}'
+    - Flower (wger):
+        description: Celery observability
+        href: '{{HOMEPAGE_VAR_FLOWER_WGER_URL}}'
+        icon: '{{HOMEPAGE_VAR_FLOWER_WGER_ICON_URL}}'
+
+- Storage:
+    - TrueNAS Scale:
+        href: '{{HOMEPAGE_VAR_TRUENAS_SCALE_URL}}'
+        description: Storage and NFS server
+        icon: truenas-scale
+    - Nextcloud:
+        href: '{{HOMEPAGE_VAR_NEXTCLOUD_URL}}'
+        description: Self-hosted cloud suite
+        icon: nextcloud
+    - Syncthing:
+        href: '{{HOMEPAGE_VAR_SYNCTHING_URL}}'
+        description: Continuous file synchronization
+        icon: syncthing
+    - MinIO:
+        href: '{{HOMEPAGE_VAR_MINIO_URL}}'
+        description: S3 object storage
+        icon: minio
+    - Elasticsearch:
+        description: Search and analytics engine
+        icon: elasticsearch
+    - Longhorn:
+        href: '{{HOMEPAGE_VAR_LONGHORN_URL}}'
+        description: Distributed block storage for k3s-kore
+        icon: longhorn
+
+- Utilities:
+    - Archivebox:
+        href: '{{HOMEPAGE_VAR_ARCHIVEBOX_URL}}'
+        description: Web pages archiving
+        icon: archivebox
+    - Tube Archivist:
+        href: '{{HOMEPAGE_VAR_TUBE_ARCHIVIST_URL}}'
+        description: YouTube videos archiving
+        icon: tube-archivist
+    - Paperless-ngx:
+        href: '{{HOMEPAGE_VAR_PAPERLESS_NGX_URL}}'
+        description: Documents archive
+        icon: paperless-ngx
+    - Penpot:
+        href: '{{HOMEPAGE_VAR_PENPOT_URL}}'
+        description: The design tool for design & code collaboration
+        icon: penpot
+    - Excalidraw:
+        href: '{{HOMEPAGE_VAR_EXCALIDRAW_URL}}'
+        description: Free, collaborative whiteboard
+        icon: excalidraw
+    - Hortusfox:
+        href: '{{HOMEPAGE_VAR_HORTUSFOX_URL}}'
+        description: Plant management and tracking system
+        icon: hortusfox
+    - Home Assistant:
+        href: '{{HOMEPAGE_VAR_HOME_ASSISTANT_URL}}'
+        description: Smart-home monitoring and automation
+        icon: home-assistant
+    - Changedetection.io:
+        href: '{{HOMEPAGE_VAR_CHANGEDETECTION_IO_URL}}'
+        description: Monitor web pages changes
+        icon: changedetection
+    - Firefly:
+        href: '{{HOMEPAGE_VAR_FIREFLY_URL}}'
+        description: Personal finances manager
+        icon: firefly
+    - Kavita:
+        href: '{{HOMEPAGE_VAR_KAVITA_URL}}'
+        description: Self-hosted ebooks reader
+        icon: kavita
+    - Linkding:
+        href: '{{HOMEPAGE_VAR_LINKDING_URL}}'
+        description: Self-hosted bookmarks manager
+        icon: linkding
+    - FreshRSS:
+        href: '{{HOMEPAGE_VAR_FRESHRSS_URL}}'
+        description: RSS feed reader
+        icon: freshrss
+    - Gotify:
+        href: '{{HOMEPAGE_VAR_GOTIFY_URL}}'
+        description: Gotify server
+        icon: gotify
+    - Ollama:
+        href: '{{HOMEPAGE_VAR_OLLAMA_URL}}'
+        description: LLM runner
+        icon: ollama
+    - Airtrail:
+        href: '{{HOMEPAGE_VAR_AIRTRAIL_URL}}'
+        description: Flights tracking platform
+        icon: air-trail
+    - Dawarich:
+        href: '{{HOMEPAGE_VAR_DAWARICH_URL}}'
+        description: Location tracking and timeline
+        icon: dawarich
+    - Comfy UI:
+        href: '{{HOMEPAGE_VAR_COMFY_UI_URL}}'
+        description: UI for image generation AI
+        icon: comfy-ui
+    - n8n:
+        href: '{{HOMEPAGE_VAR_N8N_URL}}'
+        description: Automation platform
+        icon: n8n
