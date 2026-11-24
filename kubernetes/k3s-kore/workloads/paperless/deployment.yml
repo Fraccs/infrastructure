@@ -4,8 +4,14 @@ kind: Deployment
 metadata:
   name: paperless
   namespace: paperless
+  annotations:
+    # Client-side apply clears the live rollingUpdate defaults when switching to Recreate.
+    argocd.argoproj.io/sync-options: ServerSideApply=false
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
+    rollingUpdate: null
   selector:
     matchLabels:
       app: paperless
