@@ -18,6 +18,9 @@ spec:
       containers:
         - name: lidarr
           image: docker.io/linuxserver/lidarr:3.1.6@sha256:9fddcf5c613361edfce390d4e6b7c364282e71e90a40ce7793077fed788f6e63
+          env:
+            - name: Lidarr__Postgres__Host
+              value: "postgres-cluster-rw.postgres-cluster.svc.k3s-kore.it-mi-vt.infra.fraccs.com"
           volumeMounts:
             - name: lidarr
               mountPath: /config
