@@ -6,7 +6,7 @@ metadata:
   namespace: romm
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: longhorn-crypto-global
   resources:
     requests:
