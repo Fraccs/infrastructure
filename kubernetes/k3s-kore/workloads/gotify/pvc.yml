@@ -6,7 +6,7 @@ metadata:
   namespace: gotify
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: longhorn-crypto-global
   resources:
     requests:
