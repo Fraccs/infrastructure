@@ -1,4 +1,6 @@
 ---
+theme: dark
+color: neutral
 fullWidth: true
 useEqualHeights: true
 layout:
