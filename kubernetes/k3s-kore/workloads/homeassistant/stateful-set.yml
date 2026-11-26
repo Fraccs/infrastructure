@@ -12,6 +12,7 @@ spec:
   template:
     metadata:
       annotations:
+        kubectl.kubernetes.io/restartedAt: "2026-11-26T03:03:05+00:00"
         checksum/location-aliases: 097049204be845d6096115aa016e660d36a5499e9cbe121bc42b51be342ba9ff
       labels:
         app: homeassistant
