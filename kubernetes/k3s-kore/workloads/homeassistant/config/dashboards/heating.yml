@@ -92,14 +92,14 @@ views:
               - min-width: 0
               - text-align: left
             temperature:
-              # Center the main number independently of the header and unit.
+              # Center the full reading on the same axis as the labels.
               - position: absolute
               - grid-area: auto
               - left: 50%
               - top: 50%
               - transform: translate(-50%, -50%)
               # button-card adds .ellipsis (overflow: hidden) to this wrapper.
-              # The unit, hundredths and label extend outside the number box.
+              # The label sits below the reading.
               - overflow: visible
               - min-width: 0
               - justify-self: center
@@ -126,30 +126,21 @@ views:
           .heating-exit:focus-visible { outline: 3px solid var(--primary-color, #03a9f4); outline-offset: 3px; }
           .heating-temperature { position: relative; }
           .heating-value {
-            position: relative; color: #fff;
+            display: grid; grid-template-columns: max-content max-content;
+            align-items: baseline; column-gap: .042em; color: #fff;
             font-size: clamp(80px, min(20vw, 38vh), 250px);
             line-height: 1.05; letter-spacing: -.065em; font-weight: 300;
             font-variant-numeric: tabular-nums; white-space: nowrap;
           }
-          .heating-degree, .heating-precision {
-            grid-template-columns: .45em .75em;
-            justify-items: center;
-            font-size: .35em; line-height: 1; letter-spacing: 0;
+          .heating-main { grid-area: 1 / 1; }
+          .heating-degree, .heating-hundredths {
+            grid-area: 1 / 2; justify-self: start; line-height: 1; letter-spacing: 0;
           }
           .heating-degree {
-            position: absolute; left: calc(100% + .12em); top: .22em;
-            display: grid;
-          }
-          .heating-degree > span:first-child { justify-self: start; }
-          .heating-precision {
-            /* Keep the small digit on the number's text baseline, not its
-               line-box bottom. Zero width preserves main-number centering. */
-            display: inline-grid; vertical-align: baseline; width: 0;
-            position: relative; left: .12em; overflow: visible;
+            display: flex; align-self: start; font-size: .35em;
           }
           .heating-hundredths {
-            grid-column: 1; justify-self: start;
-            font-size: 1.15em; font-weight: 700; opacity: .45;
+            font-size: .5em; font-weight: 700; opacity: .45;
           }
           .heating-label {
             position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
@@ -238,7 +229,9 @@ views:
               const spoken = valid ? parts.map(part => part.value).join('') : '—';
               return `<div class="heating-temperature">
                 <div class="heating-value" role="img" aria-label="${spoken} °C">
-                  <span class="heating-main" aria-hidden="true">${formatted}</span>${valid ? `<span class="heating-precision" aria-hidden="true"><span class="heating-hundredths">${hundredths}</span></span>` : ''}<span class="heating-degree" aria-hidden="true"><span>°</span><span class="heating-celsius">C</span></span>
+                  <span class="heating-main" aria-hidden="true">${formatted}</span>
+                  <span class="heating-degree" aria-hidden="true"><span>°</span><span class="heating-celsius">C</span></span>
+                  ${valid ? `<span class="heating-hundredths" aria-hidden="true">${hundredths}</span>` : ''}
                 </div>
                 <div class="heating-label">${variables.i18n.temperature}</div>
               </div>`;
