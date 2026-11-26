@@ -1,0 +1,50 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plugin-barman-cloud
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      enabled: true
+      allowEmpty: false
+      prune: true
+      selfHeal: true
+    managedNamespaceMetadata: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    - PruneLast=true
+    - RespectIgnoreDifferences=true
+    - FailOnSharedResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  sources:
+  - repoURL: http://gitea-http.gitea.svc.k3s-kore.it-mi-vt.infra.fraccs.com:3000/fraccs/infrastructure.git
+    targetRevision: HEAD
+    path: kubernetes/k3s-kore/workloads/plugin-barman-cloud
+    directory:
+      exclude: application*.yml
+  - repoURL: https://cloudnative-pg.github.io/charts
+    chart: plugin-barman-cloud
+    targetRevision: 0.9.0
+    helm:
+      valuesObject:
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system
