@@ -6,7 +6,6 @@ resources:
   - config-map.yml
   - deployment.yml
   - ingress-route.yml
-  - pvc.yml
   - sealed-secret.yml
   - sealed-secret-links.yml
   - service.yml
