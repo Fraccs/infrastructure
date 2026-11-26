@@ -1,0 +1,32 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: cnpg-rustfs
+  namespace: postgis-cluster
+spec:
+  configuration:
+    destinationPath: s3://cnpg-backups/
+    endpointURL: https://s3.infra.fraccs.com
+    endpointCA:
+      name: cnpg-rustfs-ca
+      key: ca.crt
+    s3Credentials:
+      accessKeyId:
+        name: cnpg-rustfs-credentials
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: cnpg-rustfs-credentials
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: gzip
+    data:
+      compression: gzip
+  instanceSidecarConfiguration:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: '2'
+        memory: 1Gi

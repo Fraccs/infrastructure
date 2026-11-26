@@ -5,6 +5,12 @@ metadata:
   name: postgis-cluster
   namespace: postgis-cluster
 spec:
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: cnpg-rustfs
+        serverName: postgis-cluster
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgis:17-3.6-system-bookworm@sha256:d0835a8747727d7f66506866168a7b242d97544884d27cf8316f6345dfa51f7d
   storage:
