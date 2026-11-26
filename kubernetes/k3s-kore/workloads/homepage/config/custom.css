@@ -1,5 +1,35 @@
-html,
-body,
-#__next {
+:root,
+:root body,
+:root #__next,
+#inner_wrapper,
+#information-widgets,
+#myTab,
+#myTab [role="tab"],
+.service-card,
+.service-block:not([data-highlight-level]),
+.bookmark > a,
+.bookmark-icon,
+#page_wrapper dialog,
+#page_wrapper dialog input {
   background-color: #000;
+}
+
+#myTab,
+.service-card,
+.bookmark > a,
+#page_wrapper dialog {
+  box-shadow: inset 0 0 0 1px #333;
+}
+
+.service-card:hover,
+.service-card:focus-within,
+.bookmark > a:hover,
+.bookmark > a:focus-visible,
+#myTab [role="tab"]:hover {
+  box-shadow: inset 0 0 0 1px #666;
+}
+
+#myTab [role="tab"][aria-selected="true"] {
+  box-shadow: inset 0 -2px 0 #ddd;
+  color: #fff;
 }
