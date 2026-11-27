@@ -32,7 +32,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: runner
-          image: docker.io/gitea/runner:6.0.1@sha256:102bbed0b454b92725845b7abeebd0a6f31d10a91a869fb5207871b0eb7d4778
+          image: docker.io/gitea/runner:6.1.0@sha256:09501115b020db95120141bd79ef51fb310f18ef6190f082f8b48a6170c08a2e
           imagePullPolicy: IfNotPresent
           env:
             - name: CONFIG_FILE
